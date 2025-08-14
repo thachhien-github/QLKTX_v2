@@ -1229,7 +1229,7 @@ BEGIN
            OR i.ChiSoNuoc < prev.ChiSoNuoc
     )
     BEGIN
-        THROW 71001, N'Chỉ số điện hoặc nước mới không được nhỏ hơn tháng trước.', 1;
+        RAISERROR (N'Chỉ số điện hoặc nước mới không được nhỏ hơn tháng trước.', 16, 1);
     END
 END
 GO
