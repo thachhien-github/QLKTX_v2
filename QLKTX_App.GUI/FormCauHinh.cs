@@ -70,15 +70,36 @@ namespace QLKTX_App
                 if (MessageBox.Show("Không tìm thấy cơ sở dữ liệu. Bạn có muốn tạo mới?",
                     "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    string sqlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DatabaseScripts", "KTX_Database_C24TH2.sql");
-                    if (!_bll.CreateDatabase(cfg, sqlPath))
+                    string sqlPath = Path.Combine(
+                        AppDomain.CurrentDomain.BaseDirectory,
+                        "DatabaseScripts",
+                        "KTX_Database_C24TH2.sql"
+                    );
+
+                    // Kiểm tra file .sql có tồn tại không
+                    if (!File.Exists(sqlPath))
                     {
-                        MessageBox.Show("Lỗi khi tạo cơ sở dữ liệu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"Không tìm thấy file script:\n{sqlPath}",
+                            "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    MessageBox.Show("Tạo cơ sở dữ liệu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Tạo DB
+                    if (!_bll.CreateDatabase(cfg, sqlPath))
+                    {
+                        MessageBox.Show("Lỗi khi tạo cơ sở dữ liệu!",
+                            "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    MessageBox.Show("Tạo cơ sở dữ liệu thành công!",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else return;
+                else
+                {
+                    return;
+                }
+
             }
 
             // 4. Lưu cấu hình
