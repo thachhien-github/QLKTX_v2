@@ -33,12 +33,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.txtServer = new System.Windows.Forms.TextBox();
             this.txtDatabase = new System.Windows.Forms.TextBox();
             this.txtUser = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.btnTest = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -80,15 +78,6 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Password:";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(48, 204);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(114, 28);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Intergrated:";
-            // 
             // txtServer
             // 
             this.txtServer.Location = new System.Drawing.Point(185, 41);
@@ -118,18 +107,9 @@
             this.txtPassword.TabIndex = 3;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(185, 211);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(18, 17);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // btnTest
             // 
-            this.btnTest.Location = new System.Drawing.Point(57, 262);
+            this.btnTest.Location = new System.Drawing.Point(55, 222);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(130, 45);
             this.btnTest.TabIndex = 4;
@@ -139,7 +119,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(211, 262);
+            this.btnSave.Location = new System.Drawing.Point(209, 222);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(130, 45);
             this.btnSave.TabIndex = 5;
@@ -149,7 +129,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(363, 262);
+            this.btnCancel.Location = new System.Drawing.Point(361, 222);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(130, 45);
             this.btnCancel.TabIndex = 6;
@@ -161,16 +141,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(545, 345);
+            this.ClientSize = new System.Drawing.Size(542, 313);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnTest);
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUser);
             this.Controls.Add(this.txtDatabase);
             this.Controls.Add(this.txtServer);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -179,6 +157,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(560, 360);
             this.MinimizeBox = false;
             this.Name = "FormCauHinh";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -194,12 +173,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtServer;
         private System.Windows.Forms.TextBox txtDatabase;
         private System.Windows.Forms.TextBox txtUser;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;

@@ -86,7 +86,12 @@ namespace QLKTX_App
             {
                 MessageBox.Show("Lưu cấu hình thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
-                Close();
+
+                //Load vào FormLogin
+                this.Hide();
+                var loginForm = new FormLogin();
+                loginForm.ShowDialog();
+                this.Close();
             }
             else
             {

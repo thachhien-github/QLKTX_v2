@@ -1,5 +1,6 @@
 ﻿using FontAwesome.Sharp;
 using QLKTX_App.BLL;
+using QLKTX_App.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,6 +32,19 @@ namespace QLKTX_App
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
+            // Nếu chưa có config thì mở form cấu hình
+            if (!AppConfig.LoadConfig() || AppConfig.CurrentConfig == null)
+            {
+                using (var f = new FormCauHinh())
+                {
+                    var result = f.ShowDialog();
+                    if (result != DialogResult.OK)
+                    {
+                        Application.Exit();
+                        return;
+                    }
+                }
+            }
         }
 
         private void iconPictureBox2_Click(object sender, EventArgs e)
