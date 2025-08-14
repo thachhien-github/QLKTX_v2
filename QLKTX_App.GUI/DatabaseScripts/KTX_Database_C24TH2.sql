@@ -8,18 +8,33 @@
    ============================================================ */
 
 -------------------------------------------
--- 0) TẠO DATABASE NẾU CHƯA CÓ (Phương án A – SQL tự quản lý file)
+-- 0) TẠO DATABASE NẾU CHƯA CÓ
 -------------------------------------------
-IF DB_ID('KTX_Database_C24TH2') IS NULL
-BEGIN
-    PRINT N'>>> Tạo mới CSDL KTX_Database_C24TH2...';
-    CREATE DATABASE KTX_Database_C24TH2;
-END
+CREATE DATABASE KTX_Database_C24TH2
+ON PRIMARY
+(
+    NAME = KTX_Database_C24TH2_Data,
+    FILENAME = 'C:\Data\KTX_Database_C24TH2_Data.mdf',
+    SIZE = 20MB,
+    MAXSIZE = UNLIMITED,
+    FILEGROWTH = 5MB
+)
+LOG ON
+(
+    NAME = KTX_Database_C24TH2_Log,
+    FILENAME = 'C:\Data\KTX_Database_C24TH2_Log.ldf',
+    SIZE = 10MB,
+    MAXSIZE = UNLIMITED,
+    FILEGROWTH = 5MB
+);
 GO
 
 -------------------------------------------
 -- 1) SỬ DỤNG DATABASE
 -------------------------------------------
+
+USE KTX_Database_C24TH2;
+GO
 
 /* ============================================================
    2) BẢNG HỆ THỐNG & NHÂN SỰ
