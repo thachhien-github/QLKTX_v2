@@ -77,7 +77,6 @@
   <ItemGroup>
     <Compile Include="AppConfig.cs" />
     <Compile Include="DbConfig.cs" />
-    <Compile Include="DbHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
