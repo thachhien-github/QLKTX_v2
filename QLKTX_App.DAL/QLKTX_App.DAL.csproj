@@ -42,13 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CauHinhDAL.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="ConfigDAL.cs" />
-    <Compile Include="DatabaseHelper.cs" />
-    <Compile Include="NhanVienDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QLTaiKhoanDAL.cs" />
-    <Compile Include="TaiKhoanDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QLKTX_App.Utilities\QLKTX_App.Utilities.csproj">

@@ -36,51 +36,75 @@ namespace QLKTX_App
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            var cfg = new DbConfig
-            {
-                Server = txtServer.Text,
-                Database = txtDatabase.Text,
-                User = txtUser.Text,
-                Password = txtPassword.Text
-            };
-
-            MessageBox.Show(_bll.TestConnection(cfg) ?
-                "✅ Kết nối thành công!" :
-                "❌ Kết nối thất bại!", "Thông báo",
-                MessageBoxButtons.OK,
-                _bll.TestConnection(cfg) ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+            var cfg = GetConfigFromForm();
+            bool ok = _bll.TestConnection(cfg);
+            MessageBox.Show(ok ? "Kết nối thành công!" : "❌ Kết nối thất bại!",
+                "Thông báo", MessageBoxButtons.OK,
+                ok ? MessageBoxIcon.Information : MessageBoxIcon.Error);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var cfg = new DbConfig
-            {
-                Server = txtServer.Text,
-                Database = txtDatabase.Text,
-                User = txtUser.Text,
-                Password = txtPassword.Text
-            };
+            var cfg = GetConfigFromForm();
 
+            // 1. Test kết nối DB
             if (!_bll.TestConnection(cfg))
             {
-                if (MessageBox.Show("Không thể kết nối, bạn có muốn tạo DB mới?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                // 2. Nếu không vào được DB, thử kết nối chỉ server
+                var cfgServerOnly = new DbConfig
+                {
+                    Server = cfg.Server,
+                    User = cfg.User,
+                    Password = cfg.Password,
+                    Database = "master"
+                };
+
+                if (!_bll.TestConnection(cfgServerOnly))
+                {
+                    MessageBox.Show("Không thể kết nối tới SQL Server.\nVui lòng kiểm tra thông tin.",
+                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // 3. Hỏi người dùng có muốn tạo DB mới không
+                if (MessageBox.Show("Không tìm thấy cơ sở dữ liệu. Bạn có muốn tạo mới?",
+                    "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     string sqlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DatabaseScripts", "KTX_Database_C24TH2.sql");
                     if (!_bll.CreateDatabase(cfg, sqlPath))
                     {
-                        MessageBox.Show("❌ Lỗi khi tạo DB!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Lỗi khi tạo cơ sở dữ liệu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+                    MessageBox.Show("Tạo cơ sở dữ liệu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else return;
             }
 
-            _bll.SaveConfig(cfg);
-            MessageBox.Show("💾 Lưu cấu hình thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            DialogResult = DialogResult.OK;
-            Close();
+            // 4. Lưu cấu hình
+            if (_bll.SaveConfig(cfg))
+            {
+                MessageBox.Show("Lưu cấu hình thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Lỗi khi lưu cấu hình!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e) => Close();
+
+        private DbConfig GetConfigFromForm()
+        {
+            return new DbConfig
+            {
+                Server = txtServer.Text.Trim(),
+                Database = txtDatabase.Text.Trim(),
+                User = txtUser.Text.Trim(),
+                Password = txtPassword.Text.Trim()
+            };
+        }
     }
 }

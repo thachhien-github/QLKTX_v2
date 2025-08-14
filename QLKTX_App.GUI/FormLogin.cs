@@ -18,7 +18,6 @@ namespace QLKTX_App
 {
     public partial class FormLogin : Form
     {
-        private TaiKhoanBLL _bll = new TaiKhoanBLL();
 
         public FormLogin()
         {
@@ -41,44 +40,7 @@ namespace QLKTX_App
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            DataRow acc = _bll.DangNhap(txtUsername.Text.Trim(), txtPassword.Text.Trim());
-
-            if (acc != null)
-            {
-                if (!(bool)acc["TrangThai"])
-                {
-                    MessageBox.Show("Tài khoản bị khóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                string hoTen = acc["HoTen"] != DBNull.Value ? acc["HoTen"].ToString() : acc["TenDangNhap"].ToString();
-                string role = acc["VaiTro"].ToString();
-
-                if (role == "Admin")
-                {
-                    FormAdmin fm = new FormAdmin(hoTen);
-                    this.Hide();
-                    fm.FormClosed += (s, args) => this.Show();
-                    fm.Show();
-                }
-                else if (role == "NhanVien")
-                {
-                    FormNhanVien fm = new FormNhanVien(hoTen);
-                    this.Hide();
-                    fm.FormClosed += (s, args) => this.Show();
-                    fm.Show();
-                }
-                else
-                {
-                    MessageBox.Show("Vai trò không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Tên đăng nhập hoặc mật khẩu sai!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPassword.Clear();
-                txtPassword.Focus();
-            }
+            
         }
 
         private void chkHienMK_CheckedChanged(object sender, EventArgs e)
