@@ -45,7 +45,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(48, 44);
+            this.label1.Location = new System.Drawing.Point(45, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 28);
             this.label1.TabIndex = 0;
@@ -54,7 +54,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(48, 84);
+            this.label2.Location = new System.Drawing.Point(45, 84);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 28);
             this.label2.TabIndex = 0;
@@ -63,7 +63,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(48, 124);
+            this.label3.Location = new System.Drawing.Point(45, 124);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 28);
             this.label3.TabIndex = 0;
@@ -72,7 +72,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(48, 164);
+            this.label4.Location = new System.Drawing.Point(45, 164);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(97, 28);
             this.label4.TabIndex = 0;
@@ -80,28 +80,28 @@
             // 
             // txtServer
             // 
-            this.txtServer.Location = new System.Drawing.Point(185, 41);
+            this.txtServer.Location = new System.Drawing.Point(182, 41);
             this.txtServer.Name = "txtServer";
             this.txtServer.Size = new System.Drawing.Size(306, 34);
             this.txtServer.TabIndex = 0;
             // 
             // txtDatabase
             // 
-            this.txtDatabase.Location = new System.Drawing.Point(185, 81);
+            this.txtDatabase.Location = new System.Drawing.Point(182, 81);
             this.txtDatabase.Name = "txtDatabase";
             this.txtDatabase.Size = new System.Drawing.Size(306, 34);
             this.txtDatabase.TabIndex = 1;
             // 
             // txtUser
             // 
-            this.txtUser.Location = new System.Drawing.Point(185, 121);
+            this.txtUser.Location = new System.Drawing.Point(182, 121);
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(306, 34);
             this.txtUser.TabIndex = 2;
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(185, 161);
+            this.txtPassword.Location = new System.Drawing.Point(182, 161);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(306, 34);
             this.txtPassword.TabIndex = 3;
@@ -109,7 +109,7 @@
             // 
             // btnTest
             // 
-            this.btnTest.Location = new System.Drawing.Point(55, 222);
+            this.btnTest.Location = new System.Drawing.Point(52, 222);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(130, 45);
             this.btnTest.TabIndex = 4;
@@ -119,7 +119,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(209, 222);
+            this.btnSave.Location = new System.Drawing.Point(206, 222);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(130, 45);
             this.btnSave.TabIndex = 5;
@@ -129,7 +129,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(361, 222);
+            this.btnCancel.Location = new System.Drawing.Point(358, 222);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(130, 45);
             this.btnCancel.TabIndex = 6;
