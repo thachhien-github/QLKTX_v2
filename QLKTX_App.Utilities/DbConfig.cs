@@ -1,4 +1,8 @@
-﻿namespace QLKTX_App.Utilities
+﻿using System;
+using System.IO;
+using Newtonsoft.Json;
+
+namespace QLKTX_App.Utilities
 {
     public class DbConfig
     {
@@ -9,8 +13,17 @@
 
         public string GetConnectionString(bool includeDatabase = true)
         {
-            var dbPart = includeDatabase ? $"Initial Catalog={Database};" : "";
-            return $"Data Source={Server};{dbPart}User ID={User};Password={Password};MultipleActiveResultSets=true;TrustServerCertificate=True";
+            string dbPart = includeDatabase ? $"Initial Catalog={Database};" : "";
+            return $"Data Source={Server};{dbPart}User ID={User};Password={Password};TrustServerCertificate=True;MultipleActiveResultSets=true";
+        }
+
+        public static DbConfig LoadFromFile(string path = "config.json")
+        {
+            if (!File.Exists(path))
+                throw new FileNotFoundException($"Không tìm thấy file cấu hình: {path}");
+
+            string json = File.ReadAllText(path);
+            return JsonConvert.DeserializeObject<DbConfig>(json);
         }
     }
 }

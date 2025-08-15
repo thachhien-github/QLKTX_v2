@@ -1,5 +1,7 @@
 ﻿using FontAwesome.Sharp;
 using QLKTX_App.BLL;
+using QLKTX_App.DTO;
+using QLKTX_App.GUI;
 using QLKTX_App.Utilities;
 using System;
 using System.Collections.Generic;
@@ -19,10 +21,11 @@ namespace QLKTX_App
 {
     public partial class FormLogin : Form
     {
-
+        private TaiKhoanBLL _bll;
         public FormLogin()
         {
             InitializeComponent();
+            _bll = new TaiKhoanBLL();
 
             //form
             this.Text = string.Empty;
@@ -54,8 +57,52 @@ namespace QLKTX_App
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            
+            string ten = txtUsername.Text.Trim();
+            string mk = txtPassword.Text.Trim();
+
+            if (string.IsNullOrEmpty(ten) || string.IsNullOrEmpty(mk))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            TaiKhoanModel tk = _bll.KiemTraDangNhap(ten, mk);
+
+            if (tk != null)
+            {
+                if (!tk.TrangThai)
+                {
+                    MessageBox.Show("Tài khoản đã bị khóa!", "Cảnh báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                MessageBox.Show($"Đăng nhập thành công! Xin chào {tk.VaiTro}", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.Hide();
+
+                // Mở form theo vai trò
+                if (tk.VaiTro == "Admin")
+                {
+                    new FormAdmin(tk).Show(); // Pass the required argument to the constructor
+                }
+                else if (tk.VaiTro == "NhanVien")
+                {
+                    new FormNhanVien(tk).Show(); // Pass the required argument to the constructor
+                }
+
+                // Không đóng form đăng nhập ngay, tránh đóng cả ứng dụng
+                // this.Close(); // chỉ đóng nếu muốn kết thúc luôn form đăng nhập
+            }
+            else
+            {
+                MessageBox.Show("Tên đăng nhập hoặc mật khẩu sai!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+      
 
         private void chkHienMK_CheckedChanged(object sender, EventArgs e)
         {

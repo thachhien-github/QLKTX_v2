@@ -43,11 +43,16 @@
   <ItemGroup>
     <Compile Include="CauHinhBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaiKhoanBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QLKTX_App.DAL\QLKTX_App.DAL.csproj">
       <Project>{6aa8a29d-c912-4364-bc77-a9a07a1783ea}</Project>
       <Name>QLKTX_App.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QLKTX_App.DTO\QLKTX_App.DTO.csproj">
+      <Project>{4a42cf87-f38d-49e4-a0cc-2b8b53a26fea}</Project>
+      <Name>QLKTX_App.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\QLKTX_App.Utilities\QLKTX_App.Utilities.csproj">
       <Project>{f133fcfd-6286-4788-b98c-c6b0d8c43324}</Project>

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLKTX_App.DAL", "QLKTX_App.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLKTX_App.Utilities", "QLKTX_App.Utilities\QLKTX_App.Utilities.csproj", "{F133FCFD-6286-4788-B98C-C6B0D8C43324}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLKTX_App.DTO", "QLKTX_App.DTO\QLKTX_App.DTO.csproj", "{4A42CF87-F38D-49E4-A0CC-2B8B53A26FEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F133FCFD-6286-4788-B98C-C6B0D8C43324}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F133FCFD-6286-4788-B98C-C6B0D8C43324}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F133FCFD-6286-4788-B98C-C6B0D8C43324}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A42CF87-F38D-49E4-A0CC-2B8B53A26FEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A42CF87-F38D-49E4-A0CC-2B8B53A26FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A42CF87-F38D-49E4-A0CC-2B8B53A26FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A42CF87-F38D-49E4-A0CC-2B8B53A26FEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

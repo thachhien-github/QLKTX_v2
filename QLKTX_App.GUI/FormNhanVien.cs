@@ -2,6 +2,7 @@
 using QLKTX_App.ChildForm_Admin;
 using QLKTX_App.ChildForm_Comon;
 using QLKTX_App.ChildForm_NhanVien;
+using QLKTX_App.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +24,8 @@ namespace QLKTX_App
 
 
         private string hoTen; // lưu tên người đăng nhập
+        private TaiKhoanModel tk;
+
         public FormNhanVien(string hoTen)
         {
             InitializeComponent();
@@ -34,6 +37,11 @@ namespace QLKTX_App
             this.Text = string.Empty;
             this.ControlBox = false;
             this.DoubleBuffered = true;
+        }
+
+        public FormNhanVien(TaiKhoanModel tk)
+        {
+            this.tk = tk;
         }
 
         #region Properties

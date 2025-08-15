@@ -2,6 +2,7 @@
 using QLKTX_App.ChildForm_Admin;
 using QLKTX_App.ChildForm_Comon;
 using QLKTX_App.ChildForm_NhanVien;
+using QLKTX_App.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,13 +22,18 @@ namespace QLKTX_App
         private IconButton currentBtn;
         private Form currentChildForm;
 
+
         //constructor
         private string hoTen; // lưu tên người đăng nhập
-        public FormAdmin(string hoTen)
+        private TaiKhoanModel tk;
+
+        public FormAdmin(TaiKhoanModel tk)
         {
             InitializeComponent();
-            this.hoTen = hoTen;
-            lblChao.Text = "Xin chào, " + hoTen + "!";
+            this.tk = tk;
+            this.hoTen = tk.HoTen; // lưu tên người dùng
+
+            lblChao.Text = GetLoiChaoTheoThoiGian(tk.HoTen); // hiển thị lời chào
             customizeDesign();
 
             //form
