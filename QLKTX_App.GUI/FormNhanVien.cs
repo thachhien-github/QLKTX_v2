@@ -23,25 +23,23 @@ namespace QLKTX_App
         private Form currentChildForm;
 
 
-        private string hoTen; // lưu tên người đăng nhập
+        private string hoTen;
         private TaiKhoanModel tk;
 
-        public FormNhanVien(string hoTen)
+        public FormNhanVien(TaiKhoanModel tk)
         {
             InitializeComponent();
-            this.hoTen = hoTen;
-            lblChao.Text = "Xin chào, " + hoTen + "!";
+            this.tk = tk;
+            this.hoTen = tk.HoTen;
+
+            // Hiển thị lời chào
+            lblChao.Text = GetLoiChaoTheoThoiGian(tk.HoTen);
             customizeDesign();
 
             //form
             this.Text = string.Empty;
             this.ControlBox = false;
             this.DoubleBuffered = true;
-        }
-
-        public FormNhanVien(TaiKhoanModel tk)
-        {
-            this.tk = tk;
         }
 
         #region Properties

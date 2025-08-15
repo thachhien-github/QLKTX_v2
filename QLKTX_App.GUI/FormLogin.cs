@@ -83,15 +83,19 @@ namespace QLKTX_App
 
                 this.Hide();
 
-                // Mở form theo vai trò
+                // Mở Form tương ứng vai trò
                 if (tk.VaiTro == "Admin")
                 {
-                    new FormAdmin(tk).Show(); // Pass the required argument to the constructor
+                    FormAdmin adminForm = new FormAdmin(tk);
+                    adminForm.Show();
                 }
-                else if (tk.VaiTro == "NhanVien")
+                else
                 {
-                    new FormNhanVien(tk).Show(); // Pass the required argument to the constructor
+                    FormNhanVien nvForm = new FormNhanVien(tk);
+                    nvForm.Show();
                 }
+
+                this.Hide();
 
                 // Không đóng form đăng nhập ngay, tránh đóng cả ứng dụng
                 // this.Close(); // chỉ đóng nếu muốn kết thúc luôn form đăng nhập
