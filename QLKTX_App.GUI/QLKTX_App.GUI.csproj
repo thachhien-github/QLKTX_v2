@@ -187,6 +187,12 @@
     <Compile Include="ChildForm_Admin\FormThietLapGia.Designer.cs">
       <DependentUpon>FormThietLapGia.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChildForm_Comon\FormHopDong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChildForm_Comon\FormHopDong.Designer.cs">
+      <DependentUpon>FormHopDong.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChildForm_Comon\FormPhanBo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,6 +275,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChildForm_Admin\FormThietLapGia.resx">
       <DependentUpon>FormThietLapGia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChildForm_Comon\FormHopDong.resx">
+      <DependentUpon>FormHopDong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChildForm_Comon\FormPhanBo.resx">
       <DependentUpon>FormPhanBo.cs</DependentUpon>

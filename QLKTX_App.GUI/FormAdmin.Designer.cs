@@ -58,6 +58,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnXuatBC = new FontAwesome.Sharp.IconButton();
+            this.btnQLHopDong = new FontAwesome.Sharp.IconButton();
             this.panelMenu.SuspendLayout();
             this.panelThietLap.SuspendLayout();
             this.panelPhong.SuspendLayout();
@@ -82,6 +83,7 @@
             this.panelMenu.Controls.Add(this.btnThongKe);
             this.panelMenu.Controls.Add(this.panelPhong);
             this.panelMenu.Controls.Add(this.btnPhong);
+            this.panelMenu.Controls.Add(this.btnQLHopDong);
             this.panelMenu.Controls.Add(this.btnSinhVien);
             this.panelMenu.Controls.Add(this.btnNhanVien);
             this.panelMenu.Controls.Add(this.btnTaiKhoan);
@@ -105,11 +107,11 @@
             this.btnLogOut.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnLogOut.IconSize = 32;
             this.btnLogOut.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogOut.Location = new System.Drawing.Point(0, 645);
+            this.btnLogOut.Location = new System.Drawing.Point(0, 705);
             this.btnLogOut.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnLogOut.Size = new System.Drawing.Size(275, 60);
+            this.btnLogOut.Size = new System.Drawing.Size(254, 60);
             this.btnLogOut.TabIndex = 21;
             this.btnLogOut.Text = "Đăng Xuất";
             this.btnLogOut.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -122,10 +124,10 @@
             this.panelThietLap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(102)))));
             this.panelThietLap.Controls.Add(this.btnGia);
             this.panelThietLap.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelThietLap.Location = new System.Drawing.Point(0, 600);
+            this.panelThietLap.Location = new System.Drawing.Point(0, 660);
             this.panelThietLap.MaximumSize = new System.Drawing.Size(275, 45);
             this.panelThietLap.Name = "panelThietLap";
-            this.panelThietLap.Size = new System.Drawing.Size(275, 45);
+            this.panelThietLap.Size = new System.Drawing.Size(254, 45);
             this.panelThietLap.TabIndex = 26;
             // 
             // btnGia
@@ -145,7 +147,7 @@
             this.btnGia.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnGia.Name = "btnGia";
             this.btnGia.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
-            this.btnGia.Size = new System.Drawing.Size(275, 45);
+            this.btnGia.Size = new System.Drawing.Size(254, 45);
             this.btnGia.TabIndex = 7;
             this.btnGia.Text = "Giá";
             this.btnGia.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -165,11 +167,11 @@
             this.btnThiepLap.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnThiepLap.IconSize = 32;
             this.btnThiepLap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnThiepLap.Location = new System.Drawing.Point(0, 540);
+            this.btnThiepLap.Location = new System.Drawing.Point(0, 600);
             this.btnThiepLap.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnThiepLap.Name = "btnThiepLap";
             this.btnThiepLap.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnThiepLap.Size = new System.Drawing.Size(275, 60);
+            this.btnThiepLap.Size = new System.Drawing.Size(254, 60);
             this.btnThiepLap.TabIndex = 20;
             this.btnThiepLap.Text = "Thiết Lập";
             this.btnThiepLap.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -189,11 +191,11 @@
             this.btnThongKe.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnThongKe.IconSize = 32;
             this.btnThongKe.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnThongKe.Location = new System.Drawing.Point(0, 480);
+            this.btnThongKe.Location = new System.Drawing.Point(0, 540);
             this.btnThongKe.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnThongKe.Name = "btnThongKe";
             this.btnThongKe.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnThongKe.Size = new System.Drawing.Size(275, 60);
+            this.btnThongKe.Size = new System.Drawing.Size(254, 60);
             this.btnThongKe.TabIndex = 19;
             this.btnThongKe.Text = "Thống Kê";
             this.btnThongKe.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -207,10 +209,10 @@
             this.panelPhong.Controls.Add(this.btnThemPhong);
             this.panelPhong.Controls.Add(this.btnSoDoPhong);
             this.panelPhong.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelPhong.Location = new System.Drawing.Point(0, 390);
+            this.panelPhong.Location = new System.Drawing.Point(0, 450);
             this.panelPhong.MaximumSize = new System.Drawing.Size(275, 90);
             this.panelPhong.Name = "panelPhong";
-            this.panelPhong.Size = new System.Drawing.Size(275, 90);
+            this.panelPhong.Size = new System.Drawing.Size(254, 90);
             this.panelPhong.TabIndex = 24;
             // 
             // btnThemPhong
@@ -230,7 +232,7 @@
             this.btnThemPhong.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnThemPhong.Name = "btnThemPhong";
             this.btnThemPhong.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
-            this.btnThemPhong.Size = new System.Drawing.Size(275, 45);
+            this.btnThemPhong.Size = new System.Drawing.Size(254, 45);
             this.btnThemPhong.TabIndex = 5;
             this.btnThemPhong.Text = "Thêm Phòng";
             this.btnThemPhong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -255,7 +257,7 @@
             this.btnSoDoPhong.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnSoDoPhong.Name = "btnSoDoPhong";
             this.btnSoDoPhong.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
-            this.btnSoDoPhong.Size = new System.Drawing.Size(275, 45);
+            this.btnSoDoPhong.Size = new System.Drawing.Size(254, 45);
             this.btnSoDoPhong.TabIndex = 3;
             this.btnSoDoPhong.Text = "Sơ Đồ Phòng";
             this.btnSoDoPhong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -275,11 +277,11 @@
             this.btnPhong.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnPhong.IconSize = 32;
             this.btnPhong.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPhong.Location = new System.Drawing.Point(0, 330);
+            this.btnPhong.Location = new System.Drawing.Point(0, 390);
             this.btnPhong.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnPhong.Name = "btnPhong";
             this.btnPhong.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnPhong.Size = new System.Drawing.Size(275, 60);
+            this.btnPhong.Size = new System.Drawing.Size(254, 60);
             this.btnPhong.TabIndex = 18;
             this.btnPhong.Text = "Quản Lý Phòng";
             this.btnPhong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -303,7 +305,7 @@
             this.btnSinhVien.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnSinhVien.Name = "btnSinhVien";
             this.btnSinhVien.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnSinhVien.Size = new System.Drawing.Size(275, 60);
+            this.btnSinhVien.Size = new System.Drawing.Size(254, 60);
             this.btnSinhVien.TabIndex = 17;
             this.btnSinhVien.Text = "Quản Lý Sinh Viên";
             this.btnSinhVien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -327,7 +329,7 @@
             this.btnNhanVien.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnNhanVien.Name = "btnNhanVien";
             this.btnNhanVien.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnNhanVien.Size = new System.Drawing.Size(275, 60);
+            this.btnNhanVien.Size = new System.Drawing.Size(254, 60);
             this.btnNhanVien.TabIndex = 15;
             this.btnNhanVien.Text = "Quản Lý Nhân Viên";
             this.btnNhanVien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -353,7 +355,7 @@
             this.btnTaiKhoan.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnTaiKhoan.Name = "btnTaiKhoan";
             this.btnTaiKhoan.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnTaiKhoan.Size = new System.Drawing.Size(275, 60);
+            this.btnTaiKhoan.Size = new System.Drawing.Size(254, 60);
             this.btnTaiKhoan.TabIndex = 14;
             this.btnTaiKhoan.Text = "Quản Lý Tài Khoản";
             this.btnTaiKhoan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -371,7 +373,7 @@
             this.panelLogo.Location = new System.Drawing.Point(0, 0);
             this.panelLogo.MaximumSize = new System.Drawing.Size(275, 150);
             this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(275, 150);
+            this.panelLogo.Size = new System.Drawing.Size(254, 150);
             this.panelLogo.TabIndex = 1;
             // 
             // label2
@@ -392,7 +394,7 @@
             this.panel7.Location = new System.Drawing.Point(0, 142);
             this.panel7.MaximumSize = new System.Drawing.Size(275, 8);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(275, 8);
+            this.panel7.Size = new System.Drawing.Size(254, 8);
             this.panel7.TabIndex = 1;
             // 
             // btnHome
@@ -581,6 +583,30 @@
             this.btnXuatBC.UseVisualStyleBackColor = true;
             this.btnXuatBC.Click += new System.EventHandler(this.btnXuatFile_Click);
             // 
+            // btnQLHopDong
+            // 
+            this.btnQLHopDong.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnQLHopDong.FlatAppearance.BorderSize = 0;
+            this.btnQLHopDong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQLHopDong.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQLHopDong.ForeColor = System.Drawing.Color.White;
+            this.btnQLHopDong.IconChar = FontAwesome.Sharp.IconChar.FilePen;
+            this.btnQLHopDong.IconColor = System.Drawing.Color.White;
+            this.btnQLHopDong.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnQLHopDong.IconSize = 32;
+            this.btnQLHopDong.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQLHopDong.Location = new System.Drawing.Point(0, 330);
+            this.btnQLHopDong.MaximumSize = new System.Drawing.Size(275, 60);
+            this.btnQLHopDong.Name = "btnQLHopDong";
+            this.btnQLHopDong.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnQLHopDong.Size = new System.Drawing.Size(254, 60);
+            this.btnQLHopDong.TabIndex = 27;
+            this.btnQLHopDong.Text = "Quản Lý Hợp Đồng";
+            this.btnQLHopDong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQLHopDong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnQLHopDong.UseVisualStyleBackColor = true;
+            this.btnQLHopDong.Click += new System.EventHandler(this.btnQLHopDong_Click);
+            // 
             // FormAdmin
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -644,5 +670,6 @@
         private System.Windows.Forms.Panel panelDesktop;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblChao;
+        private FontAwesome.Sharp.IconButton btnQLHopDong;
     }
 }

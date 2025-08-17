@@ -3,6 +3,7 @@ using QLKTX_App.ChildForm_Admin;
 using QLKTX_App.ChildForm_Comon;
 using QLKTX_App.ChildForm_NhanVien;
 using QLKTX_App.DTO;
+using QLKTX_App.GUI.ChildForm_Comon;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -330,6 +331,12 @@ namespace QLKTX_App
 
             // Đóng form hiện tại (FormAdmin)
             this.Hide(); // hoặc this.Close(); nếu bạn muốn thoát hẳn
+        }
+
+        private void btnQLHopDong_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color6);
+            OpenChildForm(new FormHopDong());
         }
         #endregion
     }

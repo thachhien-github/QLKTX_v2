@@ -1,17 +1,11 @@
 ﻿using FontAwesome.Sharp;
-using QLKTX_App.ChildForm_Admin;
 using QLKTX_App.ChildForm_Comon;
 using QLKTX_App.ChildForm_NhanVien;
 using QLKTX_App.DTO;
+using QLKTX_App.GUI.ChildForm_Comon;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QLKTX_App
@@ -283,6 +277,12 @@ namespace QLKTX_App
             currentChildForm.Close();
             Reset();
             hideMenu();
+        }
+
+        private void btnQLHopDong_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color6);
+            OpenChildForm(new FormHopDong());
         }
         #endregion
     }
