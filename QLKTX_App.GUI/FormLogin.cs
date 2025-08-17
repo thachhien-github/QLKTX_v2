@@ -13,6 +13,7 @@ namespace QLKTX_App
     {
         private TaiKhoanBLL _bll;
         public TaiKhoanModel TaiKhoanDaDangNhap { get; private set; }
+        public static TaiKhoanModel LastLoginTaiKhoan { get; private set; }
         public FormLogin()
         {
             InitializeComponent();
@@ -57,8 +58,12 @@ namespace QLKTX_App
                     return;
                 }
 
-                // Lưu tài khoản và báo thành công
-                this.TaiKhoanDaDangNhap = tk;
+                MessageBox.Show($"Đăng nhập thành công! Xin chào {tk.VaiTro}", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                TaiKhoanDaDangNhap = tk;
+                LastLoginTaiKhoan = tk; // gán vào biến static để Program lấy
+
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

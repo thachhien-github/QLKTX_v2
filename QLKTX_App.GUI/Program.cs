@@ -1,5 +1,4 @@
 ﻿using QLKTX_App.DTO;
-using QLKTX_App.Utilities;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -14,38 +13,46 @@ namespace QLKTX_App.GUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Cấu hình
+            bool daMoLogin = false;
+            TaiKhoanModel tk = null;
+
+            // Nếu chưa có config.json thì mở FormCauHinh
             if (!File.Exists("config.json"))
             {
                 using (var f = new FormCauHinh())
                 {
                     if (f.ShowDialog() != DialogResult.OK) return;
+
+                    // FormCauHinh đã tự mở FormLogin rồi
+                    daMoLogin = true;
                 }
             }
 
-            // Login modal
-            TaiKhoanModel tk = null;
-            using (var login = new FormLogin())
+            // Nếu FormLogin chưa mở (khi đã có config.json) thì mở ở đây
+            if (!daMoLogin)
             {
-                if (login.ShowDialog() == DialogResult.OK)
+                using (var login = new FormLogin())
                 {
-                    tk = login.TaiKhoanDaDangNhap;
-                }
-                else
-                {
-                    return; // nếu cancel hoặc login thất bại → thoát app
+                    if (login.ShowDialog() == DialogResult.OK)
+                    {
+                        tk = login.TaiKhoanDaDangNhap;
+                    }
                 }
             }
-
-            // Mở form chính
-            Form mainForm = null;
-            if (tk.VaiTro == "Admin")
-                mainForm = new FormAdmin(tk);
             else
-                mainForm = new FormNhanVien(tk);
+            {
+                // Nếu FormLogin đã mở trong FormCauHinh thì lấy tk từ đó
+                if (FormLogin.LastLoginTaiKhoan != null)
+                    tk = FormLogin.LastLoginTaiKhoan;
+            }
 
-            if (mainForm != null)
-                Application.Run(mainForm); // form chính duy nhất chạy
+            if (tk == null) return;
+
+            // Chạy form chính
+            if (tk.VaiTro == "Admin")
+                Application.Run(new FormAdmin(tk));
+            else
+                Application.Run(new FormNhanVien(tk));
         }
     }
 }
