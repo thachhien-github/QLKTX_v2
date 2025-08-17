@@ -1,6 +1,8 @@
-﻿using System;
+﻿using QLKTX_App.DTO;
+using QLKTX_App.Utilities;
+using System;
+using System.IO;
 using System.Windows.Forms;
-using QLKTX_App.DTO;
 
 namespace QLKTX_App.GUI
 {
@@ -11,33 +13,39 @@ namespace QLKTX_App.GUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormLogin());
-        }
 
-        public static void RunMainForm(TaiKhoanModel tk)
-        {
-            Form currentForm = Form.ActiveForm; // Get the currently active form  
-
-            if (currentForm != null)
+            // Cấu hình
+            if (!File.Exists("config.json"))
             {
-                currentForm.Hide();
+                using (var f = new FormCauHinh())
+                {
+                    if (f.ShowDialog() != DialogResult.OK) return;
+                }
             }
 
+            // Login modal
+            TaiKhoanModel tk = null;
+            using (var login = new FormLogin())
+            {
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    tk = login.TaiKhoanDaDangNhap;
+                }
+                else
+                {
+                    return; // nếu cancel hoặc login thất bại → thoát app
+                }
+            }
+
+            // Mở form chính
+            Form mainForm = null;
             if (tk.VaiTro == "Admin")
-            {
-                FormAdmin form = new FormAdmin(tk); // truyền tk  
-                form.ShowDialog();
-            }
-            else if (tk.VaiTro == "NhanVien")
-            {
-                FormNhanVien form = new FormNhanVien(tk); // truyền tk  
-                form.ShowDialog();
-            }
+                mainForm = new FormAdmin(tk);
+            else
+                mainForm = new FormNhanVien(tk);
 
-            if (currentForm != null)
-            {
-                currentForm.Close();
-            }
+            if (mainForm != null)
+                Application.Run(mainForm); // form chính duy nhất chạy
         }
     }
 }

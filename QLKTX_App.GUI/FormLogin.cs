@@ -1,20 +1,10 @@
-﻿using FontAwesome.Sharp;
+﻿
 using QLKTX_App.BLL;
 using QLKTX_App.DTO;
-using QLKTX_App.GUI;
-using QLKTX_App.Utilities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
-using System.Windows.Documents;
 using System.Windows.Forms;
 
 namespace QLKTX_App
@@ -22,6 +12,7 @@ namespace QLKTX_App
     public partial class FormLogin : Form
     {
         private TaiKhoanBLL _bll;
+        public TaiKhoanModel TaiKhoanDaDangNhap { get; private set; }
         public FormLogin()
         {
             InitializeComponent();
@@ -35,19 +26,7 @@ namespace QLKTX_App
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
-            // Nếu chưa có config thì mở form cấu hình
-            if (!AppConfig.LoadConfig() || AppConfig.CurrentConfig == null)
-            {
-                using (var f = new FormCauHinh())
-                {
-                    var result = f.ShowDialog();
-                    if (result != DialogResult.OK)
-                    {
-                        Application.Exit();
-                        return;
-                    }
-                }
-            }
+
         }
 
         private void iconPictureBox2_Click(object sender, EventArgs e)
@@ -78,27 +57,10 @@ namespace QLKTX_App
                     return;
                 }
 
-                MessageBox.Show($"Đăng nhập thành công! Xin chào {tk.VaiTro}", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                this.Hide();
-
-                // Mở Form tương ứng vai trò
-                if (tk.VaiTro == "Admin")
-                {
-                    FormAdmin adminForm = new FormAdmin(tk);
-                    adminForm.Show();
-                }
-                else
-                {
-                    FormNhanVien nvForm = new FormNhanVien(tk);
-                    nvForm.Show();
-                }
-
-                this.Hide();
-
-                // Không đóng form đăng nhập ngay, tránh đóng cả ứng dụng
-                // this.Close(); // chỉ đóng nếu muốn kết thúc luôn form đăng nhập
+                // Lưu tài khoản và báo thành công
+                this.TaiKhoanDaDangNhap = tk;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
             else
             {
