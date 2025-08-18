@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GiaDienNuocModel.cs" />
+    <Compile Include="LoaiPhongModel.cs" />
+    <Compile Include="LoaiXeModel.cs" />
     <Compile Include="QLTaiKhoanModel.cs" />
     <Compile Include="TaiKhoanModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
