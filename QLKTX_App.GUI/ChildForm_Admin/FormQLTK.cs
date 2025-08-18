@@ -1,4 +1,5 @@
 ﻿using QLKTX_App.BLL;
+using QLKTX_App.DAL;
 using QLKTX_App.Utilities;
 using System;
 using System.Collections.Generic;
@@ -16,50 +17,178 @@ namespace QLKTX_App.ChildForm_Admin
 {
     public partial class FormQLTK : Form
     {
+        private readonly QLTaiKhoanBLL bll = new QLTaiKhoanBLL();
+
+        private bool isInsert = true;
+
         public FormQLTK()
         {
             InitializeComponent();
         }
 
-        private void FormQLTK_Load(object sender, EventArgs e)
+        #region phương thức load dữ liệu
+        private void LoadData()
         {
-           
+            dgvListTK.DataSource = bll.GetAll();
+            dgvListTK.ClearSelection();
+            ResetForm();
         }
 
+        private void LoadCboTrangThai()
+        {
+            cboTrangThai.Items.Clear();
+            cboTrangThai.Items.Add("Còn hoạt động");
+            cboTrangThai.Items.Add("Bị khóa");
+        }
+
+        private void LoadCboVaiTro()
+        {
+            cboVaiTro.Items.Clear();
+            cboVaiTro.Items.Add("Admin");
+            cboVaiTro.Items.Add("NhanVien");
+        }
+
+        private void ResetForm()
+        {
+            txtTenDangNhap.Clear();
+            txtMatKhau.Clear();
+            cboTrangThai.SelectedIndex = -1;
+            cboVaiTro.SelectedIndex = -1;
+            txtHoTen.Clear();   // chỉ load khi chọn nhân viên
+            txtTenDangNhap.Enabled = true;
+            isInsert = true;
+        }
+
+        private void LoadCboMaNV()
+        {
+            string query = @"
+        SELECT NV.MaNV, NV.HoTen
+        FROM NhanVien NV
+        WHERE NOT EXISTS (SELECT 1 FROM TaiKhoan TK WHERE TK.MaNV = NV.MaNV)";
+            DataTable dt = new DBHelper().ExecuteQuery(query, false);
+
+            cboMaNV.DataSource = dt;
+            cboMaNV.DisplayMember = "MaNV";
+            cboMaNV.ValueMember = "MaNV";
+            cboMaNV.SelectedIndex = -1;
+        }
+
+        #endregion
+
+        private void FormQLTK_Load(object sender, EventArgs e)
+        {
+            LoadData();
+            LoadCboTrangThai();
+            LoadCboVaiTro();
+            LoadCboMaNV();
+        }
+        
+
+        #region sự kiện nút bấm
         private void dgvListTK_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvListTK.Rows[e.RowIndex];
+                txtTenDangNhap.Text = row.Cells["TenDangNhap"].Value.ToString();
+                txtHoTen.Text = row.Cells["HoTen"].Value.ToString();
+                txtMatKhau.Text = row.Cells["MatKhau"].Value.ToString();
+                cboTrangThai.Text = row.Cells["TrangThai"].Value.ToString();
+                cboVaiTro.Text = row.Cells["VaiTro"].Value.ToString();
+
+                txtTenDangNhap.Enabled = false;
+                isInsert = false;
+            }
         }
 
         private void btnDangKy_Click(object sender, EventArgs e)
         {
-            
+            string tenDN = txtTenDangNhap.Text.Trim();
+            string mk = txtMatKhau.Text.Trim();
+            bool trangThai = (cboTrangThai.Text == "Còn hoạt động");
+            string vaiTro = cboVaiTro.Text.Trim();
+
+            string result;
+            if (isInsert)
+            {
+                if (string.IsNullOrEmpty(cboMaNV.Text))
+                {
+                    MessageBox.Show("⚠️ Chưa chọn nhân viên!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                string maNV = cboMaNV.SelectedValue.ToString();
+
+                // ✅ Sửa: MaNV đi trước
+                result = bll.Insert(maNV, tenDN, mk, trangThai, vaiTro);
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(cboMaNV.Text))
+                {
+                    MessageBox.Show("⚠️ Chưa chọn nhân viên!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                string maNV = cboMaNV.SelectedValue.ToString();
+
+                // ✅ Sửa: Update cũng phải theo MaNV
+                result = bll.Update(maNV, tenDN, mk, trangThai, vaiTro);
+            }
+
+            if (result.Contains("thành công"))
+                MessageBox.Show(result, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show(result, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            LoadData();
+            ResetForm();
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            
+            if (dgvListTK.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("⚠️ Vui lòng chọn tài khoản để xóa!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            // ✅ Sửa: Lấy MaNV, không phải TenDangNhap
+            string maNV = dgvListTK.SelectedRows[0].Cells["MaNV"].Value.ToString();
+            var result = bll.Delete(maNV);
+
+            if (result.Contains("thành công"))
+                MessageBox.Show(result, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show(result, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            LoadData();
+            ResetForm();
         }
 
         private void btnTiep_Click(object sender, EventArgs e)
         {
-            txtTenDangNhap.Clear();
-            txtMatKhau.Clear();
-            txtMaNV.Clear();
-            txtHoTen.Clear();
-            txtSearch.Clear();
-            cboTrangThai.SelectedIndex = 0;
-            dgvListTK.ClearSelection();
-            txtTenDangNhap.ReadOnly = false;
-            txtMatKhau.ReadOnly = false;
-            txtMaNV.ReadOnly = false;
-            txtHoTen.ReadOnly = false;
-            txtTenDangNhap.Focus();
+            ResetForm();
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
-            
+            string keyword = txtSearch.Text.Trim().ToLower();
+            DataTable dt = bll.GetAll();
+            DataView dv = dt.DefaultView;
+            dv.RowFilter = $"TenDangNhap LIKE '%{keyword}%' OR HoTen LIKE '%{keyword}%'";
+            dgvListTK.DataSource = dv.ToTable();
         }
+
+        private void cboMaNV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboMaNV.SelectedItem != null)
+            {
+                DataRowView drv = cboMaNV.SelectedItem as DataRowView;
+                if (drv != null)
+                    txtHoTen.Text = drv["HoTen"].ToString();
+            }
+        }
+        #endregion
     }
 }

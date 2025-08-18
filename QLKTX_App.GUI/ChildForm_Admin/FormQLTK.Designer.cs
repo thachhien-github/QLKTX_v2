@@ -38,13 +38,15 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtHoTen = new System.Windows.Forms.TextBox();
+            this.cboVaiTro = new System.Windows.Forms.ComboBox();
+            this.cboMaNV = new System.Windows.Forms.ComboBox();
             this.cboTrangThai = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnXoa = new FontAwesome.Sharp.IconButton();
             this.btnTiep = new FontAwesome.Sharp.IconButton();
             this.btnDangKy = new FontAwesome.Sharp.IconButton();
-            this.txtMaNV = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtMatKhau = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -176,13 +178,15 @@
             // 
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtHoTen);
+            this.groupBox1.Controls.Add(this.cboVaiTro);
+            this.groupBox1.Controls.Add(this.cboMaNV);
             this.groupBox1.Controls.Add(this.cboTrangThai);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.btnXoa);
             this.groupBox1.Controls.Add(this.btnTiep);
             this.groupBox1.Controls.Add(this.btnDangKy);
-            this.groupBox1.Controls.Add(this.txtMaNV);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtMatKhau);
             this.groupBox1.Controls.Add(this.label2);
@@ -216,6 +220,26 @@
             this.txtHoTen.Size = new System.Drawing.Size(235, 30);
             this.txtHoTen.TabIndex = 8;
             // 
+            // cboVaiTro
+            // 
+            this.cboVaiTro.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboVaiTro.FormattingEnabled = true;
+            this.cboVaiTro.Location = new System.Drawing.Point(179, 115);
+            this.cboVaiTro.Name = "cboVaiTro";
+            this.cboVaiTro.Size = new System.Drawing.Size(235, 31);
+            this.cboVaiTro.TabIndex = 4;
+            this.cboVaiTro.SelectedIndexChanged += new System.EventHandler(this.cboMaNV_SelectedIndexChanged);
+            // 
+            // cboMaNV
+            // 
+            this.cboMaNV.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboMaNV.FormattingEnabled = true;
+            this.cboMaNV.Location = new System.Drawing.Point(549, 37);
+            this.cboMaNV.Name = "cboMaNV";
+            this.cboMaNV.Size = new System.Drawing.Size(235, 31);
+            this.cboMaNV.TabIndex = 4;
+            this.cboMaNV.SelectedIndexChanged += new System.EventHandler(this.cboMaNV_SelectedIndexChanged);
+            // 
             // cboTrangThai
             // 
             this.cboTrangThai.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -224,6 +248,17 @@
             this.cboTrangThai.Name = "cboTrangThai";
             this.cboTrangThai.Size = new System.Drawing.Size(235, 31);
             this.cboTrangThai.TabIndex = 4;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(42, 115);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(69, 23);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Vai trò: ";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
@@ -316,15 +351,6 @@
             this.btnDangKy.UseVisualStyleBackColor = false;
             this.btnDangKy.Click += new System.EventHandler(this.btnDangKy_Click);
             // 
-            // txtMaNV
-            // 
-            this.txtMaNV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMaNV.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaNV.Location = new System.Drawing.Point(549, 38);
-            this.txtMaNV.Name = "txtMaNV";
-            this.txtMaNV.Size = new System.Drawing.Size(235, 30);
-            this.txtMaNV.TabIndex = 2;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -349,7 +375,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(41, 40);
+            this.label2.Location = new System.Drawing.Point(42, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(128, 23);
             this.label2.TabIndex = 7;
@@ -416,8 +442,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cboTrangThai;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtMaNV;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtHoTen;
+        private System.Windows.Forms.ComboBox cboMaNV;
+        private System.Windows.Forms.ComboBox cboVaiTro;
+        private System.Windows.Forms.Label label7;
     }
 }

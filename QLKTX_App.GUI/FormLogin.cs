@@ -13,7 +13,7 @@ namespace QLKTX_App
     {
         private TaiKhoanBLL _bll;
         public TaiKhoanModel TaiKhoanDaDangNhap { get; private set; }
-        public static TaiKhoanModel LastLoginTaiKhoan { get; private set; }
+        public static TaiKhoanModel LastLoginTaiKhoan { get; set; }
         public FormLogin()
         {
             InitializeComponent();

@@ -344,6 +344,10 @@
       <Project>{13082659-3102-4628-8e20-db267be68835}</Project>
       <Name>QLKTX_App.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QLKTX_App.DAL\QLKTX_App.DAL.csproj">
+      <Project>{6AA8A29D-C912-4364-BC77-A9A07A1783EA}</Project>
+      <Name>QLKTX_App.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\QLKTX_App.DTO\QLKTX_App.DTO.csproj">
       <Project>{4a42cf87-f38d-49e4-a0cc-2b8b53a26fea}</Project>
       <Name>QLKTX_App.DTO</Name>

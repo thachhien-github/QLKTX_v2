@@ -133,8 +133,13 @@ namespace QLKTX_App
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color6);
-            new FormLogin().Show();
-            this.Hide();
+
+            if (MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?",
+         "Đăng xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                FormLogin.LastLoginTaiKhoan = null; // báo cho Program là logout
+                this.Close(); // đóng form chính → Program quay lại login
+            }
         }
 
         #region nút điều khiển form

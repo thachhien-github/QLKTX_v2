@@ -325,12 +325,12 @@ namespace QLKTX_App
         private void btnLogOut_Click_1(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color6);
-            // Mở lại form đăng nhập
-            FormLogin loginForm = new FormLogin();
-            loginForm.Show();
-
-            // Đóng form hiện tại (FormAdmin)
-            this.Hide(); // hoặc this.Close(); nếu bạn muốn thoát hẳn
+            if (MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?",
+        "Đăng xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                FormLogin.LastLoginTaiKhoan = null; // báo cho Program là logout
+                this.Close(); // đóng form chính → Program quay lại login
+            }
         }
 
         private void btnQLHopDong_Click(object sender, EventArgs e)

@@ -13,23 +13,31 @@ namespace QLKTX_App.BLL
             return dal.GetAll();
         }
 
-        public string InsertOrUpdate(string maNV, string hoTen, string gioiTinh, DateTime ngaySinh, string sdt, string email)
+        public string Insert(string maNV, string hoTen, string gioiTinh, DateTime ngaySinh, string sdt, string email)
         {
-            // Validate
-            if (string.IsNullOrWhiteSpace(maNV)) return "Mã NV không được để trống!";
-            if (string.IsNullOrWhiteSpace(hoTen)) return "Họ tên không được để trống!";
-            if (ngaySinh > DateTime.Now) return "Ngày sinh không hợp lệ!";
-            if (string.IsNullOrWhiteSpace(sdt)) return "SĐT không được để trống!";
+            if (string.IsNullOrWhiteSpace(maNV)) return "⚠️ Mã NV không được để trống!";
+            if (string.IsNullOrWhiteSpace(hoTen)) return "⚠️ Họ tên không được để trống!";
+            if (ngaySinh > DateTime.Now) return "⚠️ Ngày sinh không hợp lệ!";
 
-            int rows = dal.InsertOrUpdate(maNV, hoTen.Trim(), gioiTinh, ngaySinh, sdt.Trim(), email?.Trim());
-            return rows > 0 ? "Thành công" : "Thất bại";
+            int rows = dal.Insert(maNV.Trim(), hoTen.Trim(), gioiTinh, ngaySinh, sdt?.Trim(), email?.Trim());
+            return rows > 0 ? "✅ Thêm nhân viên thành công" : "❌ Thêm nhân viên thất bại";
+        }
+
+        public string Update(string maNV, string hoTen, string gioiTinh, DateTime ngaySinh, string sdt, string email)
+        {
+            if (string.IsNullOrWhiteSpace(maNV)) return "⚠️ Mã NV không được để trống!";
+            if (string.IsNullOrWhiteSpace(hoTen)) return "⚠️ Họ tên không được để trống!";
+            if (ngaySinh > DateTime.Now) return "⚠️ Ngày sinh không hợp lệ!";
+
+            int rows = dal.Update(maNV.Trim(), hoTen.Trim(), gioiTinh, ngaySinh, sdt?.Trim(), email?.Trim());
+            return rows > 0 ? "✅ Cập nhật nhân viên thành công" : "❌ Cập nhật thất bại";
         }
 
         public string Delete(string maNV)
         {
-            if (string.IsNullOrWhiteSpace(maNV)) return "Chưa chọn nhân viên!";
-            int rows = dal.Delete(maNV);
-            return rows > 0 ? "Thành công" : "Thất bại";
+            if (string.IsNullOrWhiteSpace(maNV)) return "⚠️ Chưa chọn nhân viên!";
+            int rows = dal.Delete(maNV.Trim());
+            return rows > 0 ? "✅ Xóa nhân viên thành công" : "❌ Xóa thất bại";
         }
     }
 }

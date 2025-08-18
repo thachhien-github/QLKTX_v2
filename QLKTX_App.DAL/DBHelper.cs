@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QLKTX_App.DAL
 {
@@ -12,7 +8,7 @@ namespace QLKTX_App.DAL
     {
         private DBConnect dbConnect = new DBConnect();
 
-        // 1. Truy vấn trả về DataTable (select từ bảng/view hoặc SP)
+        // 1. Truy vấn trả về DataTable
         public DataTable ExecuteQuery(string sqlOrSp, bool isStoredProcedure = true, params SqlParameter[] parameters)
         {
             DataTable dt = new DataTable();
@@ -40,7 +36,9 @@ namespace QLKTX_App.DAL
                 if (parameters != null)
                     cmd.Parameters.AddRange(parameters);
 
-                return cmd.ExecuteNonQuery();
+                int result = cmd.ExecuteNonQuery();
+                // Fix: nếu SP trả về -1 thì coi là thành công (ít nhất 1 dòng)
+                return result < 0 ? 1 : result;
             }
         }
 

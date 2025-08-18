@@ -1,21 +1,28 @@
-﻿IF OBJECT_ID('dbo.TaiKhoan','U') IS NULL
-CREATE TABLE dbo.TaiKhoan (
-    TenDangNhap VARCHAR(50)  NOT NULL PRIMARY KEY,
-    MatKhau     VARCHAR(100) NOT NULL,
-    VaiTro      NVARCHAR(20) NOT NULL CHECK (VaiTro IN (N'Admin', N'NhanVien')),
-    TrangThai   BIT NOT NULL DEFAULT(1) 
-);
-
+﻿-- 1. Tạo bảng Nhân Viên
 IF OBJECT_ID('dbo.NhanVien','U') IS NULL
 CREATE TABLE dbo.NhanVien (
-    MaNV        VARCHAR(10)  NOT NULL PRIMARY KEY,
+    MaNV        VARCHAR(10)   NOT NULL PRIMARY KEY,
     HoTen       NVARCHAR(100) NOT NULL,
     GioiTinh    NVARCHAR(10)  NULL,
     NgaySinh    DATE          NULL,
     SDT         VARCHAR(20)   NULL,
-    Email       VARCHAR(100)  NULL,
-    TenDangNhap VARCHAR(50)   NULL UNIQUE,
-    CONSTRAINT FK_NhanVien_TaiKhoan FOREIGN KEY (TenDangNhap) REFERENCES dbo.TaiKhoan(TenDangNhap)
+    Email       VARCHAR(100)  NULL
+);
+GO
+
+-- 2. Tạo bảng Tài Khoản
+IF OBJECT_ID('dbo.TaiKhoan','U') IS NULL
+CREATE TABLE dbo.TaiKhoan (
+    MaNV        VARCHAR(10)   NOT NULL,  
+    TenDangNhap VARCHAR(50)   NOT NULL,  
+    MatKhau     VARCHAR(100)  NOT NULL,  
+    VaiTro      NVARCHAR(20)  NOT NULL CHECK (VaiTro IN (N'Admin', N'NhanVien')), 
+    TrangThai   BIT NOT NULL DEFAULT(1), 
+
+    CONSTRAINT PK_TaiKhoan PRIMARY KEY (MaNV),                 
+    CONSTRAINT UQ_TaiKhoan_TenDangNhap UNIQUE (TenDangNhap),   
+    CONSTRAINT FK_TaiKhoan_NhanVien FOREIGN KEY (MaNV) 
+        REFERENCES dbo.NhanVien(MaNV) ON DELETE CASCADE
 );
 GO
 
@@ -159,36 +166,77 @@ CREATE TABLE dbo.ChiTietHoaDon (
 GO
 
 CREATE OR ALTER PROCEDURE dbo.sp_TaiKhoan_Them
+    @MaNV        VARCHAR(10),
     @TenDangNhap VARCHAR(50),
-    @MatKhau VARCHAR(100),
-    @VaiTro NVARCHAR(20),
-    @TrangThai BIT = 1
+    @MatKhau     VARCHAR(100),
+    @VaiTro      NVARCHAR(20),
+    @TrangThai   BIT = 1
 AS
 BEGIN
     SET NOCOUNT ON;
-    IF EXISTS(SELECT 1 FROM dbo.TaiKhoan WHERE TenDangNhap=@TenDangNhap)
-        THROW 60001, N'Tài khoản đã tồn tại.', 1;
-    IF @VaiTro NOT IN (N'Admin',N'NhanVien')
-        THROW 60002, N'Vai trò không hợp lệ.', 1;
-    INSERT INTO dbo.TaiKhoan (TenDangNhap,MatKhau,VaiTro,TrangThai)
-    VALUES (@TenDangNhap,@MatKhau,@VaiTro,@TrangThai);
+
+    -- Kiểm tra nhân viên đã có tài khoản chưa
+    IF EXISTS(SELECT 1 FROM dbo.TaiKhoan WHERE MaNV = @MaNV)
+    BEGIN
+        RAISERROR(N'❌ Nhân viên này đã có tài khoản!', 16, 1);
+        RETURN;
+    END
+
+    -- Kiểm tra trùng tên đăng nhập
+    IF EXISTS(SELECT 1 FROM dbo.TaiKhoan WHERE TenDangNhap = @TenDangNhap)
+    BEGIN
+        RAISERROR(N'❌ Tên đăng nhập đã tồn tại!', 16, 1);
+        RETURN;
+    END
+
+    -- Kiểm tra vai trò hợp lệ
+    IF @VaiTro NOT IN (N'Admin', N'NhanVien')
+    BEGIN
+        RAISERROR(N'❌ Vai trò không hợp lệ!', 16, 1);
+        RETURN;
+    END
+
+    -- Thêm mới
+    INSERT INTO dbo.TaiKhoan (MaNV, TenDangNhap, MatKhau, VaiTro, TrangThai)
+    VALUES (@MaNV, @TenDangNhap, @MatKhau, @VaiTro, @TrangThai);
 END
 GO
 
+
 CREATE OR ALTER PROCEDURE dbo.sp_TaiKhoan_Sua
+    @MaNV        VARCHAR(10),
     @TenDangNhap VARCHAR(50),
-    @VaiTro NVARCHAR(20),
-    @TrangThai BIT
+    @MatKhau     VARCHAR(100),
+    @VaiTro      NVARCHAR(20),
+    @TrangThai   BIT
 AS
 BEGIN
     SET NOCOUNT ON;
-    IF NOT EXISTS(SELECT 1 FROM dbo.TaiKhoan WHERE TenDangNhap=@TenDangNhap)
-        THROW 60003, N'Không tìm thấy tài khoản.', 1;
-    IF @VaiTro NOT IN (N'Admin',N'NhanVien')
-        THROW 60002, N'Vai trò không hợp lệ.', 1;
-    UPDATE dbo.TaiKhoan SET VaiTro=@VaiTro, TrangThai=@TrangThai WHERE TenDangNhap=@TenDangNhap;
+
+    -- Kiểm tra tồn tại
+    IF NOT EXISTS (SELECT 1 FROM dbo.TaiKhoan WHERE MaNV = @MaNV)
+    BEGIN
+        RAISERROR(N'❌ Không tìm thấy tài khoản.', 16, 1);
+        RETURN;
+    END
+
+    -- Kiểm tra vai trò hợp lệ
+    IF @VaiTro NOT IN (N'Admin', N'NhanVien')
+    BEGIN
+        RAISERROR(N'❌ Vai trò không hợp lệ.', 16, 1);
+        RETURN;
+    END
+
+    -- Cập nhật
+    UPDATE dbo.TaiKhoan
+    SET TenDangNhap = @TenDangNhap,
+        MatKhau     = @MatKhau,
+        VaiTro      = @VaiTro,
+        TrangThai   = @TrangThai
+    WHERE MaNV = @MaNV;
 END
 GO
+
 
 CREATE OR ALTER PROCEDURE dbo.sp_TaiKhoan_DoiMatKhau
     @TenDangNhap VARCHAR(50),
@@ -203,17 +251,31 @@ END
 GO
 
 CREATE OR ALTER PROCEDURE dbo.sp_TaiKhoan_Xoa
-    @TenDangNhap VARCHAR(50)
+    @MaNV VARCHAR(10)
 AS
 BEGIN
     SET NOCOUNT ON;
-    IF NOT EXISTS(SELECT 1 FROM dbo.TaiKhoan WHERE TenDangNhap=@TenDangNhap)
-        THROW 60003, N'Không tìm thấy tài khoản.', 1;
-    IF EXISTS(SELECT 1 FROM dbo.NhanVien WHERE TenDangNhap=@TenDangNhap)
-        THROW 60004, N'Tài khoản đang được gán cho nhân viên; không thể xóa.', 1;
-    DELETE FROM dbo.TaiKhoan WHERE TenDangNhap=@TenDangNhap;
-END
+
+    -- 1. Kiểm tra tài khoản có tồn tại không
+    IF NOT EXISTS (SELECT 1 FROM dbo.TaiKhoan WHERE MaNV = @MaNV)
+    BEGIN
+        RAISERROR(N'Không tìm thấy tài khoản.', 16, 1);
+        RETURN;
+    END;
+
+    -- 2. Kiểm tra nhân viên có gắn tài khoản không
+    IF EXISTS (SELECT 1 FROM dbo.NhanVien WHERE MaNV = @MaNV)
+    BEGIN
+        RAISERROR(N'Tài khoản đang được gắn cho nhân viên; không thể xóa.', 16, 1);
+        RETURN;
+    END;
+
+    -- 3. Xóa tài khoản
+    DELETE FROM dbo.TaiKhoan WHERE MaNV = @MaNV;
+END;
 GO
+
+
 
 CREATE OR ALTER PROCEDURE dbo.sp_TaiKhoan_CapNhatTrangThai
     @TenDangNhap VARCHAR(50),
@@ -233,19 +295,24 @@ CREATE OR ALTER PROCEDURE dbo.sp_NhanVien_Them
     @GioiTinh NVARCHAR(10) = NULL,
     @NgaySinh DATE = NULL,
     @SDT VARCHAR(20) = NULL,
-    @Email VARCHAR(100) = NULL,
-    @TenDangNhap VARCHAR(50) = NULL
+    @Email VARCHAR(100) = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
-    IF EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV=@MaNV)
-        THROW 61001, N'Nhân viên đã tồn tại.', 1;
-    IF @TenDangNhap IS NOT NULL AND NOT EXISTS(SELECT 1 FROM dbo.TaiKhoan WHERE TenDangNhap=@TenDangNhap)
-        THROW 61002, N'Tên đăng nhập không tồn tại.', 1;
-    INSERT INTO dbo.NhanVien (MaNV,HoTen,GioiTinh,NgaySinh,SDT,Email,TenDangNhap)
-    VALUES(@MaNV,@HoTen,@GioiTinh,@NgaySinh,@SDT,@Email,@TenDangNhap);
-END
+
+    -- Kiểm tra trùng mã NV
+    IF EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV = @MaNV)
+    BEGIN
+        RAISERROR(N'Nhân viên đã tồn tại.', 16, 1);
+        RETURN;
+    END;
+
+    -- Thêm nhân viên
+    INSERT INTO dbo.NhanVien(MaNV, HoTen, GioiTinh, NgaySinh, SDT, Email)
+    VALUES(@MaNV, @HoTen, @GioiTinh, @NgaySinh, @SDT, @Email);
+END;
 GO
+
 
 CREATE OR ALTER PROCEDURE dbo.sp_NhanVien_Sua
     @MaNV VARCHAR(10),
@@ -253,44 +320,69 @@ CREATE OR ALTER PROCEDURE dbo.sp_NhanVien_Sua
     @GioiTinh NVARCHAR(10) = NULL,
     @NgaySinh DATE = NULL,
     @SDT VARCHAR(20) = NULL,
-    @Email VARCHAR(100) = NULL,
-    @TenDangNhap VARCHAR(50) = NULL
+    @Email VARCHAR(100) = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
-    IF NOT EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV=@MaNV)
-        THROW 61003, N'Không tìm thấy nhân viên.', 1;
-    IF @TenDangNhap IS NOT NULL AND NOT EXISTS(SELECT 1 FROM dbo.TaiKhoan WHERE TenDangNhap=@TenDangNhap)
-        THROW 61002, N'Tên đăng nhập không tồn tại.', 1;
+
+    -- Kiểm tra tồn tại
+    IF NOT EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV = @MaNV)
+    BEGIN
+        RAISERROR(N'❌ Không tìm thấy nhân viên.', 16, 1);
+        RETURN;
+    END;
+
+    -- Cập nhật
     UPDATE dbo.NhanVien
-    SET HoTen=@HoTen, GioiTinh=@GioiTinh, NgaySinh=@NgaySinh, SDT=@SDT, Email=@Email, TenDangNhap=@TenDangNhap
-    WHERE MaNV=@MaNV;
-END
+    SET HoTen = @HoTen,
+        GioiTinh = @GioiTinh,
+        NgaySinh = @NgaySinh,
+        SDT = @SDT,
+        Email = @Email
+    WHERE MaNV = @MaNV;
+
+    PRINT N'✅ Cập nhật nhân viên thành công!';
+END;
 GO
+
 
 CREATE OR ALTER PROCEDURE dbo.sp_NhanVien_Xoa
     @MaNV VARCHAR(10)
 AS
 BEGIN
     SET NOCOUNT ON;
-    IF NOT EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV=@MaNV)
-        THROW 61003, N'Không tìm thấy nhân viên.', 1;
-    IF EXISTS(SELECT 1 FROM dbo.ThanhToanPhong WHERE NguoiThu=@MaNV)
-        THROW 61004, N'Nhân viên đã có chứng từ thu, không thể xóa.', 1;
-    DELETE FROM dbo.NhanVien WHERE MaNV=@MaNV;
-END
+
+    -- Kiểm tra tồn tại
+    IF NOT EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV = @MaNV)
+    BEGIN
+        RAISERROR(N'❌ Nhân viên không tồn tại.', 16, 1);
+        RETURN;
+    END;
+
+    -- Nếu nhân viên đang có tài khoản thì KHÔNG cho xóa
+    IF EXISTS(SELECT 1 FROM dbo.TaiKhoan WHERE MaNV = @MaNV)
+    BEGIN
+        RAISERROR(N'❌ Không thể xóa nhân viên vì đang có tài khoản.', 16, 1);
+        RETURN;
+    END;
+
+    DELETE FROM dbo.NhanVien WHERE MaNV = @MaNV;
+
+    PRINT N'✅ Xóa nhân viên thành công!';
+END;
 GO
 
-CREATE OR ALTER PROCEDURE dbo.sp_NhanVien_GoTaiKhoan
-    @MaNV VARCHAR(10)
-AS
-BEGIN
-    SET NOCOUNT ON;
-    IF NOT EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV=@MaNV)
-        THROW 61003, N'Không tìm thấy nhân viên.', 1;
-    UPDATE dbo.NhanVien SET TenDangNhap=NULL WHERE MaNV=@MaNV;
-END
-GO
+
+--CREATE OR ALTER PROCEDURE dbo.sp_NhanVien_GoTaiKhoan
+--    @MaNV VARCHAR(10)
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
+--    IF NOT EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV=@MaNV)
+--        THROW 61003, N'Không tìm thấy nhân viên.', 1;
+--    UPDATE dbo.NhanVien SET TenDangNhap=NULL WHERE MaNV=@MaNV;
+--END
+--GO
 
 CREATE OR ALTER PROCEDURE dbo.sp_Tang_Them
     @MaTang VARCHAR(10),
@@ -1101,22 +1193,22 @@ BEGIN
 END
 GO
 
-
--- 1. Tạo tài khoản admin trước
-IF NOT EXISTS (SELECT 1 FROM dbo.TaiKhoan WHERE TenDangNhap = 'admin')
-BEGIN
-    INSERT INTO dbo.TaiKhoan (TenDangNhap, MatKhau, VaiTro, TrangThai)
-    VALUES ('admin', 'admin', N'Admin', 1);
-END
-GO
-
--- 2. Tạo nhân viên Admin liên kết với tài khoản admin
+-- 3. Tạo nhân viên Admin
 IF NOT EXISTS (SELECT 1 FROM dbo.NhanVien WHERE MaNV = 'AD001')
 BEGIN
-    INSERT INTO dbo.NhanVien (MaNV, HoTen, GioiTinh, NgaySinh, SDT, Email, TenDangNhap)
-    VALUES ('AD001', N'Quản Trị Viên', N'Nam', '1999-01-01', NULL, NULL, 'admin');
+    INSERT INTO dbo.NhanVien (MaNV, HoTen, GioiTinh, NgaySinh, SDT, Email)
+    VALUES ('AD001', N'Quản Trị Viên', N'Nam', '1999-01-01', NULL, NULL);
 END
 GO
+
+-- 4. Tạo tài khoản Admin gắn với nhân viên Admin
+IF NOT EXISTS (SELECT 1 FROM dbo.TaiKhoan WHERE TenDangNhap = 'admin')
+BEGIN
+    INSERT INTO dbo.TaiKhoan (TenDangNhap, MatKhau, VaiTro, TrangThai, MaNV)
+    VALUES ('admin', 'admin', N'Admin', 1, 'AD001');
+END
+GO
+
 
 -- 3. Tầng
 IF NOT EXISTS (SELECT 1 FROM dbo.Tang)
