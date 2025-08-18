@@ -20,6 +20,7 @@ namespace QLKTX_App.ChildForm_Comon
         private readonly PhanBoBLL _pbBLL = new PhanBoBLL();
         private readonly string _mssv;
         private readonly string _hoten;
+        private object dgvListHopDong;
 
         public FormPhanBo(string mssv, string hoten) // Constructor updated to accept parameters
         {
@@ -110,31 +111,25 @@ namespace QLKTX_App.ChildForm_Comon
 
         private void btnXuatHD_Click(object sender, EventArgs e)
         {
-            //if (dgvHopDong.CurrentRow == null)
-            //{
-            //    MessageBox.Show("Vui lòng chọn phân bổ để xuất hợp đồng!");
-            //    return;
-            //}
+            if (dgvHopDong is DataGridView dgv && dgv.CurrentRow != null)
+            {
+                // Lấy DataRow từ dòng hiện tại
+                var r = ((DataRowView)dgv.CurrentRow.DataBoundItem).Row;
 
-            //// Lấy dòng hiện tại
-            //var rowView = dgvHopDong.CurrentRow.DataBoundItem as DataRowView;
-            //if (rowView == null) return;
-
-            //var r = rowView.Row;
-
-            //using (SaveFileDialog sfd = new SaveFileDialog())
-            //{
-            //    sfd.Filter = "Text File|*.txt";
-            //    sfd.FileName = $"HopDong_{r["MSSV"]}_{DateTime.Now:yyyyMMdd}.txt";
-
-            //    if (sfd.ShowDialog() == DialogResult.OK)
-            //    {
-            //        HopDongExporter.ExportHopDong(r, sfd.FileName);
-            //        MessageBox.Show("Xuất hợp đồng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    }
-            //}
-
-            MessageBox.Show("Chức năng xuất hợp đồng chưa được triển khai.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                using (SaveFileDialog sfd = new SaveFileDialog { Filter = "PDF|*.pdf" })
+                {
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        // Gọi ExportHopDongPDF với DataRow hiện tại
+                        HopDongExporter.ExportHopDongPDF(r, sfd.FileName);
+                        MessageBox.Show("Xuất hợp đồng PDF thành công!");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn dòng để xuất hợp đồng!");
+            }
         }
 
         private void dgvHopDong_CellClick(object sender, DataGridViewCellEventArgs e)

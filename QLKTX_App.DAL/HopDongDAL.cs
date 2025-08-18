@@ -1,50 +1,153 @@
-﻿// DAL/HopDongDAL.cs
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using QLKTX_App.Utilities;
 
 namespace QLKTX_App.DAL
 {
     public class HopDongDAL
     {
-        private readonly DBConnect _db = new DBConnect();
+        private readonly DBHelper db = new DBHelper();
+
+        public DataTable GetAll()
+        {
+            string sql = @"
+        SELECT 
+            sv.MSSV, sv.HoTen, pb.MaPhong,
+            lp.TenLoai AS LoaiPhong, lp.GiaPhong,
+            pb.NgayPhanBo, pb.SoThang,
+            DATEADD(MONTH, pb.SoThang, pb.NgayPhanBo) AS NgayHetHan,
+            pb.MienTienPhong, pb.SoDotThu, pb.GhiChu
+        FROM PhanBo pb
+        JOIN SinhVien sv ON pb.MSSV = sv.MSSV
+        JOIN Phong p ON pb.MaPhong = p.MaPhong
+        JOIN LoaiPhong lp ON p.MaLoai = lp.MaLoai
+        ORDER BY pb.NgayPhanBo DESC";
+
+            return db.ExecuteQuery(sql, false);
+        }
 
         public DataTable Search(string mssv, string maPhong, string trangThai)
         {
-            string sql = @"SELECT pb.MaPhanBo, sv.MSSV, sv.HoTen, pb.MaPhong, 
-                                  pb.NgayPhanBo, pb.SoThang, pb.MienTienPhong, pb.SoDotThu, pb.GhiChu
-                           FROM PhanBo pb 
-                           JOIN SinhVien sv ON pb.MSSV = sv.MSSV
-                           WHERE (sv.MSSV LIKE @mssv OR @mssv = '')
-                             AND (pb.MaPhong = @maPhong OR @maPhong = '')
-                             AND ((@trangThai = '') OR
-                                  (@trangThai = N'Còn hạn' AND DATEADD(MONTH, pb.SoThang, pb.NgayPhanBo) >= GETDATE()) OR
-                                  (@trangThai = N'Hết hạn' AND DATEADD(MONTH, pb.SoThang, pb.NgayPhanBo) < GETDATE()))";
+            string sql = @"
+        SELECT 
+            sv.MSSV, sv.HoTen, pb.MaPhong,
+            lp.TenLoai AS LoaiPhong, lp.GiaPhong,
+            pb.NgayPhanBo, pb.SoThang,
+            DATEADD(MONTH, pb.SoThang, pb.NgayPhanBo) AS NgayHetHan,
+            pb.MienTienPhong, pb.SoDotThu, pb.GhiChu
+        FROM PhanBo pb
+        JOIN SinhVien sv ON pb.MSSV = sv.MSSV
+        JOIN Phong p ON pb.MaPhong = p.MaPhong
+        JOIN LoaiPhong lp ON p.MaLoai = lp.MaLoai
+        WHERE (sv.MSSV LIKE @MSSV OR @MSSV = '')
+          AND (pb.MaPhong = @MaPhong OR @MaPhong = '')
+        ";
 
-            using (var conn = _db.GetConnection())
-            using (var da = new SqlDataAdapter(sql, conn))
+            // lọc trạng thái
+            if (trangThai == "Còn hạn")
+                sql += " AND DATEADD(MONTH, pb.SoThang, pb.NgayPhanBo) >= GETDATE()";
+            else if (trangThai == "Sắp hết hạn")
+                sql += " AND DATEADD(MONTH, pb.SoThang, pb.NgayPhanBo) BETWEEN GETDATE() AND DATEADD(DAY,30,GETDATE())";
+            else if (trangThai == "Hết hạn")
+                sql += " AND DATEADD(MONTH, pb.SoThang, pb.NgayPhanBo) < GETDATE()";
+
+            SqlParameter[] prms =
             {
-                da.SelectCommand.Parameters.AddWithValue("@mssv", $"%{mssv}%");
-                da.SelectCommand.Parameters.AddWithValue("@maPhong", maPhong ?? "");
-                da.SelectCommand.Parameters.AddWithValue("@trangThai", trangThai ?? "");
+                new SqlParameter("@MSSV", "%" + mssv + "%"),
+                new SqlParameter("@MaPhong", maPhong ?? "")
+            };
 
-                var tb = new DataTable();
-                da.Fill(tb);
-                return tb;
-            }
+            return db.ExecuteQuery(sql, false, prms);
         }
 
-        public int GiaHan(int maPhanBo, int soThangThem)
+
+        public bool GiaHan(string mssv, int soThang)
         {
-            string sql = "UPDATE PhanBo SET SoThang = SoThang + @soThang WHERE MaPhanBo=@id";
-            using (var conn = _db.GetConnection())
-            using (var cmd = new SqlCommand(sql, conn))
+            // Gia hạn hợp đồng mới nhất của sinh viên
+            string sql = @"
+        UPDATE PhanBo
+        SET SoThang = SoThang + @SoThang
+        WHERE MSSV = @MSSV
+          AND NgayPhanBo = (SELECT MAX(NgayPhanBo) FROM PhanBo WHERE MSSV = @MSSV)";
+
+            SqlParameter[] prms =
             {
-                cmd.Parameters.AddWithValue("@id", maPhanBo);
-                cmd.Parameters.AddWithValue("@soThang", soThangThem);
-                conn.Open();
-                return cmd.ExecuteNonQuery();
-            }
+                new SqlParameter("@SoThang", soThang),
+                new SqlParameter("@MSSV", mssv)
+            };
+            return db.ExecuteNonQuery(sql, false, prms) > 0;
         }
+
+//        public DataTable GetAll()
+//        {
+//            string sql = @"
+//SELECT 
+//    sv.MSSV, 
+//    sv.HoTen, 
+//    pb.MaPhong,
+//    lp.TenLoai AS LoaiPhong, 
+//    lp.GiaPhong,
+//    pb.NgayPhanBo,
+//    DATEADD(MONTH, pb.SoThang, pb.NgayPhanBo) AS NgayHetHan
+//FROM PhanBo pb
+//JOIN SinhVien sv ON pb.MSSV = sv.MSSV
+//JOIN Phong p ON pb.MaPhong = p.MaPhong
+//JOIN LoaiPhong lp ON p.MaLoai = lp.MaLoai
+//ORDER BY pb.NgayPhanBo DESC";
+
+//            return db.ExecuteQuery(sql, false);
+//        }
+
+//        public DataTable Search(string mssv, string maPhong, string trangThai)
+//        {
+//            string sql = @"
+//SELECT 
+//    sv.MSSV, 
+//    sv.HoTen, 
+//    pb.MaPhong,
+//    lp.TenLoai AS LoaiPhong, 
+//    lp.GiaPhong,
+//    pb.NgayPhanBo,
+//    DATEADD(MONTH, pb.SoThang, pb.NgayPhanBo) AS NgayHetHan
+//FROM PhanBo pb
+//JOIN SinhVien sv ON pb.MSSV = sv.MSSV
+//JOIN Phong p ON pb.MaPhong = p.MaPhong
+//JOIN LoaiPhong lp ON p.MaLoai = lp.MaLoai
+//WHERE (sv.MSSV LIKE @MSSV OR @MSSV = '')
+//  AND (pb.MaPhong = @MaPhong OR @MaPhong = '')
+//";
+
+//            // lọc trạng thái
+//            if (trangThai == "Còn hạn")
+//                sql += " AND DATEADD(MONTH, pb.SoThang, pb.NgayPhanBo) >= GETDATE()";
+//            else if (trangThai == "Sắp hết hạn")
+//                sql += " AND DATEADD(MONTH, pb.SoThang, pb.NgayPhanBo) BETWEEN GETDATE() AND DATEADD(DAY,30,GETDATE())";
+//            else if (trangThai == "Hết hạn")
+//                sql += " AND DATEADD(MONTH, pb.SoThang, pb.NgayPhanBo) < GETDATE()";
+
+//            SqlParameter[] prms =
+//            {
+//        new SqlParameter("@MSSV", "%" + mssv + "%"),
+//        new SqlParameter("@MaPhong", maPhong ?? "")
+//    };
+
+//            return db.ExecuteQuery(sql, false, prms);
+//        }
+
+//        public bool GiaHan(string mssv, int soThang)
+//        {
+//            string sql = @"
+//UPDATE PhanBo
+//SET SoThang = SoThang + @SoThang
+//WHERE MSSV = @MSSV
+//  AND NgayPhanBo = (SELECT MAX(NgayPhanBo) FROM PhanBo WHERE MSSV = @MSSV)";
+
+//            SqlParameter[] prms =
+//            {
+//        new SqlParameter("@SoThang", soThang),
+//        new SqlParameter("@MSSV", mssv)
+//    };
+//            return db.ExecuteNonQuery(sql, false, prms) > 0;
+//        }
     }
 }

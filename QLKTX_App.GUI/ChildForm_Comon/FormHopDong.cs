@@ -15,6 +15,7 @@ namespace QLKTX_App.GUI.ChildForm_Comon
     public partial class FormHopDong : Form
     {
         private readonly HopDongBLL _hdBLL = new HopDongBLL();
+
         public FormHopDong()
         {
             InitializeComponent();
@@ -22,18 +23,29 @@ namespace QLKTX_App.GUI.ChildForm_Comon
 
         private void FormHopDong_Load(object sender, EventArgs e)
         {
+            cboTrangThai.Items.AddRange(new string[] { "", "Còn hạn", "Sắp hết hạn", "Hết hạn" });
             LoadHopDong();
         }
 
         private void LoadHopDong()
         {
-            dgvListHopDong.DataSource = _hdBLL.Search("", "", "");
+            dgvListHopDong.DataSource = _hdBLL.GetAll();
+            FormatGiaPhong();
+        }
+
+        private void FormatGiaPhong()
+        {
+            if (dgvListHopDong.Columns.Contains("GiaPhong"))
+            {
+                dgvListHopDong.Columns["GiaPhong"].DefaultCellStyle.Format = "N0"; // số nguyên với dấu phân tách hàng nghìn
+                dgvListHopDong.Columns["GiaPhong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
             string mssv = txtMSSV.Text.Trim();
-            string phong = cboPhong.SelectedValue?.ToString() ?? "";
+            string phong = cboPhong.Text.Trim();
             string trangThai = cboTrangThai.Text.Trim();
 
             dgvListHopDong.DataSource = _hdBLL.Search(mssv, phong, trangThai);
@@ -41,15 +53,39 @@ namespace QLKTX_App.GUI.ChildForm_Comon
 
         private void btnGiaHan_Click(object sender, EventArgs e)
         {
-            if (dgvListHopDong.CurrentRow == null) return;
-            int maPhanBo = Convert.ToInt32(dgvListHopDong.CurrentRow.Cells["MaPhanBo"].Value);
+            if (dgvListHopDong.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn hợp đồng cần gia hạn!");
+                return;
+            }
 
-            if (_hdBLL.GiaHan(maPhanBo, 3)) // mặc định +3 tháng
+            string mssv = dgvListHopDong.CurrentRow.Cells["MSSV"].Value.ToString();
+
+            // hỏi số tháng muốn gia hạn
+            string input = Microsoft.VisualBasic.Interaction.InputBox("Nhập số tháng muốn gia hạn:", "Gia hạn hợp đồng", "3");
+            if (!int.TryParse(input, out int soThang) || soThang <= 0)
+            {
+                MessageBox.Show("Số tháng không hợp lệ!");
+                return;
+            }
+
+            // xác nhận
+            if (MessageBox.Show($"Bạn có chắc muốn gia hạn hợp đồng của sinh viên {mssv} thêm {soThang} tháng?",
+                "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+            {
+                return;
+            }
+
+            if (_hdBLL.GiaHan(mssv, soThang))
             {
                 MessageBox.Show("Gia hạn thành công!");
-                LoadHopDong();
+                // reload dữ liệu với filter hiện tại
+                btnTimKiem_Click(null, null);
             }
-            else MessageBox.Show("Gia hạn thất bại!");
+            else
+            {
+                MessageBox.Show("Gia hạn thất bại!");
+            }
         }
 
         private void btnXuatHopDong_Click(object sender, EventArgs e)
@@ -58,12 +94,12 @@ namespace QLKTX_App.GUI.ChildForm_Comon
 
             var r = ((DataRowView)dgvListHopDong.CurrentRow.DataBoundItem).Row;
 
-            using (SaveFileDialog sfd = new SaveFileDialog { Filter = "Text|*.txt" })
+            using (SaveFileDialog sfd = new SaveFileDialog { Filter = "PDF|*.pdf" })
             {
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    HopDongExporter.ExportHopDong(r, sfd.FileName);
-                    MessageBox.Show("Xuất hợp đồng thành công!");
+                    HopDongExporter.ExportHopDongPDF(r, sfd.FileName);
+                    MessageBox.Show("Xuất hợp đồng PDF thành công!");
                 }
             }
         }
