@@ -42,9 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GiaDienNuocModel.cs" />
+    <Compile Include="HopDongModel.cs" />
     <Compile Include="LoaiPhongModel.cs" />
     <Compile Include="LoaiXeModel.cs" />
+    <Compile Include="PhanBoModel.cs" />
     <Compile Include="QLTaiKhoanModel.cs" />
+    <Compile Include="SinhVienModel.cs" />
     <Compile Include="TaiKhoanModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

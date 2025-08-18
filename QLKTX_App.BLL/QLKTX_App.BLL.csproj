@@ -43,11 +43,14 @@
   <ItemGroup>
     <Compile Include="CauHinhBLL.cs" />
     <Compile Include="GiaDienNuocBLL.cs" />
+    <Compile Include="HopDongBLL.cs" />
     <Compile Include="LoaiPhongBLL.cs" />
     <Compile Include="LoaiXeBLL.cs" />
     <Compile Include="NhanVienBLL.cs" />
+    <Compile Include="PhanBoBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QLTaiKhoanBLL.cs" />
+    <Compile Include="SinhVienBLL.cs" />
     <Compile Include="TaiKhoanBLL.cs" />
   </ItemGroup>
   <ItemGroup>

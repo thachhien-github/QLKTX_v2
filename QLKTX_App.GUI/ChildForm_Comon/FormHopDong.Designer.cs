@@ -103,6 +103,7 @@
             this.btnTimKiem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTimKiem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnTimKiem.UseVisualStyleBackColor = false;
+            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
             // label2
             // 
@@ -260,6 +261,7 @@
             this.btnXuatHopDong.Text = "Xuất hợp đồng";
             this.btnXuatHopDong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnXuatHopDong.UseVisualStyleBackColor = false;
+            this.btnXuatHopDong.Click += new System.EventHandler(this.btnXuatHopDong_Click);
             // 
             // btnGiaHan
             // 
@@ -283,6 +285,7 @@
             this.btnGiaHan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGiaHan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnGiaHan.UseVisualStyleBackColor = false;
+            this.btnGiaHan.Click += new System.EventHandler(this.btnGiaHan_Click);
             // 
             // FormHopDong
             // 
@@ -296,6 +299,7 @@
             this.MinimumSize = new System.Drawing.Size(1065, 630);
             this.Name = "FormHopDong";
             this.Text = "FormHopDong";
+            this.Load += new System.EventHandler(this.FormHopDong_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListHopDong)).EndInit();

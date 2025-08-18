@@ -41,7 +41,7 @@
             this.radNam = new System.Windows.Forms.RadioButton();
             this.btnDangKy = new FontAwesome.Sharp.IconButton();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnTiep = new FontAwesome.Sharp.IconButton();
+            this.btnPhanBo = new FontAwesome.Sharp.IconButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -102,7 +102,7 @@
             this.groupBox1.Controls.Add(this.radNam);
             this.groupBox1.Controls.Add(this.btnDangKy);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.btnTiep);
+            this.groupBox1.Controls.Add(this.btnPhanBo);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label4);
@@ -142,6 +142,7 @@
             this.btnXoa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXoa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnXoa.UseVisualStyleBackColor = false;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // dtpNgaySinh
             // 
@@ -175,6 +176,7 @@
             this.btnLamMoi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLamMoi.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLamMoi.UseVisualStyleBackColor = false;
+            this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
             // 
             // radNu
             // 
@@ -221,6 +223,7 @@
             this.btnDangKy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDangKy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnDangKy.UseVisualStyleBackColor = false;
+            this.btnDangKy.Click += new System.EventHandler(this.btnDangKy_Click);
             // 
             // label6
             // 
@@ -233,27 +236,28 @@
             this.label6.Text = "SĐT:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btnTiep
+            // btnPhanBo
             // 
-            this.btnTiep.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnTiep.FlatAppearance.BorderSize = 0;
-            this.btnTiep.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnTiep.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTiep.ForeColor = System.Drawing.Color.Black;
-            this.btnTiep.IconChar = FontAwesome.Sharp.IconChar.ArrowRight;
-            this.btnTiep.IconColor = System.Drawing.Color.Red;
-            this.btnTiep.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnTiep.IconSize = 25;
-            this.btnTiep.Location = new System.Drawing.Point(513, 151);
-            this.btnTiep.MaximumSize = new System.Drawing.Size(275, 45);
-            this.btnTiep.Name = "btnTiep";
-            this.btnTiep.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
-            this.btnTiep.Size = new System.Drawing.Size(116, 45);
-            this.btnTiep.TabIndex = 11;
-            this.btnTiep.Text = "Tiếp";
-            this.btnTiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTiep.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnTiep.UseVisualStyleBackColor = false;
+            this.btnPhanBo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnPhanBo.FlatAppearance.BorderSize = 0;
+            this.btnPhanBo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnPhanBo.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPhanBo.ForeColor = System.Drawing.Color.Black;
+            this.btnPhanBo.IconChar = FontAwesome.Sharp.IconChar.ArrowRight;
+            this.btnPhanBo.IconColor = System.Drawing.Color.LimeGreen;
+            this.btnPhanBo.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnPhanBo.IconSize = 25;
+            this.btnPhanBo.Location = new System.Drawing.Point(513, 151);
+            this.btnPhanBo.MaximumSize = new System.Drawing.Size(275, 45);
+            this.btnPhanBo.Name = "btnPhanBo";
+            this.btnPhanBo.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.btnPhanBo.Size = new System.Drawing.Size(116, 45);
+            this.btnPhanBo.TabIndex = 11;
+            this.btnPhanBo.Text = "Phân bổ";
+            this.btnPhanBo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPhanBo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPhanBo.UseVisualStyleBackColor = false;
+            this.btnPhanBo.Click += new System.EventHandler(this.btnPhanBo_Click);
             // 
             // label5
             // 
@@ -381,6 +385,7 @@
             this.dgvListSV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvListSV.Size = new System.Drawing.Size(1027, 248);
             this.dgvListSV.TabIndex = 3;
+            this.dgvListSV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListSV_CellClick);
             // 
             // tableLayoutPanel1
             // 
@@ -451,6 +456,7 @@
             this.MinimumSize = new System.Drawing.Size(1065, 630);
             this.Name = "FormQLSV";
             this.Text = "Quản Lý Sinh Viên";
+            this.Load += new System.EventHandler(this.FormQLSV_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -483,7 +489,7 @@
         private FontAwesome.Sharp.IconButton btnTimKiem;
         private System.Windows.Forms.TextBox txtTimKiem;
         private FontAwesome.Sharp.IconButton btnXoa;
-        private FontAwesome.Sharp.IconButton btnTiep;
+        private FontAwesome.Sharp.IconButton btnPhanBo;
         private FontAwesome.Sharp.IconButton btnDangKy;
         private FontAwesome.Sharp.IconButton btnLamMoi;
     }
