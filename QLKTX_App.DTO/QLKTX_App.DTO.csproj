@@ -45,6 +45,7 @@
     <Compile Include="LoaiPhongModel.cs" />
     <Compile Include="LoaiXeModel.cs" />
     <Compile Include="PhanBoModel.cs" />
+    <Compile Include="PhongModel.cs" />
     <Compile Include="QLTaiKhoanModel.cs" />
     <Compile Include="SinhVienModel.cs" />
     <Compile Include="TaiKhoanModel.cs" />

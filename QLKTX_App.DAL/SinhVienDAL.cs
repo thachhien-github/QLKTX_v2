@@ -9,6 +9,7 @@ namespace QLKTX_App.DAL
     public class SinhVienDAL
     {
         private readonly DBConnect _db = new DBConnect();
+        private readonly DBHelper _dbh = new DBHelper();
 
         public DataTable GetAll()
         {
@@ -49,5 +50,15 @@ namespace QLKTX_App.DAL
                 return cmd.ExecuteNonQuery();
             }
         }
+
+        public DataTable GetByPhong(string maPhong)
+        {
+            var prms = new[] { new SqlParameter("@MaPhong", maPhong) };
+            return _dbh.ExecuteQuery(@"SELECT sv.MSSV, sv.HoTen, sv.NgaySinh, sv.GioiTinh
+                              FROM SinhVien sv
+                              INNER JOIN PhanBo pb ON sv.MSSV = pb.MSSV
+                              WHERE pb.MaPhong=@MaPhong", false, prms);
+        }
+
     }
 }

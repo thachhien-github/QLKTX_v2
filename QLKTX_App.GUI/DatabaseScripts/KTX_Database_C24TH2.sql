@@ -373,17 +373,6 @@ END;
 GO
 
 
---CREATE OR ALTER PROCEDURE dbo.sp_NhanVien_GoTaiKhoan
---    @MaNV VARCHAR(10)
---AS
---BEGIN
---    SET NOCOUNT ON;
---    IF NOT EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV=@MaNV)
---        THROW 61003, N'Không tìm thấy nhân viên.', 1;
---    UPDATE dbo.NhanVien SET TenDangNhap=NULL WHERE MaNV=@MaNV;
---END
---GO
-
 CREATE OR ALTER PROCEDURE dbo.sp_Tang_Them
     @MaTang VARCHAR(10),
     @TenTang NVARCHAR(50)
@@ -420,27 +409,6 @@ BEGIN
     DELETE FROM dbo.Tang WHERE MaTang=@MaTang;
 END
 GO
-
-
-CREATE OR ALTER PROCEDURE dbo.sp_LoaiPhong_Them
-    @MaLoai VARCHAR(10),
-    @TenLoai NVARCHAR(50),
-    @SucChua INT,
-    @GiaPhong MONEY
-AS
-BEGIN
-    SET NOCOUNT ON;
-    IF EXISTS(SELECT 1 FROM dbo.LoaiPhong WHERE MaLoai=@MaLoai)
-        THROW 63001, N'Loại phòng đã tồn tại.', 1;
-    IF @SucChua IS NULL OR @SucChua <= 0
-        THROW 63002, N'Sức chứa phải > 0.', 1;
-    IF @GiaPhong IS NULL OR @GiaPhong <= 0
-        THROW 63003, N'Giá phòng không hợp lệ.', 1;
-    INSERT INTO dbo.LoaiPhong (MaLoai,TenLoai,SucChua,GiaPhong)
-    VALUES(@MaLoai,@TenLoai,@SucChua,@GiaPhong);
-END
-GO
-
 
 
 CREATE OR ALTER PROCEDURE dbo.sp_LoaiPhong_Them

@@ -132,6 +132,7 @@
             this.btnLamMoiPhong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLamMoiPhong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLamMoiPhong.UseVisualStyleBackColor = false;
+            this.btnLamMoiPhong.Click += new System.EventHandler(this.btnLamMoiPhong_Click);
             // 
             // btnXoaPhong
             // 
@@ -154,6 +155,7 @@
             this.btnXoaPhong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXoaPhong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnXoaPhong.UseVisualStyleBackColor = false;
+            this.btnXoaPhong.Click += new System.EventHandler(this.btnXoaPhong_Click);
             // 
             // btnThemPhong
             // 
@@ -176,6 +178,7 @@
             this.btnThemPhong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnThemPhong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnThemPhong.UseVisualStyleBackColor = false;
+            this.btnThemPhong.Click += new System.EventHandler(this.btnThemPhong_Click);
             // 
             // numSucChua
             // 
@@ -315,6 +318,7 @@
             this.btnLamMoiTang.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLamMoiTang.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLamMoiTang.UseVisualStyleBackColor = false;
+            this.btnLamMoiTang.Click += new System.EventHandler(this.btnLamMoiTang_Click);
             // 
             // btnXoaTang
             // 
@@ -337,6 +341,7 @@
             this.btnXoaTang.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXoaTang.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnXoaTang.UseVisualStyleBackColor = false;
+            this.btnXoaTang.Click += new System.EventHandler(this.btnXoaTang_Click);
             // 
             // btnThemTang
             // 
@@ -359,6 +364,7 @@
             this.btnThemTang.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnThemTang.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnThemTang.UseVisualStyleBackColor = false;
+            this.btnThemTang.Click += new System.EventHandler(this.btnThemTang_Click);
             // 
             // label8
             // 
@@ -442,6 +448,7 @@
             this.dgvListPhong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvListPhong.Size = new System.Drawing.Size(1027, 276);
             this.dgvListPhong.TabIndex = 18;
+            this.dgvListPhong.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListPhong_CellClick);
             // 
             // panel2
             // 
@@ -464,6 +471,7 @@
             this.MinimumSize = new System.Drawing.Size(1065, 630);
             this.Name = "FormThemPhong";
             this.Text = "Thêm Phòng";
+            this.Load += new System.EventHandler(this.FormThemPhong_Load);
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
