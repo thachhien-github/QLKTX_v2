@@ -8,37 +8,22 @@ namespace QLKTX_App.BLL
     {
         private readonly PhongDAL _dal = new PhongDAL();
 
-        public DataTable GetAll()
-        {
-            return _dal.GetAll();
-        }
+        public DataTable GetAll() => _dal.GetAll();
+        public DataTable GetByTang(string maTang) => _dal.GetByTang(maTang);
+        public bool Insert(PhongModel p) => !_dal.CheckExists(p.MaPhong) && _dal.Insert(p);
+        public bool Update(PhongModel p) => _dal.CheckExists(p.MaPhong) && _dal.Update(p);
+        public bool Delete(string maPhong) => _dal.Delete(maPhong);
 
-        public bool Insert(PhongModel p)
+        public void CapNhatTrangThai(string maPhong)
         {
-            if (_dal.CheckExists(p.MaPhong)) return false;
-            return _dal.Insert(p);
-        }
+            int soLuongToiDa = _dal.GetSoLuongToiDa(maPhong);
+            int soLuongHienTai = _dal.GetSoLuongSinhVien(maPhong);
 
-        public bool Update(PhongModel p)
-        {
-            if (!_dal.CheckExists(p.MaPhong)) return false; // kiểm tra tồn tại trước
-            return _dal.Update(p);
-        }
+            string trangThai = "Trống";
+            if (soLuongHienTai >= soLuongToiDa) trangThai = "Đầy";
+            else if (soLuongHienTai > 0) trangThai = "Còn chỗ";
 
-        public bool Delete(string maPhong)
-        {
-            return _dal.Delete(maPhong);
+            _dal.UpdateTrangThai(maPhong, trangThai);
         }
-
-        public bool CheckExists(string maPhong)
-        {
-            return _dal.CheckExists(maPhong);
-        }
-
-        public DataTable GetByTang(string maTang)
-        {
-            return _dal.GetByTang(maTang);
-        }
-
     }
 }

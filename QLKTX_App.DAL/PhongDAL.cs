@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using QLKTX_App.DTO;
+using QLKTX_App.Utilities;
 
 namespace QLKTX_App.DAL
 {
@@ -11,6 +12,12 @@ namespace QLKTX_App.DAL
         public DataTable GetAll()
         {
             return _db.ExecuteQuery("SELECT * FROM Phong", false);
+        }
+
+        public DataTable GetByTang(string maTang)
+        {
+            var prms = new[] { new SqlParameter("@MaTang", maTang) };
+            return _db.ExecuteQuery("SELECT * FROM Phong WHERE MaTang=@MaTang", false, prms);
         }
 
         public bool Insert(PhongModel p)
@@ -27,7 +34,6 @@ namespace QLKTX_App.DAL
 
         public bool Update(PhongModel p)
         {
-            // 1. Gọi sp_Phong_Sua
             var prms = new[]
             {
                 new SqlParameter("@MaPhong", p.MaPhong),
@@ -35,20 +41,7 @@ namespace QLKTX_App.DAL
                 new SqlParameter("@MaLoai", p.MaLoai),
                 new SqlParameter("@SoLuongToiDa", p.SoLuongToiDa)
             };
-            bool ok = _db.ExecuteNonQuery("sp_Phong_Sua", true, prms) > 0;
-
-            // 2. Nếu thành công thì gọi thêm sp_Phong_CapNhatTrangThai
-            if (ok)
-            {
-                var prmsTrangThai = new[]
-                {
-                    new SqlParameter("@MaPhong", p.MaPhong),
-                    new SqlParameter("@TrangThai", p.TrangThai)
-                };
-                _db.ExecuteNonQuery("sp_Phong_CapNhatTrangThai", true, prmsTrangThai);
-            }
-
-            return ok;
+            return _db.ExecuteNonQuery("sp_Phong_Sua", true, prms) > 0;
         }
 
         public bool Delete(string maPhong)
@@ -64,11 +57,28 @@ namespace QLKTX_App.DAL
             return (int)result > 0;
         }
 
-        public DataTable GetByTang(string maTang)
+        public int GetSoLuongSinhVien(string maPhong)
         {
-            var prms = new[] { new SqlParameter("@MaTang", maTang) };
-            return _db.ExecuteQuery("SELECT * FROM Phong WHERE MaTang=@MaTang", false, prms);
+            var prms = new[] { new SqlParameter("@MaPhong", maPhong) };
+            object result = _db.ExecuteScalar("SELECT COUNT(*) FROM PhanBo WHERE MaPhong=@MaPhong", false, prms);
+            return result != null ? (int)result : 0;
         }
 
+        public int GetSoLuongToiDa(string maPhong)
+        {
+            var prms = new[] { new SqlParameter("@MaPhong", maPhong) };
+            object result = _db.ExecuteScalar("SELECT SoLuongToiDa FROM Phong WHERE MaPhong=@MaPhong", false, prms);
+            return result != null ? (int)result : 0;
+        }
+
+        public void UpdateTrangThai(string maPhong, string trangThai)
+        {
+            var prms = new[]
+            {
+                new SqlParameter("@MaPhong", maPhong),
+                new SqlParameter("@TrangThai", trangThai)
+            };
+            _db.ExecuteNonQuery("UPDATE Phong SET TrangThai=@TrangThai WHERE MaPhong=@MaPhong", false, prms);
+        }
     }
 }

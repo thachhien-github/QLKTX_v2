@@ -18,6 +18,8 @@ namespace QLKTX_App.ChildForm_Comon
     public partial class FormPhanBo : Form
     {
         private readonly PhanBoBLL _pbBLL = new PhanBoBLL();
+        private readonly PhongBLL _phongBLL = new PhongBLL();
+        private readonly SinhVienBLL _svBLL = new SinhVienBLL();
         private readonly string _mssv;
         private readonly string _hoten;
         private object dgvListHopDong;
@@ -42,12 +44,13 @@ namespace QLKTX_App.ChildForm_Comon
 
         private void LoadPhong()
         {
-            // Lấy danh sách phòng từ BLL
-            var tb = _pbBLL.GetAllPhong(); 
+            var tb = _phongBLL.GetAll();   // ✅ Lấy danh sách phòng từ BLL Phong
             cboMaPhong.DisplayMember = "MaPhong";
             cboMaPhong.ValueMember = "MaPhong";
             cboMaPhong.DataSource = tb;
         }
+
+
 
         private void LoadPhanBo()
         {
@@ -70,33 +73,38 @@ namespace QLKTX_App.ChildForm_Comon
 
         private void btnPhanBo_Click(object sender, EventArgs e) // Corrected method signature
         {
-            if (cboMaPhong.SelectedValue == null || string.IsNullOrWhiteSpace(cboMaPhong.SelectedValue.ToString()))
+            if (cboMaPhong.SelectedValue == null)
             {
-                MessageBox.Show("Vui lòng chọn phòng trước khi phân bổ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng chọn phòng trước khi phân bổ!", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (nmuSoThang.Value <= 0)
+            // 🔎 Kiểm tra sinh viên đã có hợp đồng còn hiệu lực chưa
+            if (_pbBLL.CheckDangO(_mssv))
             {
-                MessageBox.Show("Số tháng phải lớn hơn 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Sinh viên này đang có hợp đồng còn hiệu lực, không thể phân bổ thêm!",
+                    "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var pb = new PhanBoModel
+            string maPhong = cboMaPhong.SelectedValue.ToString();
+            int soLuongToiDa = _phongBLL.GetAll().Select($"MaPhong='{maPhong}'")[0].Field<int>("SoLuongToiDa");
+            int dangO = _svBLL.GetByPhong(maPhong).Rows.Count;
+
+            if (dangO >= soLuongToiDa)
             {
-                MSSV = _mssv,
-                MaPhong = cboMaPhong.SelectedValue.ToString(),
-                SoThang = (int)nmuSoThang.Value,
-                NgayPhanBo = dtpNgayPhanBo.Value,
-                MienTienPhong = chkMienTienPhong.Checked,
-                SoDotThu = string.IsNullOrWhiteSpace(txtSoDotThu.Text) ? 1 : int.Parse(txtSoDotThu.Text),
-                GhiChu = txtGhiChu.Text.Trim()
-            };
+                MessageBox.Show("Phòng đã đầy, không thể phân bổ thêm!");
+                return;
+            }
+
+            var pb = GetInput();
 
             if (_pbBLL.Insert(pb))
             {
                 MessageBox.Show("Phân bổ thành công!");
                 LoadPhanBo();
+                _phongBLL.CapNhatTrangThai(maPhong);
             }
             else
             {

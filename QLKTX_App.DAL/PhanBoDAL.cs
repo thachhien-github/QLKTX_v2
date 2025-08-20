@@ -1,4 +1,5 @@
 ﻿using QLKTX_App.DTO;
+using QLKTX_App.Utilities;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -7,49 +8,65 @@ namespace QLKTX_App.DAL
 {
     public class PhanBoDAL
     {
-        private readonly DBConnect _db = new DBConnect();
+        private readonly DBHelper _db = new DBHelper();
+
+        public DataTable GetAll()
+        {
+            return _db.ExecuteQuery("SELECT * FROM PhanBo", false);
+        }
 
         public DataTable GetBySinhVien(string mssv)
         {
-            using (var conn = _db.GetConnection())
-            using (var da = new SqlDataAdapter("SELECT * FROM PhanBo WHERE MSSV = @MSSV", conn))
+            var prms = new[] { new SqlParameter("@MSSV", mssv) };
+            return _db.ExecuteQuery("SELECT * FROM PhanBo WHERE MSSV=@MSSV", false, prms);
+        }
+
+        public int Insert(PhanBoModel pb)
+        {
+            var prms = new[]
             {
-                da.SelectCommand.Parameters.AddWithValue("@MSSV", mssv);
-                var tb = new DataTable();
-                da.Fill(tb);
-                return tb;
-            }
+                new SqlParameter("@MSSV", pb.MSSV),
+                new SqlParameter("@MaPhong", pb.MaPhong),
+                new SqlParameter("@SoThang", pb.SoThang),
+                new SqlParameter("@NgayPhanBo", pb.NgayPhanBo),
+                new SqlParameter("@MienTienPhong", pb.MienTienPhong),
+                new SqlParameter("@SoDotThu", pb.SoDotThu),
+                new SqlParameter("@GhiChu", pb.GhiChu ?? (object)DBNull.Value)
+            };
+            return _db.ExecuteNonQuery("sp_PhanBo_Them", true, prms);
+        }
+
+        public int Delete(int id)
+        {
+            var prms = new[] { new SqlParameter("@ID", id) };
+            return _db.ExecuteNonQuery("sp_PhanBo_Xoa", true, prms);
         }
 
         public DataTable GetAllPhong()
         {
-            using (var conn = _db.GetConnection())
-            using (var da = new SqlDataAdapter("SELECT MaPhong FROM Phong ORDER BY MaPhong", conn))
-            {
-                var tb = new DataTable();
-                da.Fill(tb);
-                return tb;
-            }
+            return _db.ExecuteQuery("SELECT MaPhong FROM Phong", false);
         }
 
-
-        public int Insert(PhanBoModel m)
+        public string GetPhongByMSSV(string mssv)
         {
-            using (var conn = _db.GetConnection())
-            using (var cmd = new SqlCommand("INSERT INTO PhanBo (MSSV, MaPhong, SoThang, NgayPhanBo, MienTienPhong, SoDotThu, GhiChu) " +
-                                            "VALUES (@MSSV, @MaPhong, @SoThang, @NgayPhanBo, @MienTienPhong, @SoDotThu, @GhiChu)", conn))
-            {
-                cmd.Parameters.AddWithValue("@MSSV", m.MSSV);
-                cmd.Parameters.AddWithValue("@MaPhong", m.MaPhong); // bắt buộc, không để null
-                cmd.Parameters.AddWithValue("@SoThang", m.SoThang);
-                cmd.Parameters.AddWithValue("@NgayPhanBo", m.NgayPhanBo);
-                cmd.Parameters.AddWithValue("@MienTienPhong", m.MienTienPhong);
-                cmd.Parameters.AddWithValue("@SoDotThu", m.SoDotThu);
-                cmd.Parameters.AddWithValue("@GhiChu", m.GhiChu ?? (object)DBNull.Value);
-
-                conn.Open();
-                return cmd.ExecuteNonQuery();
-            }
+            var prms = new[] { new SqlParameter("@MSSV", mssv) };
+            object result = _db.ExecuteScalar("SELECT TOP 1 MaPhong FROM PhanBo WHERE MSSV=@MSSV", false, prms);
+            return result?.ToString();
         }
+
+        public bool CheckDangO(string mssv)
+        {
+            string sql = @"
+        SELECT COUNT(*) 
+        FROM PhanBo 
+        WHERE MSSV=@MSSV
+          AND DATEADD(MONTH, SoThang, NgayPhanBo) > GETDATE()";
+
+            var prms = new[] { new SqlParameter("@MSSV", mssv) };
+            object result = _db.ExecuteScalar(sql, false, prms);
+            return Convert.ToInt32(result) > 0;
+        }
+
     }
+
 }

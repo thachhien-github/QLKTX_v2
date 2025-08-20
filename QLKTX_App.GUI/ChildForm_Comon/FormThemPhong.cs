@@ -112,19 +112,17 @@ namespace QLKTX_App.ChildForm_Comon
                 return;
             }
 
-            if (_phongBLL.CheckExists(p.MaPhong))   // nếu đã có thì Update
+            if (_phongBLL.Insert(p))  // chỉ thêm mới
             {
-                if (_phongBLL.Update(p))
-                    MessageBox.Show("Cập nhật phòng thành công!");
-                else
-                    MessageBox.Show("Cập nhật thất bại!");
+                MessageBox.Show("Thêm phòng thành công!");
             }
-            else   // chưa có thì Insert
+            else
             {
-                if (_phongBLL.Insert(p))
-                    MessageBox.Show("Thêm phòng thành công!");
+                // Insert thất bại có thể do trùng mã => thử Update
+                if (_phongBLL.Update(p))
+                    MessageBox.Show("Phòng đã tồn tại, đã cập nhật thông tin!");
                 else
-                    MessageBox.Show("Thêm thất bại!");
+                    MessageBox.Show("Thêm/Cập nhật thất bại!");
             }
 
             LoadDSPhong();

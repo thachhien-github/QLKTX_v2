@@ -490,17 +490,34 @@ BEGIN
 END
 GO
 
-CREATE OR ALTER PROCEDURE dbo.sp_Phong_CapNhatTrangThai
-    @MaPhong VARCHAR(10),
-    @TrangThai NVARCHAR(30)
+CREATE OR ALTER PROCEDURE sp_Phong_CapNhatTrangThai
+    @MaPhong VARCHAR(10)
 AS
 BEGIN
     SET NOCOUNT ON;
-    IF NOT EXISTS(SELECT 1 FROM dbo.Phong WHERE MaPhong=@MaPhong)
-        THROW 64005, N'Không tìm thấy phòng.', 1;
-    UPDATE dbo.Phong SET TrangThai=@TrangThai WHERE MaPhong=@MaPhong;
+
+    DECLARE @SoLuongHienTai INT, @SoLuongToiDa INT;
+
+    -- Đếm số sinh viên hiện tại trong phòng qua bảng PhanBo
+    SELECT @SoLuongHienTai = COUNT(*)
+    FROM PhanBo
+    WHERE MaPhong = @MaPhong;
+
+    -- Lấy số lượng tối đa từ bảng Phong
+    SELECT @SoLuongToiDa = SoLuongToiDa
+    FROM Phong
+    WHERE MaPhong = @MaPhong;
+
+    -- Cập nhật trạng thái phòng
+    IF @SoLuongHienTai = 0
+        UPDATE Phong SET TrangThai = N'Trống' WHERE MaPhong = @MaPhong;
+    ELSE IF @SoLuongHienTai >= @SoLuongToiDa
+        UPDATE Phong SET TrangThai = N'Đầy' WHERE MaPhong = @MaPhong;
+    ELSE
+        UPDATE Phong SET TrangThai = N'Đang sử dụng' WHERE MaPhong = @MaPhong;
 END
 GO
+
 
 CREATE OR ALTER PROCEDURE dbo.sp_Phong_Xoa
     @MaPhong VARCHAR(10)

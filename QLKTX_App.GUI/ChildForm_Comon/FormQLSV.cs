@@ -17,6 +17,8 @@ namespace QLKTX_App.ChildForm_Comon
     public partial class FormQLSV : Form
     {
         private readonly SinhVienBLL _svBLL = new SinhVienBLL();
+        private readonly PhongBLL _phongBLL = new PhongBLL();
+        private readonly PhanBoBLL _pbBLL = new PhanBoBLL();
         public FormQLSV()
         {
             InitializeComponent();
