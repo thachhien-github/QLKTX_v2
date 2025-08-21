@@ -57,6 +57,8 @@
     <Compile Include="SinhVienDAL.cs" />
     <Compile Include="TaiKhoanDAL.cs" />
     <Compile Include="TangDAL.cs" />
+    <Compile Include="TheXeDAL.cs" />
+    <Compile Include="ThongKeDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QLKTX_App.DTO\QLKTX_App.DTO.csproj">

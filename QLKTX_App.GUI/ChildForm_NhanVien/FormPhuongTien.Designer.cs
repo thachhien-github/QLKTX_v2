@@ -110,6 +110,7 @@
             this.dgvListTheXe.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvListTheXe.Size = new System.Drawing.Size(1027, 295);
             this.dgvListTheXe.TabIndex = 3;
+            this.dgvListTheXe.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListTheXe_CellClick);
             // 
             // tableLayoutPanel1
             // 
@@ -155,6 +156,7 @@
             this.btnTimKiem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTimKiem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnTimKiem.UseVisualStyleBackColor = false;
+            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
             // panel2
             // 
@@ -214,6 +216,7 @@
             this.btnXoa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXoa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnXoa.UseVisualStyleBackColor = false;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnTiep
             // 
@@ -236,6 +239,7 @@
             this.btnTiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTiep.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnTiep.UseVisualStyleBackColor = false;
+            this.btnTiep.Click += new System.EventHandler(this.btnTiep_Click);
             // 
             // btnDangKy
             // 
@@ -258,6 +262,7 @@
             this.btnDangKy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDangKy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnDangKy.UseVisualStyleBackColor = false;
+            this.btnDangKy.Click += new System.EventHandler(this.btnDangKy_Click);
             // 
             // cboLoaiXe
             // 

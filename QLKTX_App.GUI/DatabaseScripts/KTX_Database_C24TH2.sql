@@ -1178,15 +1178,13 @@ BEGIN
 END
 GO
 
--- 3. Tạo nhân viên Admin
+-- 1. Nhân viên & Tài khoản Admin
 IF NOT EXISTS (SELECT 1 FROM dbo.NhanVien WHERE MaNV = 'AD001')
 BEGIN
     INSERT INTO dbo.NhanVien (MaNV, HoTen, GioiTinh, NgaySinh, SDT, Email)
     VALUES ('AD001', N'Quản Trị Viên', N'Nam', '1999-01-01', NULL, NULL);
 END
-GO
 
--- 4. Tạo tài khoản Admin gắn với nhân viên Admin
 IF NOT EXISTS (SELECT 1 FROM dbo.TaiKhoan WHERE TenDangNhap = 'admin')
 BEGIN
     INSERT INTO dbo.TaiKhoan (TenDangNhap, MatKhau, VaiTro, TrangThai, MaNV)
@@ -1194,6 +1192,19 @@ BEGIN
 END
 GO
 
+-- 2. Thêm 1 nhân viên thường
+IF NOT EXISTS (SELECT 1 FROM dbo.NhanVien WHERE MaNV = 'NV001')
+BEGIN
+    INSERT INTO dbo.NhanVien (MaNV, HoTen, GioiTinh, NgaySinh, SDT, Email)
+    VALUES ('NV001', N'Nguyễn Văn Nhân Viên', N'Nam', '2000-05-10', '0909123456', 'nv01@ktx.com');
+END
+
+IF NOT EXISTS (SELECT 1 FROM dbo.TaiKhoan WHERE TenDangNhap = 'nv01')
+BEGIN
+    INSERT INTO dbo.TaiKhoan (TenDangNhap, MatKhau, VaiTro, TrangThai, MaNV)
+    VALUES ('nv01', '123', N'NhanVien', 1, 'NV001');
+END
+GO
 
 -- 3. Tầng
 IF NOT EXISTS (SELECT 1 FROM dbo.Tang)
@@ -1203,6 +1214,71 @@ BEGIN
     ('T2', N'Tầng 2'),
     ('T3', N'Tầng 3'),
     ('T4', N'Tầng 4');
+END
+GO
+
+-- 4. Loại phòng
+IF NOT EXISTS (SELECT 1 FROM dbo.LoaiPhong)
+BEGIN
+    INSERT INTO dbo.LoaiPhong (MaLoai, TenLoai, SucChua, GiaPhong) VALUES
+    ('LP1', N'Phòng 4 người', 4, 1800000),
+    ('LP2', N'Phòng 6 người', 6, 1500000);
+END
+GO
+
+-- 5. Phòng
+IF NOT EXISTS (SELECT 1 FROM dbo.Phong)
+BEGIN
+    INSERT INTO dbo.Phong (MaPhong, MaTang, MaLoai, SoLuongToiDa, TrangThai) VALUES
+    ('P101', 'T1', 'LP1', 4, N'Đang sử dụng'),
+    ('P102', 'T1', 'LP2', 6, N'Trống'),
+    ('P201', 'T2', 'LP1', 4, N'Đang sử dụng');
+END
+GO
+
+-- 6. Sinh viên
+IF NOT EXISTS (SELECT 1 FROM dbo.SinhVien WHERE MSSV = 'SV001')
+BEGIN
+    INSERT INTO dbo.SinhVien (MSSV, HoTen, GioiTinh, NgaySinh, SDT, DiaChi) VALUES
+    ('SV001', N'Nguyễn Văn A', N'Nam', '2003-02-15', '0901111111', N'Hà Nội'),
+    ('SV002', N'Trần Thị B', N'Nữ', '2002-09-20', '0912222222', N'Hải Phòng'),
+    ('SV003', N'Lê Văn C', N'Nam', '2004-06-10', '0923333333', N'Đà Nẵng');
+END
+GO
+
+-- 7. Phân bổ
+IF NOT EXISTS (SELECT 1 FROM dbo.PhanBo)
+BEGIN
+    INSERT INTO dbo.PhanBo (MSSV, MaPhong, NgayPhanBo, SoThang, GhiChu, MienTienPhong, SoDotThu) VALUES
+    ('SV001', 'P101', '2025-01-01', 6, N'Ở ghép', 0, 1),
+    ('SV002', 'P101', '2025-02-01', 6, N'Thanh toán trước', 0, 2),
+    ('SV003', 'P201', '2025-03-01', 12, N'Miễn phí 1 tháng', 0, 1);
+END
+GO
+
+-- 8. Loại xe
+IF NOT EXISTS (SELECT 1 FROM dbo.LoaiXe)
+BEGIN
+    INSERT INTO dbo.LoaiXe (MaLoaiXe, TenLoai, GiaGiuXe) VALUES
+    ('LX01', N'Xe đạp', 50000),
+    ('LX02', N'Xe máy', 100000);
+END
+GO
+
+-- 9. Thẻ xe
+IF NOT EXISTS (SELECT 1 FROM dbo.TheXe WHERE MaThe = 'TX001')
+BEGIN
+    INSERT INTO dbo.TheXe (MaThe, MSSV, MaLoaiXe, BienSo, NgayDangKy) VALUES
+    ('TX001', 'SV001', 'LX02', '29A1-12345', '2025-08-01'),
+    ('TX002', 'SV002', 'LX01', 'BIKE-002', '2025-08-05');
+END
+GO
+
+-- 10. Giá điện nước
+IF NOT EXISTS (SELECT 1 FROM dbo.GiaDienNuoc WHERE ID='1')
+BEGIN
+    INSERT INTO dbo.GiaDienNuoc(ID, GiaDien, GiaNuoc)
+    VALUES('1', 2909, 21300); 
 END
 GO
 
