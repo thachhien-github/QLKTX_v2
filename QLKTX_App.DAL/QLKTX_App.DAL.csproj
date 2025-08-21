@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CauHinhDAL.cs" />
+    <Compile Include="ChiSoDAL.cs" />
     <Compile Include="DBConnect.cs" />
     <Compile Include="DBHelper.cs" />
     <Compile Include="GiaDienNuocDAL.cs" />

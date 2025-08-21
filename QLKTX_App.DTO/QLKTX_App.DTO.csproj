@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChiSoModel.cs" />
     <Compile Include="GiaDienNuocModel.cs" />
     <Compile Include="LoaiPhongModel.cs" />
     <Compile Include="LoaiXeModel.cs" />
