@@ -39,6 +39,7 @@
             this.btnThemPhong = new FontAwesome.Sharp.IconButton();
             this.btnSoDoPhong = new FontAwesome.Sharp.IconButton();
             this.btnPhong = new FontAwesome.Sharp.IconButton();
+            this.btnQLHopDong = new FontAwesome.Sharp.IconButton();
             this.btnSinhVien = new FontAwesome.Sharp.IconButton();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,7 +56,9 @@
             this.panelDesktop = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnQLHopDong = new FontAwesome.Sharp.IconButton();
+            this.panelHoaDon = new System.Windows.Forms.Panel();
+            this.btnHDDichVu = new FontAwesome.Sharp.IconButton();
+            this.btnHDHopDong = new FontAwesome.Sharp.IconButton();
             this.panelMenu.SuspendLayout();
             this.panelPhong.SuspendLayout();
             this.panelLogo.SuspendLayout();
@@ -67,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.iconCurrentChildForm)).BeginInit();
             this.panelDesktop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelHoaDon.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMenu
@@ -75,6 +79,7 @@
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
             this.panelMenu.Controls.Add(this.btnLogOut);
             this.panelMenu.Controls.Add(this.btnThongKe);
+            this.panelMenu.Controls.Add(this.panelHoaDon);
             this.panelMenu.Controls.Add(this.btnQLHD);
             this.panelMenu.Controls.Add(this.btnCSdiennuoc);
             this.panelMenu.Controls.Add(this.btnPhuongTien);
@@ -102,11 +107,11 @@
             this.btnLogOut.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnLogOut.IconSize = 32;
             this.btnLogOut.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogOut.Location = new System.Drawing.Point(0, 660);
+            this.btnLogOut.Location = new System.Drawing.Point(0, 750);
             this.btnLogOut.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnLogOut.Size = new System.Drawing.Size(275, 60);
+            this.btnLogOut.Size = new System.Drawing.Size(254, 60);
             this.btnLogOut.TabIndex = 8;
             this.btnLogOut.Text = "Đăng Xuất";
             this.btnLogOut.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -126,11 +131,11 @@
             this.btnThongKe.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnThongKe.IconSize = 32;
             this.btnThongKe.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnThongKe.Location = new System.Drawing.Point(0, 600);
+            this.btnThongKe.Location = new System.Drawing.Point(0, 690);
             this.btnThongKe.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnThongKe.Name = "btnThongKe";
             this.btnThongKe.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnThongKe.Size = new System.Drawing.Size(275, 60);
+            this.btnThongKe.Size = new System.Drawing.Size(254, 60);
             this.btnThongKe.TabIndex = 42;
             this.btnThongKe.Text = "Thống Kê";
             this.btnThongKe.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -154,7 +159,7 @@
             this.btnQLHD.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnQLHD.Name = "btnQLHD";
             this.btnQLHD.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnQLHD.Size = new System.Drawing.Size(275, 60);
+            this.btnQLHD.Size = new System.Drawing.Size(254, 60);
             this.btnQLHD.TabIndex = 40;
             this.btnQLHD.Text = "Quản Lý Hóa Đơn";
             this.btnQLHD.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -178,7 +183,7 @@
             this.btnCSdiennuoc.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnCSdiennuoc.Name = "btnCSdiennuoc";
             this.btnCSdiennuoc.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnCSdiennuoc.Size = new System.Drawing.Size(275, 60);
+            this.btnCSdiennuoc.Size = new System.Drawing.Size(254, 60);
             this.btnCSdiennuoc.TabIndex = 28;
             this.btnCSdiennuoc.Text = "Chỉ Số Điện Nước";
             this.btnCSdiennuoc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -203,7 +208,7 @@
             this.btnPhuongTien.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnPhuongTien.Name = "btnPhuongTien";
             this.btnPhuongTien.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnPhuongTien.Size = new System.Drawing.Size(275, 60);
+            this.btnPhuongTien.Size = new System.Drawing.Size(254, 60);
             this.btnPhuongTien.TabIndex = 27;
             this.btnPhuongTien.Text = "Quản Lý Phương Tiện";
             this.btnPhuongTien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -220,7 +225,7 @@
             this.panelPhong.Location = new System.Drawing.Point(0, 330);
             this.panelPhong.MaximumSize = new System.Drawing.Size(275, 90);
             this.panelPhong.Name = "panelPhong";
-            this.panelPhong.Size = new System.Drawing.Size(275, 90);
+            this.panelPhong.Size = new System.Drawing.Size(254, 90);
             this.panelPhong.TabIndex = 37;
             // 
             // btnThemPhong
@@ -240,7 +245,7 @@
             this.btnThemPhong.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnThemPhong.Name = "btnThemPhong";
             this.btnThemPhong.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
-            this.btnThemPhong.Size = new System.Drawing.Size(275, 45);
+            this.btnThemPhong.Size = new System.Drawing.Size(254, 45);
             this.btnThemPhong.TabIndex = 8;
             this.btnThemPhong.Text = "Thêm Phòng";
             this.btnThemPhong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -265,7 +270,7 @@
             this.btnSoDoPhong.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnSoDoPhong.Name = "btnSoDoPhong";
             this.btnSoDoPhong.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
-            this.btnSoDoPhong.Size = new System.Drawing.Size(275, 45);
+            this.btnSoDoPhong.Size = new System.Drawing.Size(254, 45);
             this.btnSoDoPhong.TabIndex = 3;
             this.btnSoDoPhong.Text = "Sơ Đồ Phòng";
             this.btnSoDoPhong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -289,13 +294,37 @@
             this.btnPhong.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnPhong.Name = "btnPhong";
             this.btnPhong.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnPhong.Size = new System.Drawing.Size(275, 60);
+            this.btnPhong.Size = new System.Drawing.Size(254, 60);
             this.btnPhong.TabIndex = 31;
             this.btnPhong.Text = "Quản Lý Phòng";
             this.btnPhong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPhong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnPhong.UseVisualStyleBackColor = true;
             this.btnPhong.Click += new System.EventHandler(this.btnPhong_Click);
+            // 
+            // btnQLHopDong
+            // 
+            this.btnQLHopDong.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnQLHopDong.FlatAppearance.BorderSize = 0;
+            this.btnQLHopDong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQLHopDong.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQLHopDong.ForeColor = System.Drawing.Color.White;
+            this.btnQLHopDong.IconChar = FontAwesome.Sharp.IconChar.FilePen;
+            this.btnQLHopDong.IconColor = System.Drawing.Color.White;
+            this.btnQLHopDong.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnQLHopDong.IconSize = 32;
+            this.btnQLHopDong.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQLHopDong.Location = new System.Drawing.Point(0, 210);
+            this.btnQLHopDong.MaximumSize = new System.Drawing.Size(275, 60);
+            this.btnQLHopDong.Name = "btnQLHopDong";
+            this.btnQLHopDong.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnQLHopDong.Size = new System.Drawing.Size(254, 60);
+            this.btnQLHopDong.TabIndex = 43;
+            this.btnQLHopDong.Text = "Quản Lý Hợp Đồng";
+            this.btnQLHopDong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQLHopDong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnQLHopDong.UseVisualStyleBackColor = true;
+            this.btnQLHopDong.Click += new System.EventHandler(this.btnQLHopDong_Click);
             // 
             // btnSinhVien
             // 
@@ -313,7 +342,7 @@
             this.btnSinhVien.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnSinhVien.Name = "btnSinhVien";
             this.btnSinhVien.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnSinhVien.Size = new System.Drawing.Size(275, 60);
+            this.btnSinhVien.Size = new System.Drawing.Size(254, 60);
             this.btnSinhVien.TabIndex = 30;
             this.btnSinhVien.Text = "Quản Lý Sinh Viên";
             this.btnSinhVien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -330,7 +359,7 @@
             this.panelLogo.Location = new System.Drawing.Point(0, 0);
             this.panelLogo.MaximumSize = new System.Drawing.Size(275, 150);
             this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(275, 150);
+            this.panelLogo.Size = new System.Drawing.Size(254, 150);
             this.panelLogo.TabIndex = 2;
             // 
             // label2
@@ -351,7 +380,7 @@
             this.panel7.Location = new System.Drawing.Point(0, 142);
             this.panel7.MaximumSize = new System.Drawing.Size(275, 8);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(275, 8);
+            this.panel7.Size = new System.Drawing.Size(254, 8);
             this.panel7.TabIndex = 1;
             // 
             // btnHome
@@ -514,29 +543,67 @@
             this.panel1.Size = new System.Drawing.Size(1065, 10);
             this.panel1.TabIndex = 7;
             // 
-            // btnQLHopDong
+            // panelHoaDon
             // 
-            this.btnQLHopDong.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnQLHopDong.FlatAppearance.BorderSize = 0;
-            this.btnQLHopDong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQLHopDong.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnQLHopDong.ForeColor = System.Drawing.Color.White;
-            this.btnQLHopDong.IconChar = FontAwesome.Sharp.IconChar.FilePen;
-            this.btnQLHopDong.IconColor = System.Drawing.Color.White;
-            this.btnQLHopDong.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnQLHopDong.IconSize = 32;
-            this.btnQLHopDong.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnQLHopDong.Location = new System.Drawing.Point(0, 210);
-            this.btnQLHopDong.MaximumSize = new System.Drawing.Size(275, 60);
-            this.btnQLHopDong.Name = "btnQLHopDong";
-            this.btnQLHopDong.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnQLHopDong.Size = new System.Drawing.Size(275, 60);
-            this.btnQLHopDong.TabIndex = 43;
-            this.btnQLHopDong.Text = "Quản Lý Hợp Đồng";
-            this.btnQLHopDong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnQLHopDong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnQLHopDong.UseVisualStyleBackColor = true;
-            this.btnQLHopDong.Click += new System.EventHandler(this.btnQLHopDong_Click);
+            this.panelHoaDon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(102)))));
+            this.panelHoaDon.Controls.Add(this.btnHDDichVu);
+            this.panelHoaDon.Controls.Add(this.btnHDHopDong);
+            this.panelHoaDon.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelHoaDon.Location = new System.Drawing.Point(0, 600);
+            this.panelHoaDon.MaximumSize = new System.Drawing.Size(275, 90);
+            this.panelHoaDon.Name = "panelHoaDon";
+            this.panelHoaDon.Size = new System.Drawing.Size(254, 90);
+            this.panelHoaDon.TabIndex = 44;
+            // 
+            // btnHDDichVu
+            // 
+            this.btnHDDichVu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHDDichVu.FlatAppearance.BorderSize = 0;
+            this.btnHDDichVu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHDDichVu.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHDDichVu.ForeColor = System.Drawing.Color.White;
+            this.btnHDDichVu.IconChar = FontAwesome.Sharp.IconChar.MoneyBillAlt;
+            this.btnHDDichVu.IconColor = System.Drawing.Color.White;
+            this.btnHDDichVu.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnHDDichVu.IconSize = 32;
+            this.btnHDDichVu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHDDichVu.Location = new System.Drawing.Point(0, 45);
+            this.btnHDDichVu.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.btnHDDichVu.MaximumSize = new System.Drawing.Size(275, 45);
+            this.btnHDDichVu.Name = "btnHDDichVu";
+            this.btnHDDichVu.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
+            this.btnHDDichVu.Size = new System.Drawing.Size(254, 45);
+            this.btnHDDichVu.TabIndex = 8;
+            this.btnHDDichVu.Text = "Hóa Đơn Dịch Vụ";
+            this.btnHDDichVu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHDDichVu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnHDDichVu.UseVisualStyleBackColor = true;
+            this.btnHDDichVu.Click += new System.EventHandler(this.btnHDDichVu_Click);
+            // 
+            // btnHDHopDong
+            // 
+            this.btnHDHopDong.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHDHopDong.FlatAppearance.BorderSize = 0;
+            this.btnHDHopDong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHDHopDong.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHDHopDong.ForeColor = System.Drawing.Color.White;
+            this.btnHDHopDong.IconChar = FontAwesome.Sharp.IconChar.MoneyBill;
+            this.btnHDHopDong.IconColor = System.Drawing.Color.White;
+            this.btnHDHopDong.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnHDHopDong.IconSize = 32;
+            this.btnHDHopDong.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHDHopDong.Location = new System.Drawing.Point(0, 0);
+            this.btnHDHopDong.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.btnHDHopDong.MaximumSize = new System.Drawing.Size(275, 45);
+            this.btnHDHopDong.Name = "btnHDHopDong";
+            this.btnHDHopDong.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
+            this.btnHDHopDong.Size = new System.Drawing.Size(254, 45);
+            this.btnHDHopDong.TabIndex = 3;
+            this.btnHDHopDong.Text = "Hóa Đơn Hợp Đồng";
+            this.btnHDHopDong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHDHopDong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnHDHopDong.UseVisualStyleBackColor = true;
+            this.btnHDHopDong.Click += new System.EventHandler(this.btnHDHopDong_Click);
             // 
             // FormNhanVien
             // 
@@ -565,6 +632,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.iconCurrentChildForm)).EndInit();
             this.panelDesktop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelHoaDon.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -598,5 +666,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel1;
         private FontAwesome.Sharp.IconButton btnQLHopDong;
+        private System.Windows.Forms.Panel panelHoaDon;
+        private FontAwesome.Sharp.IconButton btnHDDichVu;
+        private FontAwesome.Sharp.IconButton btnHDHopDong;
     }
 }

@@ -260,17 +260,23 @@
     <Compile Include="ChildForm_Comon\FormThongKeDT.Designer.cs">
       <DependentUpon>FormThongKeDT.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChildForm_NhanVien\FormHoaDonHopDong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChildForm_NhanVien\FormHoaDonHopDong.Designer.cs">
+      <DependentUpon>FormHoaDonHopDong.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChildForm_NhanVien\FormPhuongTien.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ChildForm_NhanVien\FormPhuongTien.Designer.cs">
       <DependentUpon>FormPhuongTien.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChildForm_NhanVien\FormQLHD.cs">
+    <Compile Include="ChildForm_NhanVien\FormHoaDonDV.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChildForm_NhanVien\FormQLHD.Designer.cs">
-      <DependentUpon>FormQLHD.cs</DependentUpon>
+    <Compile Include="ChildForm_NhanVien\FormHoaDonDV.Designer.cs">
+      <DependentUpon>FormHoaDonDV.cs</DependentUpon>
     </Compile>
     <Compile Include="ChildForm_NhanVien\FormTieuThu.cs">
       <SubType>Form</SubType>
@@ -331,11 +337,14 @@
     <EmbeddedResource Include="ChildForm_Comon\FormThongKeDT.resx">
       <DependentUpon>FormThongKeDT.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChildForm_NhanVien\FormHoaDonHopDong.resx">
+      <DependentUpon>FormHoaDonHopDong.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChildForm_NhanVien\FormPhuongTien.resx">
       <DependentUpon>FormPhuongTien.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChildForm_NhanVien\FormQLHD.resx">
-      <DependentUpon>FormQLHD.cs</DependentUpon>
+    <EmbeddedResource Include="ChildForm_NhanVien\FormHoaDonDV.resx">
+      <DependentUpon>FormHoaDonDV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChildForm_NhanVien\FormTieuThu.resx">
       <DependentUpon>FormTieuThu.cs</DependentUpon>

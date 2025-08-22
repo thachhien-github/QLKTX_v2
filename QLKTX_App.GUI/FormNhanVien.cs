@@ -3,6 +3,7 @@ using QLKTX_App.ChildForm_Comon;
 using QLKTX_App.ChildForm_NhanVien;
 using QLKTX_App.DTO;
 using QLKTX_App.GUI.ChildForm_Comon;
+using QLKTX_App.GUI.ChildForm_NhanVien;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -200,12 +201,16 @@ namespace QLKTX_App
         private void customizeDesign()
         {
             panelPhong.Visible = false;
+            panelHoaDon.Visible = false;
         }
 
         private void hideMenu()
         {
             if (panelPhong.Visible == true)
                 panelPhong.Visible = false;
+
+            if (panelHoaDon.Visible == true)
+                panelHoaDon.Visible = false;
         }
 
         private void showMenu(Panel Menu)
@@ -265,8 +270,7 @@ namespace QLKTX_App
         //menu hóa đơn
         private void btnQLHD_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, RGBColors.color6);
-            OpenChildForm(new FormQLHD());
+            showMenu(panelHoaDon);       
         }
 
         //menu thống kê
@@ -288,6 +292,19 @@ namespace QLKTX_App
         {
             ActivateButton(sender, RGBColors.color6);
             OpenChildForm(new FormHopDong());
+        }
+
+        // Sự kiện nút con trong menu hóa đơn
+        private void btnHDDichVu_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color6);
+            OpenChildForm(new FormHoaDonDV());
+        }
+
+        private void btnHDHopDong_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color6);
+            OpenChildForm(new FormHoaDonHopDong());
         }
         #endregion
     }

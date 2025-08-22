@@ -992,49 +992,75 @@ CREATE OR ALTER PROCEDURE dbo.sp_BaoCaoTienPhong
 AS
 BEGIN
     SET NOCOUNT ON;
-    SELECT * FROM dbo.PhanBo pb
+
+    SELECT 
+        p.MaPhong,
+        sv.MSSV,
+        sv.HoTen,
+        CAST(lp.SucChua AS NVARCHAR) + N' người' AS LoaiPhong,
+        CAST(lp.GiaPhong / lp.SucChua AS MONEY) AS TienThang,   -- Tiền 1 tháng / SV
+        ISNULL(ttp.SoThangThu, 0) AS SoThang,
+        CAST((lp.GiaPhong / lp.SucChua) * ISNULL(ttp.SoThangThu,0) AS MONEY) AS ThanhTien,
+        ISNULL(ttp.GhiChu, N'') AS GhiChu
+    FROM dbo.PhanBo pb
     JOIN dbo.SinhVien sv ON sv.MSSV = pb.MSSV
     JOIN dbo.Phong p ON p.MaPhong = pb.MaPhong
-    JOIN dbo.LoaiPhong lp ON lp.MaLoai = p.MaLoai;
+    JOIN dbo.LoaiPhong lp ON lp.MaLoai = p.MaLoai
+    LEFT JOIN dbo.ThanhToanPhong ttp 
+           ON ttp.MSSV = pb.MSSV 
+          AND ttp.MaPhong = pb.MaPhong
+    ORDER BY p.MaPhong, sv.MSSV;
 END
 GO
 
-CREATE OR ALTER PROCEDURE dbo.sp_BaoCaoDichVu_Thang
+
+
+CREATE OR ALTER PROCEDURE dbo.sp_BaoCaoTongHop_Thang
     @Thang INT,
-    @Nam INT
+    @Nam   INT
 AS
 BEGIN
     SET NOCOUNT ON;
-    IF @Thang NOT BETWEEN 1 AND 12
-        THROW 74001, N'Tháng không hợp lệ.', 1;
+
     DECLARE @GiaDien MONEY = (SELECT GiaDien FROM dbo.GiaDienNuoc WHERE ID='1');
     DECLARE @GiaNuoc MONEY = (SELECT GiaNuoc FROM dbo.GiaDienNuoc WHERE ID='1');
-    IF @GiaDien IS NULL OR @GiaNuoc IS NULL
-        THROW 74002, N'Chưa cấu hình giá điện/nước.', 1;
 
     ;WITH cs AS (
         SELECT MaPhong, DienMoi - DienCu AS DienTT, NuocMoi - NuocCu AS NuocTT
-        FROM dbo.ChiSo WHERE Thang=@Thang AND Nam=@Nam
+        FROM dbo.ChiSo 
+        WHERE Thang=@Thang AND Nam=@Nam
     ), ds AS (
         SELECT pb.MaPhong, pb.MSSV
         FROM dbo.PhanBo pb
-        WHERE DATEFROMPARTS(@Nam,@Thang,1) BETWEEN pb.NgayPhanBo AND DATEADD(MONTH,pb.SoThang,pb.NgayPhanBo)
-    ), cnt AS (
-        SELECT MaPhong, COUNT(*) AS SoNguoi FROM ds GROUP BY MaPhong
+        WHERE DATEFROMPARTS(@Nam,@Thang,1) 
+              BETWEEN pb.NgayPhanBo 
+                  AND DATEADD(MONTH,pb.SoThang,pb.NgayPhanBo)
     )
-    SELECT d.MaPhong, d.MSSV, sv.HoTen,
-        CAST((c.DienTT * @GiaDien) / NULLIF(cnt.SoNguoi,0) AS MONEY) AS TienDien,
-        CAST((c.NuocTT * @GiaNuoc) / NULLIF(cnt.SoNguoi,0) AS MONEY) AS TienNuoc,
-        ISNULL(lx.GiaGiuXe,0) AS TienGuiXe
+    SELECT 
+        d.MaPhong, 
+        d.MSSV, 
+        sv.HoTen,
+        CAST(lp.SucChua AS NVARCHAR) + N' người' AS LoaiPhong,
+        CAST(lp.GiaPhong / lp.SucChua AS MONEY) AS TienPhong,
+        CAST((c.DienTT * @GiaDien) / lp.SucChua AS MONEY) AS TienDien,
+        CAST((c.NuocTT * @GiaNuoc) / lp.SucChua AS MONEY) AS TienNuoc,
+        ISNULL(lx.GiaGiuXe,0) AS TienGuiXe,
+        ( (lp.GiaPhong / lp.SucChua) 
+        + (c.DienTT * @GiaDien) / lp.SucChua
+        + (c.NuocTT * @GiaNuoc) / lp.SucChua
+        + ISNULL(lx.GiaGiuXe,0) ) AS TongTien
     FROM ds d
-    JOIN cnt ON cnt.MaPhong=d.MaPhong
-    JOIN cs c ON c.MaPhong = d.MaPhong
     JOIN dbo.SinhVien sv ON sv.MSSV = d.MSSV
+    JOIN dbo.Phong p ON p.MaPhong = d.MaPhong
+    JOIN dbo.LoaiPhong lp ON lp.MaLoai = p.MaLoai
+    JOIN cs c ON c.MaPhong = d.MaPhong
     LEFT JOIN dbo.TheXe tx ON tx.MSSV = d.MSSV
     LEFT JOIN dbo.LoaiXe lx ON lx.MaLoaiXe = tx.MaLoaiXe
     ORDER BY d.MaPhong, d.MSSV;
 END
 GO
+
+
 
 
 CREATE OR ALTER PROCEDURE dbo.sp_TaoHoaDonPhong
@@ -1250,9 +1276,9 @@ GO
 IF NOT EXISTS (SELECT 1 FROM dbo.PhanBo)
 BEGIN
     INSERT INTO dbo.PhanBo (MSSV, MaPhong, NgayPhanBo, SoThang, GhiChu, MienTienPhong, SoDotThu) VALUES
-    ('SV001', 'P101', '2025-01-01', 6, N'Ở ghép', 0, 1),
-    ('SV002', 'P101', '2025-02-01', 6, N'Thanh toán trước', 0, 2),
-    ('SV003', 'P201', '2025-03-01', 12, N'Miễn phí 1 tháng', 0, 1);
+    ('SV001', 'P101', '2025-01-01', 6, N'R', 0, 1),
+    ('SV002', 'P101', '2025-02-01', 6, N'R5', 0, 2),
+    ('SV003', 'P201', '2025-03-01', 12, N'Miễn', 0, 1);
 END
 GO
 

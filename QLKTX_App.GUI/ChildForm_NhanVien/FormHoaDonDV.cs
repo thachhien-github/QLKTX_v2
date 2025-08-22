@@ -13,9 +13,9 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace QLKTX_App.ChildForm_NhanVien
 {
-    public partial class FormQLHD : Form
+    public partial class FormHoaDonDV : Form
     {
-        public FormQLHD()
+        public FormHoaDonDV()
         {
             InitializeComponent();
         }
