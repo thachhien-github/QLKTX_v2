@@ -410,6 +410,15 @@
     <Content Include="favicon.ico" />
     <Content Include="Resources\favicon.ico" />
     <Content Include="Resources\lock-padlock-symbol-for-protect_icon-icons.com_56926.png" />
+    <Content Include="Resources\Fonts\tahoma.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Fonts\tahomabd.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Fonts\ariali.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\lock-padlock-symbol-for-protect_icon-icons.com_569261.png" />
     <Content Include="Resources\LOGO_2.png" />
     <Content Include="Resources\searchmagnifierinterfacesymbol1_79893.png" />

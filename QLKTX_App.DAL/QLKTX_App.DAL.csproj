@@ -58,6 +58,7 @@
     <Compile Include="SinhVienDAL.cs" />
     <Compile Include="TaiKhoanDAL.cs" />
     <Compile Include="TangDAL.cs" />
+    <Compile Include="ThanhToanPhongDAL.cs" />
     <Compile Include="TheXeDAL.cs" />
     <Compile Include="ThongKeDAL.cs" />
   </ItemGroup>

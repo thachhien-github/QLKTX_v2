@@ -1,6 +1,7 @@
 ﻿
 using QLKTX_App.BLL;
 using QLKTX_App.DTO;
+using QLKTX_App.Utilities;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -57,6 +58,14 @@ namespace QLKTX_App
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
+                // ✅ Lưu thông tin đăng nhập vào CurrentUser
+                CurrentUser.SetUser(
+                    tk.MaNV,          // Mã nhân viên
+                    tk.TenDangNhap,   // Username
+                    tk.HoTen,         // Họ tên
+                    tk.VaiTro         // Vai trò
+                );
 
                 MessageBox.Show($"Đăng nhập thành công! Xin chào {tk.VaiTro}", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);

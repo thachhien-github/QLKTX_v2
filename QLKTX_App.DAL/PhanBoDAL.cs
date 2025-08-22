@@ -67,6 +67,28 @@ namespace QLKTX_App.DAL
             return Convert.ToInt32(result) > 0;
         }
 
+        public DataTable GetChiTietPhanBo(string mssv, string maPhong)
+        {
+            string sql = @"
+        SELECT pb.SoThang, pb.GhiChu,
+               sv.HoTen,
+               p.MaPhong, lp.GiaPhong, lp.SucChua
+        FROM PhanBo pb
+        JOIN SinhVien sv ON pb.MSSV = sv.MSSV
+        JOIN Phong p ON pb.MaPhong = p.MaPhong
+        JOIN LoaiPhong lp ON p.MaLoai = lp.MaLoai
+        WHERE pb.MSSV=@MSSV AND pb.MaPhong=@MaPhong";
+
+            var prms = new[]
+            {
+                new SqlParameter("@MSSV", mssv),
+                new SqlParameter("@MaPhong", maPhong)
+            };
+
+            return _db.ExecuteQuery(sql, false, prms);
+        }
+
+
     }
 
 }

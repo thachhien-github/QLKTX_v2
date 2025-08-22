@@ -83,9 +83,14 @@ CREATE TABLE dbo.ThanhToanPhong (
     MSSV        NVARCHAR(10) NOT NULL,
     MaPhong     VARCHAR(10)  NOT NULL,
     SoThangThu  INT          NOT NULL CHECK (SoThangThu > 0),
-    NgayThu     DATE         NOT NULL,
+    NgayThu     DATE         NOT NULL DEFAULT GETDATE(),
     NguoiThu    VARCHAR(10)  NULL, 
     GhiChu      NVARCHAR(200) NULL,
+
+    TienPhong   MONEY NOT NULL,
+    TienTheChan MONEY NOT NULL DEFAULT 300000,
+    TongTien    AS (TienPhong + TienTheChan) PERSISTED,
+
     CONSTRAINT FK_TTP_SV    FOREIGN KEY (MSSV)   REFERENCES dbo.SinhVien(MSSV),
     CONSTRAINT FK_TTP_Phong FOREIGN KEY (MaPhong) REFERENCES dbo.Phong(MaPhong)
 );
@@ -621,64 +626,56 @@ CREATE OR ALTER PROCEDURE dbo.sp_ThanhToanPhong_Them
 AS
 BEGIN
     SET NOCOUNT ON;
+
+    -- Kiểm tra phân bổ
     IF NOT EXISTS(SELECT 1 FROM dbo.PhanBo WHERE MSSV=@MSSV AND MaPhong=@MaPhong)
         THROW 66001, N'Sinh viên chưa phân bổ phòng này.', 1;
+
+    -- Kiểm tra số tháng
     IF @SoThangThu IS NULL OR @SoThangThu <= 0
         THROW 66002, N'Số tháng thu phải > 0.', 1;
+
+    -- Kiểm tra người thu
     IF @NguoiThu IS NOT NULL AND NOT EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV=@NguoiThu)
         THROW 66003, N'Người thu không tồn tại.', 1;
 
+    -- Số tháng hợp đồng
     DECLARE @SoThangHopDong INT = (SELECT SoThang FROM dbo.PhanBo WHERE MSSV=@MSSV AND MaPhong=@MaPhong);
     DECLARE @DaThu INT = ISNULL((SELECT SUM(SoThangThu) FROM dbo.ThanhToanPhong WHERE MSSV=@MSSV AND MaPhong=@MaPhong),0);
+
     IF @DaThu + @SoThangThu > @SoThangHopDong
         THROW 66005, N'Thanh toán vượt quá số tháng hợp đồng.', 1;
 
-    INSERT INTO dbo.ThanhToanPhong (MSSV,MaPhong,SoThangThu,NgayThu,NguoiThu,GhiChu)
-    VALUES(@MSSV,@MaPhong,@SoThangThu,@NgayThu,@NguoiThu,@GhiChu);
+    -- Lấy giá phòng & sức chứa
+    DECLARE @GiaPhong MONEY, @SucChua INT;
+    SELECT @GiaPhong = lp.GiaPhong, @SucChua = lp.SucChua
+    FROM dbo.Phong p JOIN dbo.LoaiPhong lp ON p.MaLoai=lp.MaLoai
+    WHERE p.MaPhong=@MaPhong;
+
+    -- Tính tiền phòng cho sinh viên này
+    DECLARE @TienPhong MONEY = (@GiaPhong / @SucChua) * @SoThangThu;
+
+    -- Thêm bản ghi
+    INSERT INTO dbo.ThanhToanPhong (MSSV,MaPhong,SoThangThu,NgayThu,NguoiThu,GhiChu,TienPhong)
+    VALUES(@MSSV,@MaPhong,@SoThangThu,@NgayThu,@NguoiThu,@GhiChu,@TienPhong);
 END
 GO
 
-CREATE OR ALTER PROCEDURE dbo.sp_ThanhToanPhong_Sua
-    @ID INT,
-    @SoThangThu INT,
-    @NgayThu DATE,
-    @NguoiThu VARCHAR(10),
-    @GhiChu NVARCHAR(200) = NULL
-AS
-BEGIN
-    SET NOCOUNT ON;
-    IF NOT EXISTS(SELECT 1 FROM dbo.ThanhToanPhong WHERE ID=@ID)
-        THROW 66004, N'Không tìm thấy chứng từ.', 1;
-    IF @SoThangThu IS NULL OR @SoThangThu <= 0
-        THROW 66002, N'Số tháng thu phải > 0.', 1;
-    IF @NguoiThu IS NOT NULL AND NOT EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV=@NguoiThu)
-        THROW 66003, N'Người thu không tồn tại.', 1;
 
-    DECLARE @MSSV NVARCHAR(10) = (SELECT MSSV FROM dbo.ThanhToanPhong WHERE ID=@ID);
-    DECLARE @MaPhong VARCHAR(10) = (SELECT MaPhong FROM dbo.ThanhToanPhong WHERE ID=@ID);
-
-    DECLARE @SoThangHopDong INT = (SELECT SoThang FROM dbo.PhanBo WHERE MSSV=@MSSV AND MaPhong=@MaPhong);
-    DECLARE @DaThuKhac INT = ISNULL((SELECT SUM(SoThangThu) FROM dbo.ThanhToanPhong WHERE MSSV=@MSSV AND MaPhong=@MaPhong AND ID<>@ID),0);
-
-    IF @DaThuKhac + @SoThangThu > @SoThangHopDong
-        THROW 66005, N'Cập nhật làm vượt quá số tháng hợp đồng.', 1;
-
-    UPDATE dbo.ThanhToanPhong
-    SET SoThangThu=@SoThangThu, NgayThu=@NgayThu, NguoiThu=@NguoiThu, GhiChu=@GhiChu
-    WHERE ID=@ID;
-END
-GO
 
 CREATE OR ALTER PROCEDURE dbo.sp_ThanhToanPhong_Xoa
     @ID INT
 AS
 BEGIN
     SET NOCOUNT ON;
+
     IF NOT EXISTS(SELECT 1 FROM dbo.ThanhToanPhong WHERE ID=@ID)
         THROW 66004, N'Không tìm thấy chứng từ.', 1;
+
     DELETE FROM dbo.ThanhToanPhong WHERE ID=@ID;
 END
 GO
+
 
 CREATE OR ALTER PROCEDURE dbo.sp_LoaiXe_Them
     @MaLoaiXe VARCHAR(10),

@@ -51,6 +51,7 @@
     <Compile Include="SinhVienModel.cs" />
     <Compile Include="TaiKhoanModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThanhToanPhongModel.cs" />
     <Compile Include="TheXeModel.cs" />
     <Compile Include="ThongKeModel.cs" />
   </ItemGroup>

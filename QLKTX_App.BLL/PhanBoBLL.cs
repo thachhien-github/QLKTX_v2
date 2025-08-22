@@ -14,6 +14,7 @@ namespace QLKTX_App.BLL
         public bool Delete(int id) => _dal.Delete(id) > 0;
         public DataTable GetAllPhong() => _dal.GetAllPhong();
         public bool CheckDangO(string mssv) => _dal.CheckDangO(mssv);
+        public DataTable GetChiTietPhanBo(string mssv, string maPhong) => _dal.GetChiTietPhanBo(mssv, maPhong);
 
     }
 }
