@@ -1,39 +1,39 @@
 ﻿using System;
+using System.Data;
 using System.IO;
-using System.Windows.Forms;
 using iText.IO.Font;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
-using Microsoft.Win32;
-using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 
 namespace QLKTX_App.Utilities
 {
-    public static class HoaDonHDPdfExporter
+    public static class HoaDonDVPdfExporter
     {
-        public class ChiTietHopDong
+        public class ChiTietDichVu
         {
-            public string MSSV { get; set; }
-            public string HoTen { get; set; }
             public string MaPhong { get; set; }
-            public decimal TienPhong { get; set; }
-            public decimal TienTheChan { get; set; }
-            public string GhiChu { get; set; }
-            public string NguoiThu { get; set; }   // Lấy từ CurrentUser
-            public decimal TongTien => TienPhong + TienTheChan;
+            public string ThangNam { get; set; }
+            public int ChiSoDien { get; set; }
+            public int ChiSoNuoc { get; set; }
+            public int TongXe { get; set; }
+            public decimal GiaDien { get; set; }
+            public decimal GiaNuoc { get; set; }
+            public decimal GiaXe { get; set; }
+            public decimal TongTien { get; set; }
+            public DateTime NgayLap { get; set; }
+
         }
 
-        public static void XuatHoaDonHopDong(string maHD, string thangNam, DateTime ngayLap, ChiTietHopDong ct, string filePath)
+        public static void XuatHoaDonDichVu(ChiTietDichVu ct, string filePath)
         {
             try
             {
                 // Nếu file đã tồn tại thì ghi đè
                 if (File.Exists(filePath)) File.Delete(filePath);
-
-                // ===== Lấy đường dẫn Fonts trong Resources =====
+                // Lấy đường dẫn Fonts
                 string projectDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\.."));
                 string fontsDir = Path.Combine(projectDir, "QLKTX_App.GUI", "Resources", "Fonts");
 
@@ -45,12 +45,11 @@ namespace QLKTX_App.Utilities
                 var fontBold = PdfFontFactory.CreateFont(fontBoldPath, PdfEncodings.IDENTITY_H);
                 var fontItalic = PdfFontFactory.CreateFont(fontItalicPath, PdfEncodings.IDENTITY_H);
 
-
                 using (var writer = new PdfWriter(filePath))
                 using (var pdf = new PdfDocument(writer))
                 using (var doc = new Document(pdf))
                 {
-                    // ===== HEADER =====
+                    // HEADER
                     doc.Add(new Paragraph("TRƯỜNG CAO ĐẲNG GIAO THÔNG VẬN TẢI")
                         .SetFont(fontBold).SetFontSize(14).SetTextAlignment(TextAlignment.CENTER));
                     doc.Add(new Paragraph("KÝ TÚC XÁ SINH VIÊN")
@@ -58,47 +57,50 @@ namespace QLKTX_App.Utilities
                     doc.Add(new Paragraph("----o0o----\n\n")
                         .SetFont(font).SetTextAlignment(TextAlignment.CENTER));
 
-                    doc.Add(new Paragraph("HÓA ĐƠN HỢP ĐỒNG KÝ TÚC XÁ")
+                    doc.Add(new Paragraph($"HÓA ĐƠN DỊCH VỤ KÝ TÚC XÁ - THÁNG {ct.ThangNam}")
                         .SetFont(fontBold).SetFontSize(16).SetTextAlignment(TextAlignment.CENTER)
                         .SetMarginBottom(15));
 
-                    // ===== THÔNG TIN CHUNG =====
-                    doc.Add(new Paragraph($"Mã hóa đơn: {maHD}").SetFont(font));
-                    doc.Add(new Paragraph($"MSSV: {ct.MSSV}").SetFont(font));
-                    doc.Add(new Paragraph($"Họ tên: {ct.HoTen}").SetFont(font));
+                    // Thông tin chung
                     doc.Add(new Paragraph($"Phòng: {ct.MaPhong}").SetFont(font));
-                    doc.Add(new Paragraph($"Ngày lập: {ngayLap:dd/MM/yyyy}").SetFont(font));
+                    doc.Add(new Paragraph($"Tháng: {ct.ThangNam}").SetFont(font));
+                    doc.Add(new Paragraph($"Ngày lập: {ct.NgayLap:dd/MM/yyyy}").SetFont(font));
                     doc.Add(new Paragraph(" "));
 
-                    // ===== BẢNG CHI TIẾT =====
+                    // Bảng chi tiết
                     Table table = new Table(4).UseAllAvailableWidth();
-                    string[] headers = { "STT", "Nội dung", "Số tiền", "Ghi chú" };
+                    string[] headers = { "STT", "Nội dung", "Số lượng", "Thành tiền" };
 
                     foreach (var header in headers)
                         table.AddHeaderCell(new Cell()
                             .Add(new Paragraph(header).SetFont(fontBold)
                             .SetTextAlignment(TextAlignment.CENTER)));
 
-                    // Tiền phòng
+                    // Điện
                     table.AddCell("1").SetTextAlignment(TextAlignment.CENTER);
-                    table.AddCell("Tien Phong").SetTextAlignment(TextAlignment.LEFT);
-                    table.AddCell($"{ct.TienPhong:N0}").SetTextAlignment(TextAlignment.RIGHT);
-                    table.AddCell(ct.GhiChu ?? "");
+                    table.AddCell($"Dien ({ct.GiaDien:N0}đ/Kwh)").SetTextAlignment(TextAlignment.LEFT);
+                    table.AddCell(ct.ChiSoDien.ToString()).SetTextAlignment(TextAlignment.RIGHT);
+                    table.AddCell($"{ct.ChiSoDien * ct.GiaDien:N0}").SetTextAlignment(TextAlignment.RIGHT);
 
-                    // Tiền thế chân
+                    // Nước
                     table.AddCell("2").SetTextAlignment(TextAlignment.CENTER);
-                    table.AddCell("Tien the chan").SetTextAlignment(TextAlignment.LEFT);
-                    table.AddCell($"{ct.TienTheChan:N0}").SetTextAlignment(TextAlignment.RIGHT);
-                    table.AddCell("");
+                    table.AddCell($"Nuoc ({ct.GiaNuoc:N0}đ/m3)").SetTextAlignment(TextAlignment.LEFT);
+                    table.AddCell(ct.ChiSoNuoc.ToString()).SetTextAlignment(TextAlignment.RIGHT);
+                    table.AddCell($"{ct.ChiSoNuoc * ct.GiaNuoc:N0}").SetTextAlignment(TextAlignment.RIGHT);
+
+                    // Xe
+                    table.AddCell("3").SetTextAlignment(TextAlignment.CENTER);
+                    table.AddCell($"Xe ({ct.GiaXe:N0}đ/xe)").SetTextAlignment(TextAlignment.LEFT);
+                    table.AddCell(ct.TongXe.ToString()).SetTextAlignment(TextAlignment.RIGHT);
+                    table.AddCell($"{ct.TongXe * ct.GiaXe:N0}").SetTextAlignment(TextAlignment.RIGHT);
 
                     // Tổng cộng
                     table.AddCell("").SetBorder(iText.Layout.Borders.Border.NO_BORDER);
-                    table.AddCell(new Paragraph("Tổng cộng").SetFont(fontBold)).SetTextAlignment(TextAlignment.LEFT);
-                    table.AddCell(new Paragraph($"{ct.TongTien:N0}").SetFont(fontBold)).SetTextAlignment(TextAlignment.RIGHT);
+                    table.AddCell(new Paragraph("TỔNG CỘNG").SetFont(fontBold)).SetTextAlignment(TextAlignment.LEFT);
                     table.AddCell("").SetBorder(iText.Layout.Borders.Border.NO_BORDER);
+                    table.AddCell(new Paragraph($"{ct.TongTien:N0}").SetFont(fontBold)).SetTextAlignment(TextAlignment.RIGHT);
 
                     doc.Add(table);
-                    doc.Add(new Paragraph(" "));
 
                     // ===== TỔNG BẰNG CHỮ =====
                     doc.Add(new Paragraph("Tổng số tiền thanh toán: " + $"{ct.TongTien:N0} đ")

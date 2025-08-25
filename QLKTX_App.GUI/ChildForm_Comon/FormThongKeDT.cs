@@ -14,191 +14,142 @@ namespace QLKTX_App.ChildForm_Comon
 {
     public partial class FormThongKeDT : Form
     {
-        private readonly ThongKeBLL _bll = new ThongKeBLL();
-        private List<ThongKeModel> _data = new List<ThongKeModel>();
+        private readonly ThanhToanPhongBLL _phongBLL = new ThanhToanPhongBLL();
+        private readonly HoaDonDichVuBLL _dvBLL = new HoaDonDichVuBLL();
         public FormThongKeDT()
         {
             InitializeComponent();
-            chartThang.Series.Clear();
-            chartPie.Series.Clear();
+        }
+        private void LoadThongKe()
+        {
+            DateTime tuNgay = dtpTuNgay.Value;
+            DateTime denNgay = dtpDenNgay.Value;
+
+            // ===== Load hóa đơn phòng =====
+            DataTable dtPhong = _phongBLL.GetAll();
+            dgvPhong.DataSource = dtPhong;
+
+            // Định dạng số cho dgvPhong (cột TongTien)
+            if (dgvPhong.Columns.Contains("TongTien"))
+            {
+                dgvPhong.Columns["TienPhong"].DefaultCellStyle.Format = "N0"; // N0 = số nguyên, có dấu phẩy ngăn cách
+                dgvPhong.Columns["TienPhong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dgvPhong.Columns["TienTheChan"].DefaultCellStyle.Format = "N0"; // N0 = số nguyên, có dấu phẩy ngăn cách
+                dgvPhong.Columns["TienTheChan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dgvPhong.Columns["TongTien"].DefaultCellStyle.Format = "N0"; // N0 = số nguyên, có dấu phẩy ngăn cách
+                dgvPhong.Columns["TongTien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+
+            // ===== Load hóa đơn dịch vụ =====
+            DataTable dtDV = _dvBLL.LayDanhSachHoaDon();
+            dgvDichVu.DataSource = dtDV;
+
+            // Định dạng số cho các cột dịch vụ
+            string[] colsDV = { "TienDien", "TienNuoc", "TienGuiXe", "TongTien" };
+            foreach (string col in colsDV)
+            {
+                if (dgvDichVu.Columns.Contains(col))
+                {
+                    dgvDichVu.Columns[col].DefaultCellStyle.Format = "N0";
+                    dgvDichVu.Columns[col].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+            }
+
+
+            // ===== Cập nhật tổng doanh thu =====
+            decimal tongPhong = 0, tongDV = 0;
+            foreach (DataRow row in dtPhong.Rows)
+                tongPhong += Convert.ToDecimal(row["TienPhong"]);
+
+            foreach (DataRow row in dtDV.Rows)
+                tongDV += Convert.ToDecimal(row["TongTien"]);
+
+
+            lblTongDTPhong.Text = tongPhong.ToString("N0") + " đ";
+            lblTongDTDichVu.Text = tongDV.ToString("N0") + " đ";
+
+            lblDTDien.Text = _dvBLL.LayTongTienDien(tuNgay, denNgay).ToString("N0") + " đ";
+            lblDTNuoc.Text = _dvBLL.LayTongTienNuoc(tuNgay, denNgay).ToString("N0") + " đ";
+            lblDTGiuXe.Text = _dvBLL.LayTongTienXe(tuNgay, denNgay).ToString("N0") + " đ";
+            lblTongDT.Text = (tongPhong + tongDV).ToString("N0") + " đ";
+
+            // Vẽ chart doanh thu dịch vụ
+            VeBieuDoTuHoaDon(dtDV);
+
+            // Vẽ chart tỉ lệ dịch vụ
+            VeBieuDoTyLeDichVu(dtDV);
+
+        }
+
+        private void FormThongKeDT_Load(object sender, EventArgs e)
+        {
+            dtpTuNgay.Value = new DateTime(DateTime.Now.Year, 1, 1);
+            dtpDenNgay.Value = DateTime.Now;
+            LoadThongKe();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            DateTime tuNgay = dtpTuNgay.Value.Date;
-            DateTime denNgay = dtpDenNgay.Value.Date;
-
-            _data = _bll.GetThongKe(tuNgay, denNgay);
-
-            if (_data == null || !_data.Any())
-            {
-                dgvThongKe.DataSource = null;
-                chartThang.Series.Clear();
-                chartPie.Series.Clear();
-                lblTongDT.Text = "0 đ";
-                MessageBox.Show("Không có dữ liệu trong khoảng thời gian này!", "Thông báo");
-                return;
-            }
-
-            // load dữ liệu chi tiết
-            dgvThongKe.DataSource = _data;
-
-            // tính tổng doanh thu
-            decimal tong = _data.Sum(x => x.ThanhTien);
-            lblTongDT.Text = $"{tong:N0} đ";
-
-            // load chart cột
-            LoadChartBar(_data);
-
-            // load chart tròn
-            LoadChartPie(tuNgay, denNgay);
-
-            // load combobox tháng
-            LoadComboBoxThang(_data);
+            LoadThongKe();
         }
 
-        private void btnExportExcel_Click(object sender, EventArgs e)
+        private void VeBieuDoTuHoaDon(DataTable dtDV)
         {
-            if (_data == null || !_data.Any())
-            {
-                MessageBox.Show("Không có dữ liệu để xuất!");
-                return;
-            }
+            // Gom nhóm theo Tháng/Năm để tính tổng
+            var data = dtDV.AsEnumerable()
+                           .GroupBy(r => new { Thang = r.Field<int>("Thang"), Nam = r.Field<int>("Nam") })
+                           .Select(g => new
+                           {
+                               Thang = $"{g.Key.Thang:D2}/{g.Key.Nam}",
+                               DoanhThu = g.Sum(r => r.Field<decimal>("TongTien"))
+                           })
+                           .OrderBy(x => x.Thang)
+                           .ToList();
 
-            using (SaveFileDialog sfd = new SaveFileDialog { Filter = "Excel|*.xlsx" })
-            {
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    var dt = ToDataTable(_data);
-                    ExcelExporter.XuatBaoCaoExcel(dt, sfd.FileName);
-                    MessageBox.Show("Xuất Excel thành công!");
-                }
-            }
-        }
-
-        private void LoadChart(List<ThongKeModel> data)
-        {
             chartThang.Series.Clear();
-
-            var series = new Series("Doanh thu")
+            Series s = new Series("Doanh thu dịch vụ")
             {
                 ChartType = SeriesChartType.Column,
                 IsValueShownAsLabel = true
             };
 
-            // Nhóm theo phòng để thống kê doanh thu
-            var group = data.GroupBy(x => x.MaPhong)
-                            .Select(g => new
-                            {
-                                Phong = g.Key,
-                                TongTien = g.Sum(x => x.ThanhTien)
-                            })
-                            .OrderBy(g => g.Phong);
+            chartThang.Series.Add(s);
 
-            foreach (var item in group)
+            foreach (var item in data)
             {
-                series.Points.AddXY(item.Phong, item.TongTien);
+                s.Points.AddXY(item.Thang, item.DoanhThu);
             }
-
-            chartThang.Series.Add(series);
-            chartThang.ChartAreas[0].AxisX.Title = "Phòng";
-            chartThang.ChartAreas[0].AxisY.Title = "Doanh thu (VNĐ)";
         }
 
-        private void LoadComboBoxThang(List<ThongKeModel> data)
+        private void VeBieuDoTyLeDichVu(DataTable dtDV)
         {
-            var dsThang = data
-                .GroupBy(x => x.SoThang)
-                .Select(g => g.Key)
-                .OrderBy(x => x)
-                .ToList();
+            // Tính tổng theo từng loại dịch vụ
+            decimal tongDien = dtDV.AsEnumerable().Sum(r => r.Field<decimal>("TienDien"));
+            decimal tongNuoc = dtDV.AsEnumerable().Sum(r => r.Field<decimal>("TienNuoc"));
+            decimal tongXe = dtDV.AsEnumerable().Sum(r => r.Field<decimal>("TienGuiXe"));
 
-            cboLocThangNam.DataSource = dsThang;
-            cboLocThangNam.SelectedIndex = -1; // chưa chọn
-        }
-
-        private void LoadChartBar(List<ThongKeModel> data)
-        {
-            chartThang.Series.Clear();
-
-            var series = new Series("Doanh thu")
-            {
-                ChartType = SeriesChartType.Column,
-                IsValueShownAsLabel = true
-            };
-
-            var group = data.GroupBy(x => x.MaPhong)
-                            .Select(g => new
-                            {
-                                Phong = g.Key,
-                                TongTien = g.Sum(x => x.ThanhTien)
-                            })
-                            .OrderBy(g => g.Phong);
-
-            foreach (var item in group)
-            {
-                series.Points.AddXY(item.Phong, item.TongTien);
-            }
-
-            chartThang.Series.Add(series);
-            chartThang.ChartAreas[0].AxisX.Title = "Phòng";
-            chartThang.ChartAreas[0].AxisY.Title = "Doanh thu (VNĐ)";
-        }
-
-        private void LoadChartPie(DateTime tuNgay, DateTime denNgay)
-        {
             chartPie.Series.Clear();
-
-            var tongHop = _bll.GetTongHopDoanhThu(tuNgay, denNgay);
-
-            var series = new Series("Cơ cấu doanh thu")
+            Series s = new Series("Tỉ lệ dịch vụ")
             {
                 ChartType = SeriesChartType.Pie,
-                IsValueShownAsLabel = true
+                IsValueShownAsLabel = true,
+                LabelFormat = "N0"
             };
+            chartPie.Series.Add(s);
 
-            series.Points.AddXY("Phòng", tongHop.Phong);
-            series.Points.AddXY("Điện", tongHop.Dien);
-            series.Points.AddXY("Nước", tongHop.Nuoc);
-            series.Points.AddXY("Giữ xe", tongHop.GiuXe);
+            // Thêm dữ liệu
+            s.Points.AddXY("Điện", tongDien);
+            s.Points.AddXY("Nước", tongNuoc);
+            s.Points.AddXY("Gửi xe", tongXe);
 
-            chartPie.Series.Add(series);
-        }
-
-
-        private DataTable ToDataTable(List<ThongKeModel> list)
-        {
-            var dt = new DataTable();
-            dt.Columns.Add("STT", typeof(int));
-            dt.Columns.Add("Phòng", typeof(string));
-            dt.Columns.Add("MSSV", typeof(string));
-            dt.Columns.Add("Họ và tên", typeof(string));
-            dt.Columns.Add("Loại phòng", typeof(string));
-            dt.Columns.Add("Số tiền/tháng", typeof(decimal));
-            dt.Columns.Add("Số tháng", typeof(int));
-            dt.Columns.Add("Thành tiền", typeof(decimal));
-            dt.Columns.Add("Ghi chú", typeof(string));
-
-            foreach (var item in list)
+            // Hiển thị % trong legend
+            chartPie.Legends[0].Enabled = true;
+            foreach (DataPoint p in s.Points)
             {
-                dt.Rows.Add(item.STT, item.MaPhong, item.MSSV, item.HoTen,
-                            item.LoaiPhong, item.SoTienThang, item.SoThang,
-                            item.ThanhTien, item.GhiChu);
-            }
-            return dt;
-        }
-
-        private void cboLocThangNam_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cboLocThangNam.SelectedIndex >= 0 && _data.Any())
-            {
-                int thang = Convert.ToInt32(cboLocThangNam.SelectedItem);
-                var loc = _data.Where(x => x.SoThang == thang).ToList();
-                dgvThongKe.DataSource = loc;
-
-                decimal tong = loc.Sum(x => x.ThanhTien);
-                lblTongDT.Text = $"{tong:N0} đ";
+                p.LegendText = p.AxisLabel + " (#PERCENT{P0})";
             }
         }
+
+
     }
 }

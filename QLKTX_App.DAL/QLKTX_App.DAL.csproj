@@ -47,6 +47,7 @@
     <Compile Include="DBConnect.cs" />
     <Compile Include="DBHelper.cs" />
     <Compile Include="GiaDienNuocDAL.cs" />
+    <Compile Include="HoaDonDichVuDAL.cs" />
     <Compile Include="HopDongDAL.cs" />
     <Compile Include="LoaiPhongDAL.cs" />
     <Compile Include="LoaiXeDAL.cs" />

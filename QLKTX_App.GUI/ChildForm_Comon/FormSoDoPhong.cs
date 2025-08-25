@@ -88,8 +88,6 @@ namespace QLKTX_App.ChildForm_Comon
                     btn.BackColor = Color.LightGreen;
                 else if (trangThai == "Đầy")
                     btn.BackColor = Color.DarkOrange;
-                else if (trangThai == "Đang bảo trì")
-                    btn.BackColor = Color.Red;
                 else
                     btn.BackColor = Color.Gray;
 

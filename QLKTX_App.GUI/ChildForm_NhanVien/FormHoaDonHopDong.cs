@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -169,45 +170,57 @@ namespace QLKTX_App.GUI.ChildForm_NhanVien
                 return;
             }
 
-            // Lấy dữ liệu từ row đang chọn
-            DataGridViewRow row = dgvListHD.SelectedRows[0];
-            string maHD = row.Cells["ID"].Value.ToString();
-            string mssv = row.Cells["MSSV"].Value.ToString();
-            string maPhong = row.Cells["MaPhong"].Value.ToString();
-            DateTime ngayLap = Convert.ToDateTime(row.Cells["NgayThu"].Value);
-
-            // Lấy họ tên SV từ Phân Bổ (hoặc JOIN)
-            DataTable dt = phanBoBLL.GetChiTietPhanBo(mssv, maPhong);
-            string hoTen = dt.Rows.Count > 0 ? dt.Rows[0]["HoTen"].ToString() : "Không rõ";
-
-            decimal tienPhong = Convert.ToDecimal(row.Cells["TienPhong"].Value);
-            decimal tienTheChan = Convert.ToDecimal(row.Cells["TienTheChan"].Value);
-
-            // Dùng FolderBrowserDialog để chọn thư mục
-            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
+            try
             {
-                fbd.Description = "Chọn thư mục để lưu hóa đơn PDF";
-                if (fbd.ShowDialog() == DialogResult.OK)
+                // Lấy dữ liệu từ row đang chọn
+                DataGridViewRow row = dgvListHD.SelectedRows[0];
+                string maHD = row.Cells["ID"].Value.ToString();
+                string mssv = row.Cells["MSSV"].Value.ToString();
+                string maPhong = row.Cells["MaPhong"].Value.ToString();
+                DateTime ngayLap = Convert.ToDateTime(row.Cells["NgayThu"].Value);
+
+                // Lấy họ tên SV từ Phân Bổ (hoặc JOIN)
+                DataTable dt = phanBoBLL.GetChiTietPhanBo(mssv, maPhong);
+                string hoTen = dt.Rows.Count > 0 ? dt.Rows[0]["HoTen"].ToString() : "Không rõ";
+
+                decimal tienPhong = Convert.ToDecimal(row.Cells["TienPhong"].Value);
+                decimal tienTheChan = Convert.ToDecimal(row.Cells["TienTheChan"].Value);
+
+                var chiTiet = new HoaDonHDPdfExporter.ChiTietHopDong
                 {
-                    string baseFolder = fbd.SelectedPath;
+                    MSSV = mssv,
+                    HoTen = hoTen,
+                    MaPhong = maPhong,
+                    TienPhong = tienPhong,
+                    TienTheChan = tienTheChan,
+                    NguoiThu = CurrentUser.HoTen
+                };
 
-                    var chiTiet = new HoaDonHDPdfExporter.ChiTietHopDong
+                string thangNam = ngayLap.ToString("MM-yyyy");
+
+                // Dùng SaveFileDialog để lưu trực tiếp file PDF
+                using (SaveFileDialog sfd = new SaveFileDialog()
+                {
+                    Filter = "PDF file (*.pdf)|*.pdf",
+                    FileName = $"HD_{mssv}_{maPhong}_{thangNam}.pdf"
+                })
+                {
+                    if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        MSSV = mssv,
-                        HoTen = hoTen,
-                        MaPhong = maPhong,
-                        TienPhong = tienPhong,
-                        TienTheChan = tienTheChan
-                    };
+                        string filePath = sfd.FileName;
+                        HoaDonHDPdfExporter.XuatHoaDonHopDong(maHD, thangNam, ngayLap, chiTiet, filePath);
 
-                    string thangNam = ngayLap.ToString("MM-yyyy");
-
-                    HoaDonHDPdfExporter.XuatHoaDonHopDong(maHD, thangNam, ngayLap, chiTiet, baseFolder);
-
-                    MessageBox.Show("Xuất hóa đơn thành công!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Xuất hóa đơn thành công!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xuất hóa đơn: " + ex.Message,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void dgvListHD_CellClick(object sender, DataGridViewCellEventArgs e)

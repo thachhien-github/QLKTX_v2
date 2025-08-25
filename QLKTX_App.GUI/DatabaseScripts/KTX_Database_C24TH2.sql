@@ -146,29 +146,24 @@ GO
 
 IF OBJECT_ID('dbo.HoaDon','U') IS NULL
 CREATE TABLE dbo.HoaDon (
-    MaHD     VARCHAR(20) NOT NULL PRIMARY KEY,
-    MaPhong  VARCHAR(10) NOT NULL,
-    ThangNam CHAR(6)     NOT NULL, 
-    NgayLap  DATE        NOT NULL,
-    TongTien MONEY       NOT NULL,
-    CONSTRAINT UQ_HD_PhongThang UNIQUE (MaPhong, ThangNam),
-    CONSTRAINT FK_HD_Phong FOREIGN KEY (MaPhong) REFERENCES dbo.Phong(MaPhong)
-);
-
-IF OBJECT_ID('dbo.ChiTietHoaDon','U') IS NULL
-CREATE TABLE dbo.ChiTietHoaDon (
-    MaChiTietHD INT IDENTITY(1,1) PRIMARY KEY,
-    MaHD        VARCHAR(20)  NOT NULL,
-    MSSV        NVARCHAR(10) NOT NULL,
-    TienPhong   MONEY NOT NULL,
+    MaHD        VARCHAR(20) NOT NULL PRIMARY KEY,
+    MaPhong     VARCHAR(10) NOT NULL,
+    Thang       INT NOT NULL CHECK (Thang BETWEEN 1 AND 12),
+    Nam         INT NOT NULL CHECK (Nam >= 2000),
+    NgayLap     DATE NOT NULL DEFAULT (GETDATE()),
+    DienTieuThu INT  NOT NULL CHECK (DienTieuThu >= 0),
+    NuocTieuThu INT  NOT NULL CHECK (NuocTieuThu >= 0),
+    SoLuongXe   INT  NOT NULL CHECK (SoLuongXe >= 0),
     TienDien    MONEY NOT NULL,
     TienNuoc    MONEY NOT NULL,
     TienGuiXe   MONEY NOT NULL,
-    TongTien    AS (TienPhong + TienDien + TienNuoc + TienGuiXe) PERSISTED,
-    CONSTRAINT FK_CTHD_HD FOREIGN KEY (MaHD) REFERENCES dbo.HoaDon(MaHD),
-    CONSTRAINT FK_CTHD_SV FOREIGN KEY (MSSV) REFERENCES dbo.SinhVien(MSSV)
+    TongTien    AS (TienDien + TienNuoc + TienGuiXe) PERSISTED,
+    CONSTRAINT UQ_HD_PhongThang UNIQUE (MaPhong, Thang, Nam),
+    CONSTRAINT FK_HD_Phong FOREIGN KEY (MaPhong) REFERENCES dbo.Phong(MaPhong)
 );
 GO
+
+
 
 CREATE OR ALTER PROCEDURE dbo.sp_TaiKhoan_Them
     @MaNV        VARCHAR(10),
@@ -519,7 +514,7 @@ BEGIN
     ELSE IF @SoLuongHienTai >= @SoLuongToiDa
         UPDATE Phong SET TrangThai = N'Đầy' WHERE MaPhong = @MaPhong;
     ELSE
-        UPDATE Phong SET TrangThai = N'Đang sử dụng' WHERE MaPhong = @MaPhong;
+        UPDATE Phong SET TrangThai = N'Còn chỗ' WHERE MaPhong = @MaPhong;
 END
 GO
 
@@ -921,285 +916,121 @@ END
 GO
 
 CREATE OR ALTER PROCEDURE dbo.sp_HoaDon_Them
-    @MaHD VARCHAR(50),
+    @MaHD VARCHAR(20),
     @MaPhong VARCHAR(10),
     @Thang INT,
     @Nam INT,
-    @NgayLap DATE,
-    @TongTien MONEY
-AS
-BEGIN
-    SET NOCOUNT ON;
-    IF EXISTS(SELECT 1 FROM dbo.HoaDon WHERE MaHD=@MaHD)
-        THROW 73001, N'Mã hóa đơn đã tồn tại.', 1;
-    DECLARE @ThangNam CHAR(6) = RIGHT('00' + CAST(@Thang AS VARCHAR(2)),2) + CAST(@Nam AS VARCHAR(4));
-    IF EXISTS(SELECT 1 FROM dbo.HoaDon WHERE MaPhong=@MaPhong AND ThangNam=@ThangNam)
-        THROW 73002, N'Phòng đã có hóa đơn tháng này.', 1;
-    IF NOT EXISTS(SELECT 1 FROM dbo.Phong WHERE MaPhong=@MaPhong)
-        THROW 73003, N'Phòng không tồn tại.', 1;
-    INSERT INTO dbo.HoaDon (MaHD,MaPhong,ThangNam,NgayLap,TongTien)
-    VALUES(@MaHD,@MaPhong,@ThangNam,@NgayLap,@TongTien);
-END
-GO
-
-CREATE OR ALTER PROCEDURE dbo.sp_HoaDon_Xoa
-    @MaHD VARCHAR(50)
-AS
-BEGIN
-    SET NOCOUNT ON;
-    IF NOT EXISTS(SELECT 1 FROM dbo.HoaDon WHERE MaHD=@MaHD)
-        THROW 73004, N'Không tìm thấy hóa đơn.', 1;
-    IF EXISTS(SELECT 1 FROM dbo.ChiTietHoaDon WHERE MaHD=@MaHD)
-        THROW 73005, N'Không thể xóa hóa đơn vì đã có chi tiết.', 1;
-    DELETE FROM dbo.HoaDon WHERE MaHD=@MaHD;
-END
-GO
-
-CREATE OR ALTER PROCEDURE dbo.sp_ChiTietHoaDon_Them
-    @MaHD VARCHAR(50),
-    @MSSV NVARCHAR(10),
-    @TienPhong MONEY,
+    @NgayLap DATE = NULL,
+    @DienTieuThu INT,
+    @NuocTieuThu INT,
+    @SoLuongXe INT,
     @TienDien MONEY,
     @TienNuoc MONEY,
     @TienGuiXe MONEY
 AS
 BEGIN
     SET NOCOUNT ON;
+
+    IF EXISTS(SELECT 1 FROM dbo.HoaDon WHERE MaHD=@MaHD)
+        THROW 73001, N'Mã hóa đơn đã tồn tại.', 1;
+
+    IF EXISTS(SELECT 1 FROM dbo.HoaDon WHERE MaPhong=@MaPhong AND Thang=@Thang AND Nam=@Nam)
+        THROW 73002, N'Phòng đã có hóa đơn tháng này.', 1;
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.Phong WHERE MaPhong=@MaPhong)
+        THROW 73003, N'Phòng không tồn tại.', 1;
+
+    IF @NgayLap IS NULL SET @NgayLap = GETDATE();
+
+    INSERT INTO dbo.HoaDon(MaHD,MaPhong,Thang,Nam,NgayLap,
+                           DienTieuThu,NuocTieuThu,SoLuongXe,
+                           TienDien,TienNuoc,TienGuiXe)
+    VALUES(@MaHD,@MaPhong,@Thang,@Nam,@NgayLap,
+           @DienTieuThu,@NuocTieuThu,@SoLuongXe,
+           @TienDien,@TienNuoc,@TienGuiXe);
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.sp_HoaDon_Xoa
+    @MaHD VARCHAR(20)
+AS
+BEGIN
+    SET NOCOUNT ON;
     IF NOT EXISTS(SELECT 1 FROM dbo.HoaDon WHERE MaHD=@MaHD)
-        THROW 73006, N'Hóa đơn không tồn tại.', 1;
-    IF NOT EXISTS(SELECT 1 FROM dbo.SinhVien WHERE MSSV=@MSSV)
-        THROW 73007, N'Sinh viên không tồn tại.', 1;
-    INSERT INTO dbo.ChiTietHoaDon (MaHD,MSSV,TienPhong,TienDien,TienNuoc,TienGuiXe)
-    VALUES(@MaHD,@MSSV,@TienPhong,@TienDien,@TienNuoc,@TienGuiXe);
-END
-GO
+        THROW 73004, N'Không tìm thấy hóa đơn.', 1;
 
-CREATE OR ALTER PROCEDURE dbo.sp_ChiTietHoaDon_Xoa
-    @MaChiTietHD INT
-AS
-BEGIN
-    SET NOCOUNT ON;
-    IF NOT EXISTS(SELECT 1 FROM dbo.ChiTietHoaDon WHERE MaChiTietHD=@MaChiTietHD)
-        THROW 73008, N'Không tìm thấy chi tiết hóa đơn.', 1;
-    DELETE FROM dbo.ChiTietHoaDon WHERE MaChiTietHD=@MaChiTietHD;
-END
-GO
-
-CREATE OR ALTER PROCEDURE dbo.sp_BaoCaoTienPhong
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    SELECT 
-        p.MaPhong,
-        sv.MSSV,
-        sv.HoTen,
-        CAST(lp.SucChua AS NVARCHAR) + N' người' AS LoaiPhong,
-        CAST(lp.GiaPhong / lp.SucChua AS MONEY) AS TienThang,   -- Tiền 1 tháng / SV
-        ISNULL(ttp.SoThangThu, 0) AS SoThang,
-        CAST((lp.GiaPhong / lp.SucChua) * ISNULL(ttp.SoThangThu,0) AS MONEY) AS ThanhTien,
-        ISNULL(ttp.GhiChu, N'') AS GhiChu
-    FROM dbo.PhanBo pb
-    JOIN dbo.SinhVien sv ON sv.MSSV = pb.MSSV
-    JOIN dbo.Phong p ON p.MaPhong = pb.MaPhong
-    JOIN dbo.LoaiPhong lp ON lp.MaLoai = p.MaLoai
-    LEFT JOIN dbo.ThanhToanPhong ttp 
-           ON ttp.MSSV = pb.MSSV 
-          AND ttp.MaPhong = pb.MaPhong
-    ORDER BY p.MaPhong, sv.MSSV;
+    DELETE FROM dbo.HoaDon WHERE MaHD=@MaHD;
 END
 GO
 
 
-
-CREATE OR ALTER PROCEDURE dbo.sp_BaoCaoTongHop_Thang
-    @Thang INT,
-    @Nam   INT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    DECLARE @GiaDien MONEY = (SELECT GiaDien FROM dbo.GiaDienNuoc WHERE ID='1');
-    DECLARE @GiaNuoc MONEY = (SELECT GiaNuoc FROM dbo.GiaDienNuoc WHERE ID='1');
-
-    ;WITH cs AS (
-        SELECT MaPhong, DienMoi - DienCu AS DienTT, NuocMoi - NuocCu AS NuocTT
-        FROM dbo.ChiSo 
-        WHERE Thang=@Thang AND Nam=@Nam
-    ), ds AS (
-        SELECT pb.MaPhong, pb.MSSV
-        FROM dbo.PhanBo pb
-        WHERE DATEFROMPARTS(@Nam,@Thang,1) 
-              BETWEEN pb.NgayPhanBo 
-                  AND DATEADD(MONTH,pb.SoThang,pb.NgayPhanBo)
-    )
-    SELECT 
-        d.MaPhong, 
-        d.MSSV, 
-        sv.HoTen,
-        CAST(lp.SucChua AS NVARCHAR) + N' người' AS LoaiPhong,
-        CAST(lp.GiaPhong / lp.SucChua AS MONEY) AS TienPhong,
-        CAST((c.DienTT * @GiaDien) / lp.SucChua AS MONEY) AS TienDien,
-        CAST((c.NuocTT * @GiaNuoc) / lp.SucChua AS MONEY) AS TienNuoc,
-        ISNULL(lx.GiaGiuXe,0) AS TienGuiXe,
-        ( (lp.GiaPhong / lp.SucChua) 
-        + (c.DienTT * @GiaDien) / lp.SucChua
-        + (c.NuocTT * @GiaNuoc) / lp.SucChua
-        + ISNULL(lx.GiaGiuXe,0) ) AS TongTien
-    FROM ds d
-    JOIN dbo.SinhVien sv ON sv.MSSV = d.MSSV
-    JOIN dbo.Phong p ON p.MaPhong = d.MaPhong
-    JOIN dbo.LoaiPhong lp ON lp.MaLoai = p.MaLoai
-    JOIN cs c ON c.MaPhong = d.MaPhong
-    LEFT JOIN dbo.TheXe tx ON tx.MSSV = d.MSSV
-    LEFT JOIN dbo.LoaiXe lx ON lx.MaLoaiXe = tx.MaLoaiXe
-    ORDER BY d.MaPhong, d.MSSV;
-END
+/* ==========================================
+   SP: Thống kê TỔNG HỢP Doanh thu
+   ========================================== */
+IF OBJECT_ID('dbo.sp_ThongKe_TongHop','P') IS NOT NULL
+    DROP PROCEDURE dbo.sp_ThongKe_TongHop;
 GO
 
-
-
-
-CREATE OR ALTER PROCEDURE dbo.sp_TaoHoaDonPhong
-    @MaPhong   VARCHAR(10),
-    @ThangNam  CHAR(6) -- MMYYYY
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    DECLARE @GiaPhong MONEY, @SoNguoi INT;
-
-    SELECT 
-        @GiaPhong = lp.GiaPhong,
-        @SoNguoi  = COUNT(pb.MSSV)
-    FROM dbo.Phong p
-    JOIN dbo.LoaiPhong lp ON p.MaLoai = lp.MaLoai
-    LEFT JOIN dbo.PhanBo pb ON p.MaPhong = pb.MaPhong
-    WHERE p.MaPhong = @MaPhong
-    GROUP BY lp.GiaPhong;
-
-    IF @SoNguoi = 0
-        THROW 72001, N'Phòng không có sinh viên để tính tiền.', 1;
-
-    DECLARE @TienMoiSV MONEY = @GiaPhong / NULLIF(@SoNguoi,0);
-
-    DECLARE @MaHD VARCHAR(20) = CONCAT('HD', @MaPhong, REPLACE(@ThangNam, '/', ''));
-
-    IF EXISTS (SELECT 1 FROM dbo.HoaDon WHERE MaHD = @MaHD)
-        THROW 72002, N'Hóa đơn tiền phòng đã tồn tại.', 1;
-
-    INSERT INTO dbo.HoaDon (MaHD, MaPhong, ThangNam, NgayLap, TongTien)
-    VALUES (@MaHD, @MaPhong, @ThangNam, GETDATE(), @GiaPhong);
-
-    INSERT INTO dbo.ChiTietHoaDon (MaHD, MSSV, TienPhong, TienDien, TienNuoc, TienGuiXe)
-    SELECT 
-        @MaHD, 
-        pb.MSSV, 
-        @TienMoiSV, 
-        0, 
-        0, 
-        0
-    FROM dbo.PhanBo pb
-    WHERE pb.MaPhong = @MaPhong;
-END
-GO
-
-
-CREATE OR ALTER PROCEDURE dbo.sp_TaoHoaDonDienNuoc
-    @MaPhong VARCHAR(10),
-    @Thang INT,
+CREATE PROCEDURE dbo.sp_ThongKe_TongHop
+    @TuNgay DATE,
+    @DenNgay DATE,
     @Nam INT
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    DECLARE @ChiSoDien INT, @ChiSoNuoc INT, @GiaDien MONEY, @GiaNuoc MONEY, @SoNguoi INT;
-
-    -- Lấy chỉ số điện, nước từ bảng ChiSo
+    /* ================== 1. Doanh thu TIỀN PHÒNG ================== */
     SELECT 
-        @ChiSoDien = DienTieuThu,
-        @ChiSoNuoc = NuocTieuThu
-    FROM dbo.ChiSo
-    WHERE MaPhong = @MaPhong AND Thang = @Thang AND Nam = @Nam;
+        ISNULL(SUM(TongTien), 0) AS DoanhThuPhong
+    INTO #tmpPhong
+    FROM dbo.ThanhToanPhong
+    WHERE NgayThu BETWEEN @TuNgay AND @DenNgay;
 
-    IF @ChiSoDien IS NULL OR @ChiSoNuoc IS NULL
-        THROW 73001, N'Chưa có chỉ số điện/nước cho tháng này.', 1;
+    /* ================== 2. Doanh thu DỊCH VỤ ================== */
+    SELECT 
+        ISNULL(SUM(TienDien), 0)  AS DoanhThuDien,
+        ISNULL(SUM(TienNuoc), 0)  AS DoanhThuNuoc,
+        ISNULL(SUM(TienGuiXe), 0) AS DoanhThuXe
+    INTO #tmpDichVu
+    FROM dbo.HoaDon
+    WHERE NgayLap BETWEEN @TuNgay AND @DenNgay;
 
-    -- Lấy giá điện, nước
-    SELECT @GiaDien = GiaDien, @GiaNuoc = GiaNuoc
-    FROM dbo.GiaDienNuoc
-    WHERE ID = '1';
+    /* ================== 3. Doanh thu THEO THÁNG ================== */
+    SELECT 
+        m.Thang,
+        ISNULL(SUM(m.DoanhThu), 0) AS DoanhThu
+    INTO #tmpThang
+    FROM
+    (
+        SELECT 
+            MONTH(NgayThu) AS Thang, 
+            SUM(TongTien) AS DoanhThu
+        FROM dbo.ThanhToanPhong
+        WHERE YEAR(NgayThu) = @Nam
+        GROUP BY MONTH(NgayThu)
 
-    -- Đếm số người trong phòng
-    SELECT @SoNguoi = COUNT(MSSV)
-    FROM dbo.PhanBo
-    WHERE MaPhong = @MaPhong;
+        UNION ALL
 
-    IF @SoNguoi = 0
-        THROW 73002, N'Phòng không có sinh viên.', 1;
+        SELECT 
+            Thang, 
+            SUM(TienDien + TienNuoc + TienGuiXe) AS DoanhThu
+        FROM dbo.HoaDon
+        WHERE Nam = @Nam
+        GROUP BY Thang
+    ) m
+    GROUP BY m.Thang
+    ORDER BY m.Thang;
 
-    DECLARE @TienDien MONEY = @ChiSoDien * @GiaDien;
-    DECLARE @TienNuoc MONEY = @ChiSoNuoc * @GiaNuoc;
+    /* ========== Xuất kết quả ra 3 ResultSet ========== */
+    SELECT * FROM #tmpPhong;
+    SELECT * FROM #tmpDichVu;
+    SELECT * FROM #tmpThang;
 
-    DECLARE @MaHD VARCHAR(20) = CONCAT('HD_DN', @MaPhong, FORMAT(@Nam, '0000'), RIGHT('0' + CAST(@Thang AS VARCHAR), 2));
-
-    IF EXISTS (SELECT 1 FROM dbo.HoaDon WHERE MaHD = @MaHD)
-        THROW 73003, N'Hóa đơn điện nước đã tồn tại.', 1;
-
-    -- Thêm hóa đơn
-    INSERT INTO dbo.HoaDon (MaHD, MaPhong, ThangNam, TongTien)
-    VALUES(@MaHD, @MaPhong, RIGHT('0' + CAST(@Thang AS VARCHAR), 2) + CAST(@Nam AS CHAR(4)), @TienDien + @TienNuoc);
-
-    -- Thêm chi tiết hóa đơn (chia đều tiền cho mỗi SV)
-    INSERT INTO dbo.ChiTietHoaDon (MaHD, MSSV, TienPhong, TienDien, TienNuoc, TienGuiXe)
-    SELECT @MaHD, pb.MSSV, 0, @TienDien / @SoNguoi, @TienNuoc / @SoNguoi, 0
-    FROM dbo.PhanBo pb
-    WHERE pb.MaPhong = @MaPhong;
+    /* Xóa bảng tạm */
+    DROP TABLE #tmpPhong, #tmpDichVu, #tmpThang;
 END
 GO
 
-
-CREATE OR ALTER PROCEDURE dbo.sp_TaoHoaDonGiuXe
-    @MaHD      VARCHAR(20),
-    @MaPhong   VARCHAR(10),
-    @ThangNam  CHAR(6),     -- MMYYYY
-    @NgayLap   DATE,
-    @GiaThang  MONEY        -- Giá gửi xe 1 tháng / 1 xe
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    DECLARE @SoNguoi INT;
-
-    -- Kiểm tra phòng tồn tại
-    IF NOT EXISTS (SELECT 1 FROM dbo.Phong WHERE MaPhong = @MaPhong)
-        THROW 72000, N'Phòng không tồn tại.', 1;
-
-    -- Đếm số sinh viên trong phòng
-    SELECT @SoNguoi = COUNT(MSSV)
-    FROM dbo.PhanBo
-    WHERE MaPhong = @MaPhong;
-
-    IF @SoNguoi = 0
-        THROW 72001, N'Phòng không có sinh viên để tính tiền gửi xe.', 1;
-
-    -- Tạo hóa đơn chính
-    INSERT INTO dbo.HoaDon (MaHD, MaPhong, ThangNam, NgayLap, TongTien)
-    VALUES (@MaHD, @MaPhong, @ThangNam, @NgayLap, @SoNguoi * @GiaThang);
-
-    -- Thêm chi tiết hóa đơn cho từng sinh viên
-    INSERT INTO dbo.ChiTietHoaDon (MaHD, MSSV, TienPhong, TienDien, TienNuoc, TienGuiXe)
-    SELECT 
-        @MaHD,
-        pb.MSSV,
-        0,  -- Tiền phòng
-        0,  -- Tiền điện
-        0,  -- Tiền nước
-        @GiaThang
-    FROM dbo.PhanBo pb
-    WHERE pb.MaPhong = @MaPhong;
-END
-GO
 
 -- 1. Nhân viên & Tài khoản Admin
 IF NOT EXISTS (SELECT 1 FROM dbo.NhanVien WHERE MaNV = 'AD001')
@@ -1306,29 +1137,48 @@ END
 GO
 
 
+/* =============================
+   TRIGGER CẬP NHẬT TRẠNG THÁI PHÒNG
+   ============================= */
 CREATE OR ALTER TRIGGER dbo.TR_PhanBo_UpdatePhongStatus
 ON dbo.PhanBo
-AFTER INSERT, DELETE
+AFTER INSERT, DELETE, UPDATE
 AS
 BEGIN
     SET NOCOUNT ON;
 
+    ;WITH Affected AS (
+        SELECT MaPhong FROM inserted
+        UNION
+        SELECT MaPhong FROM deleted
+    ),
+    SoLuong AS (
+        SELECT 
+            p.MaPhong,
+            COUNT(pb.MSSV) AS SoSV,
+            lp.SucChua
+        FROM dbo.Phong p
+        JOIN dbo.LoaiPhong lp ON p.MaLoai = lp.MaLoai
+        LEFT JOIN dbo.PhanBo pb ON p.MaPhong = pb.MaPhong
+        WHERE p.MaPhong IN (SELECT MaPhong FROM Affected)
+        GROUP BY p.MaPhong, lp.SucChua
+    )
     UPDATE p
-    SET p.TrangThai = N'Còn chỗ'
+    SET p.TrangThai = CASE 
+                        WHEN s.SoSV = 0 THEN N'Trống'
+                        WHEN s.SoSV < s.SucChua THEN N'Còn chỗ'
+                        ELSE N'Đầy'
+                      END
     FROM dbo.Phong p
-    WHERE p.MaPhong IN (SELECT MaPhong FROM inserted);
-
-    UPDATE p
-    SET p.TrangThai = N'Trống'
-    FROM dbo.Phong p
-    WHERE p.MaPhong IN (SELECT MaPhong FROM deleted)
-      AND NOT EXISTS (
-          SELECT 1 FROM dbo.PhanBo pb
-          WHERE pb.MaPhong = p.MaPhong
-      );
+    JOIN SoLuong s ON p.MaPhong = s.MaPhong;
 END
 GO
 
+
+
+/* =============================
+   TRIGGER KIỂM TRA CHỈ SỐ ĐIỆN NƯỚC
+   ============================= */
 CREATE OR ALTER TRIGGER dbo.TR_ChiSo_CheckHopLe
 ON dbo.ChiSo
 AFTER INSERT, UPDATE
@@ -1357,6 +1207,9 @@ END
 GO
 
 
+/* =============================
+   VIEW BÁO CÁO TIỀN PHÒNG
+   ============================= */
 CREATE OR ALTER VIEW dbo.v_BaoCaoTienPhong
 AS
 SELECT 
@@ -1388,8 +1241,9 @@ GROUP BY pb.MSSV, sv.HoTen, pb.MaPhong, lp.TenLoai, lp.GiaPhong, lp.SucChua, pb.
 GO
 
 
-
--- View báo cáo điện nước
+/* =============================
+   VIEW BÁO CÁO ĐIỆN NƯỚC
+   ============================= */
 CREATE OR ALTER VIEW dbo.v_BaoCaoDienNuoc
 AS
 SELECT 
@@ -1407,16 +1261,20 @@ SELECT
 FROM dbo.ChiSo cs
 JOIN dbo.Phong p ON cs.MaPhong = p.MaPhong
 JOIN dbo.LoaiPhong lp ON p.MaLoai = lp.MaLoai
-JOIN dbo.GiaDienNuoc gdn ON gdn.ID = '1';
+CROSS JOIN (SELECT GiaDien, GiaNuoc FROM dbo.GiaDienNuoc WHERE ID='1') gdn;
 GO
 
--- View báo cáo giữ xe
+
+/* =============================
+   VIEW BÁO CÁO GIỮ XE
+   ============================= */
 CREATE OR ALTER VIEW dbo.v_BaoCaoGiuXe
 AS
 SELECT 
     tx.MaThe,
     sv.MSSV,
     sv.HoTen,
+    p.MaPhong,
     lx.TenLoai AS LoaiXe,
     lx.GiaGiuXe,
     tx.NgayDangKy,
@@ -1424,5 +1282,9 @@ SELECT
     (DATEDIFF(MONTH, tx.NgayDangKy, GETDATE()) + 1) * lx.GiaGiuXe AS TongTienGiuXe
 FROM dbo.TheXe tx
 JOIN dbo.SinhVien sv ON tx.MSSV = sv.MSSV
+JOIN dbo.PhanBo pb ON sv.MSSV = pb.MSSV
+JOIN dbo.Phong p ON pb.MaPhong = p.MaPhong
 JOIN dbo.LoaiXe lx ON tx.MaLoaiXe = lx.MaLoaiXe;
 GO
+
+
