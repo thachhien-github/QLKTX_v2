@@ -16,6 +16,9 @@ namespace QLKTX_App.ChildForm_Comon
     {
         private readonly ThanhToanPhongBLL _phongBLL = new ThanhToanPhongBLL();
         private readonly HoaDonDichVuBLL _dvBLL = new HoaDonDichVuBLL();
+
+        private DataTable _dtPhong;
+        private DataTable _dtDichVu;
         public FormThongKeDT()
         {
             InitializeComponent();
@@ -25,26 +28,26 @@ namespace QLKTX_App.ChildForm_Comon
             DateTime tuNgay = dtpTuNgay.Value;
             DateTime denNgay = dtpDenNgay.Value;
 
-            // ===== Load hóa đơn phòng =====
-            DataTable dtPhong = _phongBLL.GetAll();
-            dgvPhong.DataSource = dtPhong;
+            // ===== Hóa đơn phòng =====
+            _dtPhong = _phongBLL.GetAll();
+            dgvPhong.DataSource = _dtPhong;
 
-            // Định dạng số cho dgvPhong (cột TongTien)
             if (dgvPhong.Columns.Contains("TongTien"))
             {
-                dgvPhong.Columns["TienPhong"].DefaultCellStyle.Format = "N0"; // N0 = số nguyên, có dấu phẩy ngăn cách
+                dgvPhong.Columns["TienPhong"].DefaultCellStyle.Format = "N0";
                 dgvPhong.Columns["TienPhong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                dgvPhong.Columns["TienTheChan"].DefaultCellStyle.Format = "N0"; // N0 = số nguyên, có dấu phẩy ngăn cách
+
+                dgvPhong.Columns["TienTheChan"].DefaultCellStyle.Format = "N0";
                 dgvPhong.Columns["TienTheChan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                dgvPhong.Columns["TongTien"].DefaultCellStyle.Format = "N0"; // N0 = số nguyên, có dấu phẩy ngăn cách
+
+                dgvPhong.Columns["TongTien"].DefaultCellStyle.Format = "N0";
                 dgvPhong.Columns["TongTien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
 
-            // ===== Load hóa đơn dịch vụ =====
-            DataTable dtDV = _dvBLL.LayDanhSachHoaDon();
-            dgvDichVu.DataSource = dtDV;
+            // ===== Hóa đơn dịch vụ =====
+            _dtDichVu = _dvBLL.LayDanhSachHoaDon();
+            dgvDichVu.DataSource = _dtDichVu;
 
-            // Định dạng số cho các cột dịch vụ
             string[] colsDV = { "TienDien", "TienNuoc", "TienGuiXe", "TongTien" };
             foreach (string col in colsDV)
             {
@@ -55,15 +58,9 @@ namespace QLKTX_App.ChildForm_Comon
                 }
             }
 
-
-            // ===== Cập nhật tổng doanh thu =====
-            decimal tongPhong = 0, tongDV = 0;
-            foreach (DataRow row in dtPhong.Rows)
-                tongPhong += Convert.ToDecimal(row["TienPhong"]);
-
-            foreach (DataRow row in dtDV.Rows)
-                tongDV += Convert.ToDecimal(row["TongTien"]);
-
+            // ===== Tổng doanh thu =====
+            decimal tongPhong = _dtPhong.AsEnumerable().Sum(r => r.Field<decimal>("TienPhong"));
+            decimal tongDV = _dtDichVu.AsEnumerable().Sum(r => r.Field<decimal>("TongTien"));
 
             lblTongDTPhong.Text = tongPhong.ToString("N0") + " đ";
             lblTongDTDichVu.Text = tongDV.ToString("N0") + " đ";
@@ -73,12 +70,9 @@ namespace QLKTX_App.ChildForm_Comon
             lblDTGiuXe.Text = _dvBLL.LayTongTienXe(tuNgay, denNgay).ToString("N0") + " đ";
             lblTongDT.Text = (tongPhong + tongDV).ToString("N0") + " đ";
 
-            // Vẽ chart doanh thu dịch vụ
-            VeBieuDoTuHoaDon(dtDV);
-
-            // Vẽ chart tỉ lệ dịch vụ
-            VeBieuDoTyLeDichVu(dtDV);
-
+            // Vẽ chart
+            VeBieuDoTuHoaDon(_dtDichVu);
+            VeBieuDoTyLeDichVu(_dtDichVu);
         }
 
         private void FormThongKeDT_Load(object sender, EventArgs e)
@@ -86,6 +80,28 @@ namespace QLKTX_App.ChildForm_Comon
             dtpTuNgay.Value = new DateTime(DateTime.Now.Year, 1, 1);
             dtpDenNgay.Value = DateTime.Now;
             LoadThongKe();
+
+            // ===== Load dữ liệu vào cboThangNam =====
+            cboThangNam.Items.Clear();
+            cboThangNam.Items.Add("Tất cả");
+            for (int y = DateTime.Now.Year - 2; y <= DateTime.Now.Year; y++) // lấy 3 năm gần đây
+            {
+                for (int m = 1; m <= 12; m++)
+                {
+                    cboThangNam.Items.Add($"{m:D2}/{y}");
+                }
+            }
+            cboThangNam.SelectedIndex = 0; // mặc định "Tất cả"
+
+            // ===== Load dữ liệu cboNamPhong =====
+            cboNam.Items.Clear();
+            cboNam.Items.Add("Tất cả");
+            for (int y = DateTime.Now.Year - 5; y <= DateTime.Now.Year; y++) // 5 năm gần đây
+            {
+                cboNam.Items.Add(y.ToString());
+            }
+            cboNam.SelectedIndex = 0;
+
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -123,33 +139,212 @@ namespace QLKTX_App.ChildForm_Comon
 
         private void VeBieuDoTyLeDichVu(DataTable dtDV)
         {
-            // Tính tổng theo từng loại dịch vụ
             decimal tongDien = dtDV.AsEnumerable().Sum(r => r.Field<decimal>("TienDien"));
             decimal tongNuoc = dtDV.AsEnumerable().Sum(r => r.Field<decimal>("TienNuoc"));
             decimal tongXe = dtDV.AsEnumerable().Sum(r => r.Field<decimal>("TienGuiXe"));
 
             chartPie.Series.Clear();
+            chartPie.Titles.Clear();
+            chartPie.Legends.Clear();
+
+            // ===== Title =====
+            chartPie.Titles.Add("Cơ cấu doanh thu dịch vụ");
+            chartPie.Titles[0].Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            chartPie.Titles[0].ForeColor = Color.DarkBlue;
+
+            // ===== Legend =====
+            Legend legend = new Legend("Legend1");
+            legend.Docking = Docking.Right;
+            legend.Alignment = StringAlignment.Center;
+            legend.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            chartPie.Legends.Add(legend);
+
+            // ===== Series =====
             Series s = new Series("Tỉ lệ dịch vụ")
             {
                 ChartType = SeriesChartType.Pie,
                 IsValueShownAsLabel = true,
-                LabelFormat = "N0"
+                Font = new Font("Segoe UI", 9, FontStyle.Bold),
             };
             chartPie.Series.Add(s);
 
-            // Thêm dữ liệu
+            // Dữ liệu
             s.Points.AddXY("Điện", tongDien);
             s.Points.AddXY("Nước", tongNuoc);
             s.Points.AddXY("Gửi xe", tongXe);
 
-            // Hiển thị % trong legend
-            chartPie.Legends[0].Enabled = true;
+            // Cập nhật label và legend cho từng điểm
             foreach (DataPoint p in s.Points)
             {
-                p.LegendText = p.AxisLabel + " (#PERCENT{P0})";
+                p.Label = "#PERCENT{P0}";   // chỉ hiển thị %
+                p.LegendText = p.AxisLabel; // chỉ hiện tên trong chú thích
+                p.LabelForeColor = Color.Black;
+            }
+
+            // ===== Hiệu ứng 3D =====
+            chartPie.ChartAreas[0].Area3DStyle.Enable3D = true;
+            chartPie.ChartAreas[0].Area3DStyle.Inclination = 40;
+            chartPie.ChartAreas[0].Area3DStyle.Rotation = 20;
+        }
+
+        private void btnExportPhong_Click(object sender, EventArgs e)
+        {
+            if (_dtPhong == null || _dtPhong.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất báo cáo!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            int namChon = Convert.ToInt32(cboNam.SelectedItem);
+
+            // Lọc theo năm
+            var rows = _dtPhong.AsEnumerable()
+                .Where(r => r.Field<DateTime>("NgayThu").Year == namChon);
+
+            if (!rows.Any())
+            {
+                MessageBox.Show($"Không có dữ liệu phòng trong năm {namChon}!",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DataTable dtPhongLoc = rows.CopyToDataTable();
+
+            using (SaveFileDialog sfd = new SaveFileDialog()
+            {
+                Filter = "Excel file|*.xlsx",
+                FileName = $"BaoCao_Phong_{namChon}_{DateTime.Now:yyyyMMdd}.xlsx"
+            })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        ExcelExportPhong.XuatExcel(dtPhongLoc, sfd.FileName,
+                            $"BÁO CÁO DOANH THU PHÒNG NĂM {namChon}");
+                        MessageBox.Show("Xuất báo cáo phòng thành công!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi xuất báo cáo: " + ex.Message, "Lỗi",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
 
+        private void btnExportDichVu_Click(object sender, EventArgs e)
+        {
+            if (_dtDichVu == null || _dtDichVu.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất báo cáo!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            DateTime tuNgay = dtpTuNgay.Value;
+            DateTime denNgay = dtpDenNgay.Value;
+
+            // Lọc theo khoảng ngày
+            var rows = _dtDichVu.AsEnumerable()
+                .Where(r => r.Field<DateTime>("NgayLap") >= tuNgay
+                         && r.Field<DateTime>("NgayLap") <= denNgay);
+
+            // ✅ Nếu không có dòng nào thì return luôn
+            if (rows == null || !rows.Any())
+            {
+                MessageBox.Show($"Không có dữ liệu dịch vụ trong khoảng {tuNgay:dd/MM/yyyy} - {denNgay:dd/MM/yyyy}!",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DataTable dtDVLoc = rows.CopyToDataTable();
+
+            using (SaveFileDialog sfd = new SaveFileDialog()
+            {
+                Filter = "Excel file|*.xlsx",
+                FileName = $"BaoCao_DichVu_{tuNgay:yyyyMMdd}_{denNgay:yyyyMMdd}.xlsx"
+            })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        ExcelExportHoaDonDV.XuatExcel(dtDVLoc, sfd.FileName,
+                            $"BÁO CÁO DOANH THU DỊCH VỤ ({tuNgay:dd/MM/yyyy} - {denNgay:dd/MM/yyyy})");
+                        MessageBox.Show("Xuất báo cáo dịch vụ thành công!", "Thông báo",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi xuất báo cáo: " + ex.Message, "Lỗi",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void cboThangNam_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_dtDichVu == null || _dtDichVu.Rows.Count == 0) return;
+
+            var dv = _dtDichVu.AsEnumerable();
+
+            if (cboThangNam.SelectedIndex > 0) // Nếu khác "Tất cả"
+            {
+                string[] parts = cboThangNam.SelectedItem.ToString().Split('/');
+                int thang = int.Parse(parts[0]);
+                int nam = int.Parse(parts[1]);
+
+                dv = dv.Where(r =>
+                    r.Field<int>("Thang") == thang &&
+                    r.Field<int>("Nam") == nam
+                );
+            }
+
+            if (dv.Any())
+            {
+                DataTable dtFilter = dv.CopyToDataTable();
+                dgvDichVu.DataSource = dtFilter;
+                VeBieuDoTuHoaDon(dtFilter);
+                VeBieuDoTyLeDichVu(dtFilter);
+            }
+            else
+            {
+                dgvDichVu.DataSource = null;
+                chartThang.Series.Clear();
+                chartPie.Series.Clear();
+            }
+        }
+
+        private void cboNam_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_dtPhong == null || _dtPhong.Rows.Count == 0) return;
+
+            var phong = _dtPhong.AsEnumerable();
+
+            if (cboNam.SelectedIndex > 0) // khác "Tất cả"
+            {
+                int nam = int.Parse(cboNam.SelectedItem.ToString());
+                phong = phong.Where(r => r.Field<DateTime>("NgayThu").Year == nam);
+            }
+
+            if (phong.Any())
+            {
+                DataTable dtFilter = phong.CopyToDataTable();
+                dgvPhong.DataSource = dtFilter;
+
+                // Tính lại tổng doanh thu phòng
+                decimal tongPhong = dtFilter.AsEnumerable().Sum(r => r.Field<decimal>("TienPhong"));
+                lblTongDTPhong.Text = tongPhong.ToString("N0") + " đ";
+            }
+            else
+            {
+                dgvPhong.DataSource = null;
+                lblTongDTPhong.Text = "0 đ";
+            }
+        }
     }
 }
