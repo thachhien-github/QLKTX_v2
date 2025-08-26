@@ -60,6 +60,31 @@ namespace QLKTX_App.ChildForm_Comon
         {
             dgvListPhong.DataSource = _phongBLL.GetAll();
             dgvListPhong.ClearSelection();
+
+            if (dgvListPhong.Columns.Count > 0)
+            {
+                // Đặt lại header
+                dgvListPhong.Columns["MaPhong"].HeaderText = "Mã phòng";
+                dgvListPhong.Columns["MaTang"].HeaderText = "Mã tầng";
+                dgvListPhong.Columns["MaLoai"].HeaderText = "Mã loại";
+                dgvListPhong.Columns["SoLuongToiDa"].HeaderText = "Số lượng tối đa";
+                dgvListPhong.Columns["TrangThai"].HeaderText = "Trạng thái";
+
+                // Căn giữa
+                dgvListPhong.Columns["MaPhong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvListPhong.Columns["MaTang"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvListPhong.Columns["MaLoai"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvListPhong.Columns["TrangThai"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                // Format số cho cột "Số lượng tối đa"
+                dgvListPhong.Columns["SoLuongToiDa"].DefaultCellStyle.Format = "N0";
+                dgvListPhong.Columns["SoLuongToiDa"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                // Font
+                dgvListPhong.DefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+                dgvListPhong.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+                dgvListPhong.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
         }
 
         private PhongModel GetInput()
@@ -167,16 +192,35 @@ namespace QLKTX_App.ChildForm_Comon
 
         private void dgvListPhong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                var row = dgvListPhong.Rows[e.RowIndex];
-                txtMaPhong.Text = row.Cells["MaPhong"].Value.ToString();
-                cboChonTang.SelectedValue = row.Cells["MaTang"].Value.ToString();    // ✔ chọn đúng tang
-                cboLoaiPhong.SelectedValue = row.Cells["MaLoai"].Value.ToString();  // ✔ chọn đúng loại phòng
-                numSucChua.Value = Convert.ToInt32(row.Cells["SoLuongToiDa"].Value);
+            if (e.RowIndex < 0) return; // bỏ qua header
+
+            var row = dgvListPhong.Rows[e.RowIndex];
+
+            // Mã phòng
+            txtMaPhong.Text = row.Cells["MaPhong"].Value?.ToString() ?? "";
+
+            // Mã tầng
+            if (row.Cells["MaTang"].Value != null)
+                cboChonTang.SelectedValue = row.Cells["MaTang"].Value.ToString();
+
+            // Mã loại phòng
+            if (row.Cells["MaLoai"].Value != null)
+                cboLoaiPhong.SelectedValue = row.Cells["MaLoai"].Value.ToString();
+
+            // Sức chứa
+            if (row.Cells["SoLuongToiDa"].Value != null && int.TryParse(row.Cells["SoLuongToiDa"].Value.ToString(), out int soLuong))
+                numSucChua.Value = soLuong;
+            else
+                numSucChua.Value = numSucChua.Minimum; // fallback để tránh lỗi
+
+            // Trạng thái
+            if (row.Cells["TrangThai"].Value != null)
                 cboTrangThai.SelectedItem = row.Cells["TrangThai"].Value.ToString();
-                txtMaPhong.Enabled = false; // không cho sửa khóa chính
-            }
+            else
+                cboTrangThai.SelectedIndex = -1;
+
+            // Không cho sửa khóa chính
+            txtMaPhong.Enabled = false;
         }
     }
 }

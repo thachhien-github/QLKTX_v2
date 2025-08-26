@@ -110,27 +110,41 @@ namespace QLKTX_App.ChildForm_NhanVien
 
             if (dt != null && dt.Columns.Count > 0)
             {
-                dgvListHD.Columns["MaHD"].HeaderText = "Mã HĐ";
-                dgvListHD.Columns["MaPhong"].HeaderText = "Phòng";
-                dgvListHD.Columns["Thang"].HeaderText = "Tháng";
-                dgvListHD.Columns["Nam"].HeaderText = "Năm";
-                dgvListHD.Columns["NgayLap"].HeaderText = "Ngày lập";
-                dgvListHD.Columns["DienTieuThu"].HeaderText = "Điện (kWh)";
-                dgvListHD.Columns["NuocTieuThu"].HeaderText = "Nước (m³)";
-                dgvListHD.Columns["SoLuongXe"].HeaderText = "Xe (chiếc)";
-                dgvListHD.Columns["TienDien"].HeaderText = "Tiền điện (VND)";
-                dgvListHD.Columns["TienNuoc"].HeaderText = "Tiền nước (VND)";
-                dgvListHD.Columns["TienGuiXe"].HeaderText = "Tiền xe (VND)";
-                dgvListHD.Columns["TongTien"].HeaderText = "Tổng tiền (VND)";
+                // Đặt header text
+                var headers = new Dictionary<string, string>
+                {
+                    { "MaHD", "Mã HĐ" },
+                    { "MaPhong", "Phòng" },
+                    { "Thang", "Tháng" },
+                    { "Nam", "Năm" },
+                    { "NgayLap", "Ngày lập" },
+                    { "DienTieuThu", "Điện (kWh)" },
+                    { "NuocTieuThu", "Nước (m³)" },
+                    { "SoLuongXe", "Xe (chiếc)" },
+                    { "TienDien", "Tiền điện (VND)" },
+                    { "TienNuoc", "Tiền nước (VND)" },
+                    { "TienGuiXe", "Tiền xe (VND)" },
+                    { "TongTien", "Tổng tiền (VND)" }
+                };
 
-                // Định dạng số tiền
+                foreach (var kvp in headers)
+                {
+                    if (dgvListHD.Columns.Contains(kvp.Key))
+                        dgvListHD.Columns[kvp.Key].HeaderText = kvp.Value;
+                }
+
+                // Format tiền tệ
                 string[] tienCols = { "TienDien", "TienNuoc", "TienGuiXe", "TongTien" };
                 foreach (string col in tienCols)
                 {
-                    dgvListHD.Columns[col].DefaultCellStyle.Format = "N0";
-                    dgvListHD.Columns[col].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    if (dgvListHD.Columns.Contains(col))
+                    {
+                        dgvListHD.Columns[col].DefaultCellStyle.Format = "N0"; // định dạng 1,000
+                        dgvListHD.Columns[col].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    }
                 }
             }
+
         }
 
 
@@ -269,6 +283,17 @@ namespace QLKTX_App.ChildForm_NhanVien
             {
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnTiep_Click(object sender, EventArgs e)
+        {
+            dtpNgayLap.Value = DateTime.Now;
+            cboThangNam.SelectedIndex = -1;
+            cboPhong.SelectedIndex = -1;
+            txtCSdien.Clear();
+            txtCSnuoc.Clear();
+            txtSLxe.Clear();
+            dgvListHD.ClearSelection();
         }
     }
 }

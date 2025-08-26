@@ -60,7 +60,9 @@
             this.dtpDenNgay = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.dgvPhong = new System.Windows.Forms.DataGridView();
+            this.cboNam = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.chartPie = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartThang = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -76,12 +78,10 @@
             this.lblTongDTDichVu = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cboThangNam = new System.Windows.Forms.ComboBox();
             this.dgvDichVu = new System.Windows.Forms.DataGridView();
             this.label6 = new System.Windows.Forms.Label();
-            this.cboThangNam = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cboNam = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -359,6 +359,17 @@
             this.panel8.Size = new System.Drawing.Size(759, 179);
             this.panel8.TabIndex = 14;
             // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(576, 13);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 20);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Năm:";
+            // 
             // dgvPhong
             // 
             this.dgvPhong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -401,6 +412,17 @@
             this.dgvPhong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPhong.Size = new System.Drawing.Size(739, 128);
             this.dgvPhong.TabIndex = 22;
+            // 
+            // cboNam
+            // 
+            this.cboNam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboNam.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboNam.FormattingEnabled = true;
+            this.cboNam.Location = new System.Drawing.Point(628, 10);
+            this.cboNam.Name = "cboNam";
+            this.cboNam.Size = new System.Drawing.Size(121, 28);
+            this.cboNam.TabIndex = 23;
+            this.cboNam.SelectedIndexChanged += new System.EventHandler(this.cboNam_SelectedIndexChanged);
             // 
             // label15
             // 
@@ -542,7 +564,7 @@
             // 
             this.lblTongDTPhong.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTongDTPhong.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTongDTPhong.Location = new System.Drawing.Point(-2, 75);
+            this.lblTongDTPhong.Location = new System.Drawing.Point(-2, 60);
             this.lblTongDTPhong.Name = "lblTongDTPhong";
             this.lblTongDTPhong.Size = new System.Drawing.Size(246, 40);
             this.lblTongDTPhong.TabIndex = 0;
@@ -651,7 +673,7 @@
             // 
             this.lblTongDTDichVu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTongDTDichVu.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTongDTDichVu.Location = new System.Drawing.Point(-2, 82);
+            this.lblTongDTDichVu.Location = new System.Drawing.Point(-2, 67);
             this.lblTongDTDichVu.Name = "lblTongDTDichVu";
             this.lblTongDTDichVu.Size = new System.Drawing.Size(246, 40);
             this.lblTongDTDichVu.TabIndex = 0;
@@ -684,6 +706,28 @@
             this.panel1.Padding = new System.Windows.Forms.Padding(10);
             this.panel1.Size = new System.Drawing.Size(759, 179);
             this.panel1.TabIndex = 18;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(531, 13);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(95, 20);
+            this.label3.TabIndex = 24;
+            this.label3.Text = "Tháng/Năm:";
+            // 
+            // cboThangNam
+            // 
+            this.cboThangNam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboThangNam.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboThangNam.FormattingEnabled = true;
+            this.cboThangNam.Location = new System.Drawing.Point(628, 10);
+            this.cboThangNam.Name = "cboThangNam";
+            this.cboThangNam.Size = new System.Drawing.Size(121, 28);
+            this.cboThangNam.TabIndex = 23;
+            this.cboThangNam.SelectedIndexChanged += new System.EventHandler(this.cboThangNam_SelectedIndexChanged);
             // 
             // dgvDichVu
             // 
@@ -739,50 +783,6 @@
             this.label6.Size = new System.Drawing.Size(293, 31);
             this.label6.TabIndex = 0;
             this.label6.Text = "Thống kê hóa đơn dịch vụ";
-            // 
-            // cboThangNam
-            // 
-            this.cboThangNam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboThangNam.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboThangNam.FormattingEnabled = true;
-            this.cboThangNam.Location = new System.Drawing.Point(628, 10);
-            this.cboThangNam.Name = "cboThangNam";
-            this.cboThangNam.Size = new System.Drawing.Size(121, 28);
-            this.cboThangNam.TabIndex = 23;
-            this.cboThangNam.SelectedIndexChanged += new System.EventHandler(this.cboThangNam_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(531, 13);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(95, 20);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "Tháng/Năm:";
-            // 
-            // cboNam
-            // 
-            this.cboNam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboNam.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboNam.FormattingEnabled = true;
-            this.cboNam.Location = new System.Drawing.Point(628, 10);
-            this.cboNam.Name = "cboNam";
-            this.cboNam.Size = new System.Drawing.Size(121, 28);
-            this.cboNam.TabIndex = 23;
-            this.cboNam.SelectedIndexChanged += new System.EventHandler(this.cboNam_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(576, 13);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(46, 20);
-            this.label5.TabIndex = 24;
-            this.label5.Text = "Năm:";
             // 
             // FormThongKeDT
             // 

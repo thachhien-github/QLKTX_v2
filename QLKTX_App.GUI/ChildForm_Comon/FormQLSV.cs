@@ -34,7 +34,34 @@ namespace QLKTX_App.ChildForm_Comon
         private void LoadSinhVien()
         {
             dgvListSV.DataSource = _svBLL.GetAll();
+            dgvListSV.ClearSelection();
+
+            if (dgvListSV.Columns.Count > 0)
+            {
+                // Đặt lại tên cột
+                dgvListSV.Columns["MSSV"].HeaderText = "MSSV";
+                dgvListSV.Columns["HoTen"].HeaderText = "Họ tên";
+                dgvListSV.Columns["GioiTinh"].HeaderText = "Giới tính";
+                dgvListSV.Columns["NgaySinh"].HeaderText = "Ngày sinh";
+                dgvListSV.Columns["SDT"].HeaderText = "SĐT";
+                dgvListSV.Columns["DiaChi"].HeaderText = "Địa chỉ";
+
+                // Format ngày
+                dgvListSV.Columns["NgaySinh"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dgvListSV.Columns["NgaySinh"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                // Font + căn giữa header
+                dgvListSV.DefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+                dgvListSV.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+                dgvListSV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                // Căn giữa cho MSSV & Giới tính
+                dgvListSV.Columns["MSSV"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvListSV.Columns["GioiTinh"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvListSV.Columns["SDT"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
         }
+
 
         private void btnDangKy_Click(object sender, EventArgs e)
         {
@@ -96,18 +123,36 @@ namespace QLKTX_App.ChildForm_Comon
 
         private void dgvListSV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0) return; // bỏ qua header
 
             DataGridViewRow row = dgvListSV.Rows[e.RowIndex];
 
-            txtMSSV.Text = row.Cells["MSSV"].Value?.ToString();
-            txtHoTen.Text = row.Cells["HoTen"].Value?.ToString();
-            dtpNgaySinh.Value = Convert.ToDateTime(row.Cells["NgaySinh"].Value);
+            // MSSV
+            txtMSSV.Text = row.Cells["MSSV"].Value?.ToString() ?? "";
+
+            // Họ tên
+            txtHoTen.Text = row.Cells["HoTen"].Value?.ToString() ?? "";
+
+            // Ngày sinh
+            if (row.Cells["NgaySinh"].Value != null && DateTime.TryParse(row.Cells["NgaySinh"].Value.ToString(), out DateTime ns))
+            {
+                dtpNgaySinh.Value = ns;
+            }
+            else
+            {
+                dtpNgaySinh.Value = DateTime.Now; // gán mặc định để tránh crash
+            }
+
+            // Giới tính
             string gt = row.Cells["GioiTinh"].Value?.ToString();
             radNam.Checked = gt == "Nam";
             radNu.Checked = gt == "Nữ";
-            txtSDT.Text = row.Cells["SDT"].Value?.ToString();
-            txtDiaChi.Text = row.Cells["DiaChi"].Value?.ToString();
+
+            // SĐT
+            txtSDT.Text = row.Cells["SDT"].Value?.ToString() ?? "";
+
+            // Địa chỉ
+            txtDiaChi.Text = row.Cells["DiaChi"].Value?.ToString() ?? "";
         }
     }
 }

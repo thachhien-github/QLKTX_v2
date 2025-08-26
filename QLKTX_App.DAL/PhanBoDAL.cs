@@ -29,7 +29,7 @@ namespace QLKTX_App.DAL
                 new SqlParameter("@MaPhong", pb.MaPhong),
                 new SqlParameter("@SoThang", pb.SoThang),
                 new SqlParameter("@NgayPhanBo", pb.NgayPhanBo),
-                new SqlParameter("@MienTienPhong", pb.MienTienPhong),
+                new SqlParameter("@MienTienPhong", pb.MienTienPhong ? 1 : 0),
                 new SqlParameter("@SoDotThu", pb.SoDotThu),
                 new SqlParameter("@GhiChu", pb.GhiChu ?? (object)DBNull.Value)
             };

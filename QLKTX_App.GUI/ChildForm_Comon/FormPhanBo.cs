@@ -115,30 +115,7 @@ namespace QLKTX_App.ChildForm_Comon
         private void btnQuayLai_Click(object sender, EventArgs e)
         {
             this.Close(); // đóng form, quay lại FormQLSV
-        }
-
-        private void btnXuatHD_Click(object sender, EventArgs e)
-        {
-            if (dgvHopDong is DataGridView dgv && dgv.CurrentRow != null)
-            {
-                // Lấy DataRow từ dòng hiện tại
-                var r = ((DataRowView)dgv.CurrentRow.DataBoundItem).Row;
-
-                using (SaveFileDialog sfd = new SaveFileDialog { Filter = "PDF|*.pdf" })
-                {
-                    if (sfd.ShowDialog() == DialogResult.OK)
-                    {
-                        // Gọi ExportHopDongPDF với DataRow hiện tại
-                        HopDongExporter.ExportHopDongPDF(r, sfd.FileName);
-                        MessageBox.Show("Xuất hợp đồng PDF thành công!");
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng chọn dòng để xuất hợp đồng!");
-            }
-        }
+        } 
 
         private void dgvHopDong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -146,12 +123,39 @@ namespace QLKTX_App.ChildForm_Comon
 
             DataGridViewRow row = dgvHopDong.Rows[e.RowIndex];
 
-            cboMaPhong.SelectedValue = row.Cells["MaPhong"].Value?.ToString();
-            nmuSoThang.Value = Convert.ToInt32(row.Cells["SoThang"].Value);
-            dtpNgayPhanBo.Value = Convert.ToDateTime(row.Cells["NgayPhanBo"].Value);
-            chkMienTienPhong.Checked = Convert.ToBoolean(row.Cells["MienTienPhong"].Value);
-            txtSoDotThu.Text = row.Cells["SoDotThu"].Value?.ToString();
-            txtGhiChu.Text = row.Cells["GhiChu"].Value?.ToString();
+            // Mã phòng
+            if (row.Cells["MaPhong"].Value != null)
+                cboMaPhong.SelectedValue = row.Cells["MaPhong"].Value.ToString();
+
+            // Số tháng
+            if (row.Cells["SoThang"].Value != null &&
+                int.TryParse(row.Cells["SoThang"].Value.ToString(), out int soThang))
+                nmuSoThang.Value = soThang;
+            else
+                nmuSoThang.Value = nmuSoThang.Minimum;
+
+            // Ngày phân bổ
+            if (row.Cells["NgayPhanBo"].Value != null &&
+                DateTime.TryParse(row.Cells["NgayPhanBo"].Value.ToString(), out DateTime ngayPB))
+                dtpNgayPhanBo.Value = ngayPB;
+            else
+                dtpNgayPhanBo.Value = DateTime.Now;
+
+            // Miễn tiền phòng
+            if (row.Cells["MienTienPhong"].Value != null)
+            {
+                chkMienTienPhong.Checked = row.Cells["MienTienPhong"].Value.ToString() == "1";
+            }
+            else
+            {
+                chkMienTienPhong.Checked = false;
+            }
+
+            // Số đợt thu
+            txtSoDotThu.Text = row.Cells["SoDotThu"].Value?.ToString() ?? "";
+
+            // Ghi chú
+            txtGhiChu.Text = row.Cells["GhiChu"].Value?.ToString() ?? "";
         }
     }
 }

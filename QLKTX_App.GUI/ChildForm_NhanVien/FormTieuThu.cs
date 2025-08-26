@@ -1,4 +1,5 @@
 ﻿using QLKTX_App.BLL;
+using QLKTX_App.DAL;
 using QLKTX_App.DTO;
 using QLKTX_App.Utilities;
 using System;
@@ -32,10 +33,22 @@ namespace QLKTX_App.ChildForm_NhanVien
 
         private void LoadPhong()
         {
-            // TODO: load phòng từ DB (bạn có thể viết DAL riêng hoặc dùng chung)
-            // ví dụ: select MaPhong from Phong
-            cboPhong.Items.Clear();
-            cboPhong.Items.AddRange(new string[] { "P101", "P102", "P201" }); // demo
+            try
+            {
+                // load phòng trực tiếp từ DB
+                string sql = "SELECT MaPhong FROM Phong";
+                DBHelper db = new DBHelper();
+                DataTable dt = db.ExecuteQuery(sql, false);
+
+                cboPhong.DataSource = dt;
+                cboPhong.DisplayMember = "MaPhong";
+                cboPhong.ValueMember = "MaPhong";
+                cboPhong.SelectedIndex = -1; // chưa chọn mặc định
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải danh sách phòng: " + ex.Message);
+            }
         }
 
         private void LoadThang()
@@ -43,6 +56,7 @@ namespace QLKTX_App.ChildForm_NhanVien
             cboThang.Items.Clear();
             for (int i = 1; i <= 12; i++)
                 cboThang.Items.Add(i);
+            cboThang.SelectedItem = DateTime.Now.Month;
         }
 
         private void LoadNam()
@@ -50,18 +64,54 @@ namespace QLKTX_App.ChildForm_NhanVien
             cboNam.Items.Clear();
             for (int i = DateTime.Now.Year - 5; i <= DateTime.Now.Year + 1; i++)
                 cboNam.Items.Add(i);
+            cboNam.SelectedItem = DateTime.Now.Year;
         }
 
         private void LoadData()
         {
             dgvListChiSo.DataSource = _bll.GetAll();
+            dgvListChiSo.ClearSelection();
+
+            // ✅ Font to rõ ràng hơn
+            dgvListChiSo.DefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+            dgvListChiSo.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+
+            if (dgvListChiSo.Columns.Count > 0)
+            {
+                dgvListChiSo.Columns["MaPhong"].HeaderText = "Mã phòng";
+                dgvListChiSo.Columns["Thang"].HeaderText = "Tháng";
+                dgvListChiSo.Columns["Nam"].HeaderText = "Năm";
+                dgvListChiSo.Columns["DienCu"].HeaderText = "Điện cũ";
+                dgvListChiSo.Columns["DienMoi"].HeaderText = "Điện mới";
+                dgvListChiSo.Columns["DienTieuThu"].HeaderText = "Điện tiêu thụ (kWh)";
+                dgvListChiSo.Columns["NuocCu"].HeaderText = "Nước cũ";
+                dgvListChiSo.Columns["NuocMoi"].HeaderText = "Nước mới";
+                dgvListChiSo.Columns["NuocTieuThu"].HeaderText = "Nước tiêu thụ (m³)";
+
+                // ✅ căn phải & format số
+                string[] numberCols = { "DienCu", "DienMoi", "DienTieuThu", "NuocCu", "NuocMoi", "NuocTieuThu" };
+                foreach (string col in numberCols)
+                {
+                    dgvListChiSo.Columns[col].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dgvListChiSo.Columns[col].DefaultCellStyle.Format = "N0";
+                }
+            }
         }
 
         private ChiSoModel GetModelFromForm()
         {
+            if (cboPhong.SelectedValue == null)
+                throw new Exception("Bạn chưa chọn phòng!");
+
+            if (cboThang.SelectedItem == null)
+                throw new Exception("Bạn chưa chọn tháng!");
+
+            if (cboNam.SelectedItem == null)
+                throw new Exception("Bạn chưa chọn năm!");
+
             return new ChiSoModel
             {
-                MaPhong = cboPhong.SelectedItem?.ToString(),
+                MaPhong = cboPhong.SelectedValue.ToString(),
                 Thang = Convert.ToInt32(cboThang.SelectedItem),
                 Nam = Convert.ToInt32(cboNam.SelectedItem),
                 DienCu = string.IsNullOrEmpty(txtDienCu.Text) ? 0 : int.Parse(txtDienCu.Text),
@@ -73,7 +123,7 @@ namespace QLKTX_App.ChildForm_NhanVien
 
         private void SetFormFromModel(ChiSoModel cs)
         {
-            cboPhong.SelectedItem = cs.MaPhong;
+            cboPhong.SelectedValue = cs.MaPhong;
             cboThang.SelectedItem = cs.Thang;
             cboNam.SelectedItem = cs.Nam;
             txtDienCu.Text = cs.DienCu.ToString();
@@ -83,6 +133,7 @@ namespace QLKTX_App.ChildForm_NhanVien
             txtDienTT.Text = cs.DienTieuThu.ToString();
             txtNuocTT.Text = cs.NuocTieuThu.ToString();
         }
+
 
         private void dgvListChiSo_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -152,7 +203,7 @@ namespace QLKTX_App.ChildForm_NhanVien
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (cboPhong.SelectedItem == null || cboThang.SelectedItem == null || cboNam.SelectedItem == null)
+            if (cboPhong.SelectedValue == null || cboThang.SelectedItem == null || cboNam.SelectedItem == null)
             {
                 MessageBox.Show("Vui lòng chọn đầy đủ thông tin!");
                 return;
@@ -160,7 +211,7 @@ namespace QLKTX_App.ChildForm_NhanVien
 
             try
             {
-                string maPhong = cboPhong.SelectedItem.ToString();
+                string maPhong = cboPhong.SelectedValue.ToString();
                 int thang = Convert.ToInt32(cboThang.SelectedItem);
                 int nam = Convert.ToInt32(cboNam.SelectedItem);
 

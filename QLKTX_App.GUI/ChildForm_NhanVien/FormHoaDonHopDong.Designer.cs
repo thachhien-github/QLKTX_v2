@@ -33,6 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvListHD = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnTiep = new FontAwesome.Sharp.IconButton();
             this.btnXuatHD = new FontAwesome.Sharp.IconButton();
             this.btnTaoHD = new FontAwesome.Sharp.IconButton();
             this.btnXoaHD = new FontAwesome.Sharp.IconButton();
@@ -122,6 +123,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.btnTiep);
             this.panel3.Controls.Add(this.btnXuatHD);
             this.panel3.Controls.Add(this.btnTaoHD);
             this.panel3.Controls.Add(this.btnXoaHD);
@@ -131,6 +133,30 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1027, 70);
             this.panel3.TabIndex = 26;
+            // 
+            // btnTiep
+            // 
+            this.btnTiep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTiep.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnTiep.FlatAppearance.BorderSize = 0;
+            this.btnTiep.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnTiep.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTiep.ForeColor = System.Drawing.Color.Black;
+            this.btnTiep.IconChar = FontAwesome.Sharp.IconChar.ArrowRight;
+            this.btnTiep.IconColor = System.Drawing.Color.Red;
+            this.btnTiep.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnTiep.IconSize = 25;
+            this.btnTiep.Location = new System.Drawing.Point(722, 13);
+            this.btnTiep.MaximumSize = new System.Drawing.Size(275, 45);
+            this.btnTiep.Name = "btnTiep";
+            this.btnTiep.Padding = new System.Windows.Forms.Padding(15, 3, 3, 3);
+            this.btnTiep.Size = new System.Drawing.Size(143, 45);
+            this.btnTiep.TabIndex = 18;
+            this.btnTiep.Text = "Tiếp";
+            this.btnTiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTiep.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTiep.UseVisualStyleBackColor = false;
+            this.btnTiep.Click += new System.EventHandler(this.btnTiep_Click);
             // 
             // btnXuatHD
             // 
@@ -167,7 +193,7 @@
             this.btnTaoHD.IconColor = System.Drawing.Color.ForestGreen;
             this.btnTaoHD.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnTaoHD.IconSize = 25;
-            this.btnTaoHD.Location = new System.Drawing.Point(574, 13);
+            this.btnTaoHD.Location = new System.Drawing.Point(425, 13);
             this.btnTaoHD.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnTaoHD.Name = "btnTaoHD";
             this.btnTaoHD.Padding = new System.Windows.Forms.Padding(3);
@@ -190,7 +216,7 @@
             this.btnXoaHD.IconColor = System.Drawing.Color.Red;
             this.btnXoaHD.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnXoaHD.IconSize = 25;
-            this.btnXoaHD.Location = new System.Drawing.Point(723, 13);
+            this.btnXoaHD.Location = new System.Drawing.Point(574, 13);
             this.btnXoaHD.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnXoaHD.Name = "btnXoaHD";
             this.btnXoaHD.Padding = new System.Windows.Forms.Padding(15, 3, 3, 3);
@@ -467,5 +493,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtHoTen;
         private System.Windows.Forms.Label label9;
+        private FontAwesome.Sharp.IconButton btnTiep;
     }
 }

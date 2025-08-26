@@ -30,7 +30,33 @@ namespace QLKTX_App.ChildForm_Admin
             dgvListNV.DataSource = bll.GetAll();
             dgvListNV.ClearSelection();
             ResetForm();
+
+            // ✅ Font to, rõ ràng
+            dgvListNV.DefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+            dgvListNV.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+
+            // ✅ Đặt lại tiêu đề cột
+            if (dgvListNV.Columns.Count > 0)
+            {
+                dgvListNV.Columns["MaNV"].HeaderText = "Mã NV";
+                dgvListNV.Columns["HoTen"].HeaderText = "Họ tên";
+                dgvListNV.Columns["GioiTinh"].HeaderText = "Giới tính";
+                dgvListNV.Columns["NgaySinh"].HeaderText = "Ngày sinh";
+                dgvListNV.Columns["SDT"].HeaderText = "Số ĐT";
+                dgvListNV.Columns["Email"].HeaderText = "Email";
+
+                // ✅ Căn giữa cột giới tính & ngày sinh
+                dgvListNV.Columns["GioiTinh"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvListNV.Columns["NgaySinh"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                // ✅ Căn phải số điện thoại cho đẹp
+                dgvListNV.Columns["SDT"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+
+            // ✅ Tăng chiều cao dòng cho dễ nhìn
+            dgvListNV.RowTemplate.Height = 28;
         }
+
 
         private void ResetForm()
         {
@@ -116,22 +142,44 @@ namespace QLKTX_App.ChildForm_Admin
 
         private void dgvListNV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = dgvListNV.Rows[e.RowIndex];
-                txtMaNV.Text = row.Cells["MaNV"].Value.ToString();
-                txtHoTen.Text = row.Cells["HoTen"].Value.ToString();
-                string gt = row.Cells["GioiTinh"].Value.ToString();
-                radNam.Checked = gt == "Nam";
-                radNu.Checked = gt == "Nữ";
-                dtpNgaySinh.Value = Convert.ToDateTime(row.Cells["NgaySinh"].Value);
-                txtSDT.Text = row.Cells["SDT"].Value.ToString();
-                txtEmail.Text = row.Cells["Email"].Value.ToString();
-                //txtTenDangNhap.Text = row.Cells["TenDangNhap"].Value.ToString();
+            if (e.RowIndex < 0) return; // bỏ qua header
 
-                txtMaNV.Enabled = false; // Không cho sửa MaNV khi cập nhật
-                isInsert = false;
+            DataGridViewRow row = dgvListNV.Rows[e.RowIndex];
+
+            // Mã NV
+            txtMaNV.Text = row.Cells["MaNV"].Value?.ToString() ?? "";
+
+            // Họ tên
+            txtHoTen.Text = row.Cells["HoTen"].Value?.ToString() ?? "";
+
+            // Giới tính
+            string gt = row.Cells["GioiTinh"].Value?.ToString();
+            radNam.Checked = gt == "Nam";
+            radNu.Checked = gt == "Nữ";
+
+            // Ngày sinh
+            if (row.Cells["NgaySinh"].Value != null &&
+                DateTime.TryParse(row.Cells["NgaySinh"].Value.ToString(), out DateTime ns))
+            {
+                dtpNgaySinh.Value = ns;
             }
+            else
+            {
+                dtpNgaySinh.Value = DateTime.Now;
+            }
+
+            // SĐT
+            txtSDT.Text = row.Cells["SDT"].Value?.ToString() ?? "";
+
+            // Email
+            txtEmail.Text = row.Cells["Email"].Value?.ToString() ?? "";
+
+            // Tên đăng nhập (nếu bạn cần bật lại)
+            //txtTenDangNhap.Text = row.Cells["TenDangNhap"].Value?.ToString() ?? "";
+
+            // Không cho sửa khóa chính
+            txtMaNV.Enabled = false;
+            isInsert = false;
         }
         #endregion
     }

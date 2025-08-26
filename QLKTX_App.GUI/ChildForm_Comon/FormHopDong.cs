@@ -30,8 +30,43 @@ namespace QLKTX_App.GUI.ChildForm_Comon
         private void LoadHopDong()
         {
             dgvListHopDong.DataSource = _hdBLL.GetAll();
-            FormatGiaPhong();
+            dgvListHopDong.ClearSelection();
+
+            if (dgvListHopDong.Columns.Count > 0)
+            {
+                // Đổi tên cột
+                dgvListHopDong.Columns["MSSV"].HeaderText = "MSSV";
+                dgvListHopDong.Columns["HoTen"].HeaderText = "Họ tên";
+                dgvListHopDong.Columns["MaPhong"].HeaderText = "Phòng";
+                dgvListHopDong.Columns["LoaiPhong"].HeaderText = "Loại phòng";
+                dgvListHopDong.Columns["GiaPhong"].HeaderText = "Giá phòng (VND)";
+                dgvListHopDong.Columns["NgayPhanBo"].HeaderText = "Ngày phân bổ";
+                dgvListHopDong.Columns["SoThang"].HeaderText = "Số tháng";
+                dgvListHopDong.Columns["NgayHetHan"].HeaderText = "Ngày hết hạn";
+                dgvListHopDong.Columns["MienTienPhong"].HeaderText = "Miễn phí";
+                dgvListHopDong.Columns["SoDotThu"].HeaderText = "Số đợt thu";
+                dgvListHopDong.Columns["GhiChu"].HeaderText = "Ghi chú";
+
+                // Format tiền
+                dgvListHopDong.Columns["GiaPhong"].DefaultCellStyle.Format = "N0";
+                dgvListHopDong.Columns["GiaPhong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                // Format ngày
+                dgvListHopDong.Columns["NgayPhanBo"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dgvListHopDong.Columns["NgayHetHan"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dgvListHopDong.Columns["NgayPhanBo"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dgvListHopDong.Columns["NgayHetHan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dgvListHopDong.Columns["SoThang"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dgvListHopDong.Columns["SoDotThu"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
+                // Font & căn giữa header
+                dgvListHopDong.DefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+                dgvListHopDong.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+                dgvListHopDong.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
         }
+
 
         private void FormatGiaPhong()
         {

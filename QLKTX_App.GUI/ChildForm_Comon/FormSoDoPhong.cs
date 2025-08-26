@@ -62,11 +62,11 @@ namespace QLKTX_App.ChildForm_Comon
                 {
                     Text = row["MaPhong"].ToString(),
                     Tag = row["MaPhong"].ToString(),
-                    Width = 120,
-                    Height = 80,
+                    Width = 140,
+                    Height = 110,
                     Margin = new Padding(8),
                     FlatStyle = FlatStyle.Flat,
-                    Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                    Font = new Font("Segoe UI", 14, FontStyle.Bold),
                     ForeColor = Color.White,
                     TextAlign = ContentAlignment.MiddleCenter,
                     BackColor = Color.Gray // sẽ đổi bên dưới theo trạng thái

@@ -42,13 +42,38 @@ namespace QLKTX_App.DAL
         public int Delete(string mssv)
         {
             using (var conn = _db.GetConnection())
-            using (var cmd = new SqlCommand("DELETE FROM SinhVien WHERE MSSV=@mssv", conn))
             {
-                cmd.Parameters.AddWithValue("@mssv", mssv);
                 conn.Open();
-                return cmd.ExecuteNonQuery();
+                using (var tran = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // Xóa dữ liệu phân bổ của sinh viên trước
+                        using (var cmd1 = new SqlCommand("DELETE FROM PhanBo WHERE MSSV=@mssv", conn, tran))
+                        {
+                            cmd1.Parameters.AddWithValue("@mssv", mssv);
+                            cmd1.ExecuteNonQuery();
+                        }
+
+                        // Sau đó mới xóa sinh viên
+                        using (var cmd2 = new SqlCommand("DELETE FROM SinhVien WHERE MSSV=@mssv", conn, tran))
+                        {
+                            cmd2.Parameters.AddWithValue("@mssv", mssv);
+                            int rows = cmd2.ExecuteNonQuery();
+
+                            tran.Commit();
+                            return rows;
+                        }
+                    }
+                    catch
+                    {
+                        tran.Rollback();
+                        throw;
+                    }
+                }
             }
         }
+
 
         public DataTable GetByPhong(string maPhong)
         {

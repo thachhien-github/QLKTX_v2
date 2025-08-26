@@ -45,8 +45,36 @@ namespace QLKTX_App.ChildForm_Admin
         {
             var tb = _lpBLL.GetAll();
             dgvGiaPhong.DataSource = tb;
+            dgvGiaPhong.ClearSelection();
 
-            // fill combobox
+            // ✅ Font to, rõ ràng
+            dgvGiaPhong.DefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+            dgvGiaPhong.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+
+            if (dgvGiaPhong.Columns.Count > 0)
+            {
+                // ✅ Đặt lại tiêu đề cột
+                dgvGiaPhong.Columns["MaLoai"].HeaderText = "Mã loại";
+                dgvGiaPhong.Columns["TenLoai"].HeaderText = "Tên loại phòng";
+                dgvGiaPhong.Columns["GiaPhong"].HeaderText = "Giá phòng (VND)";
+                dgvGiaPhong.Columns["SucChua"].HeaderText = "Sức chứa";
+
+                // ✅ Định dạng giá tiền
+                dgvGiaPhong.Columns["GiaPhong"].DefaultCellStyle.Format = "N0";
+                dgvGiaPhong.Columns["GiaPhong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                // ✅ Căn giữa mấy cột mã và sức chứa
+                dgvGiaPhong.Columns["MaLoai"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvGiaPhong.Columns["SucChua"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                // ✅ Căn trái tên loại cho dễ đọc
+                dgvGiaPhong.Columns["TenLoai"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+
+            // ✅ Tăng chiều cao dòng
+            dgvGiaPhong.RowTemplate.Height = 28;
+
+            // 🔽 Fill combobox
             var tbCb = tb.Copy();
             var row = tbCb.NewRow();
             row["MaLoai"] = "";
@@ -59,6 +87,7 @@ namespace QLKTX_App.ChildForm_Admin
             cboMaLoaiPhong.ValueMember = "MaLoai";
             cboMaLoaiPhong.DataSource = tbCb;
         }
+
 
         private void BindGiaPhongFromGrid()
         {
@@ -173,15 +202,38 @@ namespace QLKTX_App.ChildForm_Admin
             var g = _gdnBLL.GetCurrent();
             if (g == null) return;
 
-            txtGiaDien.Text = g.GiaDien.ToString();
-            txtGiaNuoc.Text = g.GiaNuoc.ToString();
+            txtGiaDien.Text = g.GiaDien.ToString("N0");
+            txtGiaNuoc.Text = g.GiaNuoc.ToString("N0");
 
             var tb = new DataTable();
             tb.Columns.Add("GiaDien", typeof(decimal));
             tb.Columns.Add("GiaNuoc", typeof(decimal));
             tb.Rows.Add(g.GiaDien, g.GiaNuoc);
             dgvGiaDienNuoc.DataSource = tb;
+            dgvGiaDienNuoc.ClearSelection();
+
+            // ✅ Style bảng
+            dgvGiaDienNuoc.DefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+            dgvGiaDienNuoc.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+
+            if (dgvGiaDienNuoc.Columns.Count > 0)
+            {
+                dgvGiaDienNuoc.Columns["GiaDien"].HeaderText = "Giá điện (VND/kWh)";
+                dgvGiaDienNuoc.Columns["GiaNuoc"].HeaderText = "Giá nước (VND/m³)";
+
+                // ✅ Định dạng số tiền
+                dgvGiaDienNuoc.Columns["GiaDien"].DefaultCellStyle.Format = "N0";
+                dgvGiaDienNuoc.Columns["GiaNuoc"].DefaultCellStyle.Format = "N0";
+
+                // ✅ Căn phải cho đẹp
+                dgvGiaDienNuoc.Columns["GiaDien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                dgvGiaDienNuoc.Columns["GiaNuoc"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+
+            // ✅ Tăng chiều cao dòng
+            dgvGiaDienNuoc.RowTemplate.Height = 28;
         }
+
 
         private void BindGiaDienNuocFromGrid()
         {
@@ -221,11 +273,37 @@ namespace QLKTX_App.ChildForm_Admin
         {
             var tb = _lxBLL.GetAll();
             dgvPhiGiuXe.DataSource = tb;
+            dgvPhiGiuXe.ClearSelection();
+
+            // ✅ Style DataGridView
+            dgvPhiGiuXe.DefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+            dgvPhiGiuXe.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+            dgvPhiGiuXe.RowTemplate.Height = 28;
+
+            if (dgvPhiGiuXe.Columns.Contains("MaLoaiXe"))
+                dgvPhiGiuXe.Columns["MaLoaiXe"].HeaderText = "Mã loại xe";
+            if (dgvPhiGiuXe.Columns.Contains("TenLoai"))
+                dgvPhiGiuXe.Columns["TenLoai"].HeaderText = "Tên loại xe";
+            if (dgvPhiGiuXe.Columns.Contains("GiaGiuXe"))
+            {
+                dgvPhiGiuXe.Columns["GiaGiuXe"].HeaderText = "Phí gửi xe (VND/tháng)";
+                dgvPhiGiuXe.Columns["GiaGiuXe"].DefaultCellStyle.Format = "N0";
+                dgvPhiGiuXe.Columns["GiaGiuXe"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+
+            // ✅ Fill combobox
+            var tbCb = tb.Copy();
+            var row = tbCb.NewRow();
+            row["MaLoaiXe"] = "";
+            row["TenLoai"] = "";
+            row["GiaGiuXe"] = 0;
+            tbCb.Rows.InsertAt(row, 0);
 
             cboMaLoaiXe.DisplayMember = "MaLoaiXe";
             cboMaLoaiXe.ValueMember = "MaLoaiXe";
-            cboMaLoaiXe.DataSource = tb.Copy();
+            cboMaLoaiXe.DataSource = tbCb;
         }
+
 
         private void BindLoaiXeFromGrid()
         {

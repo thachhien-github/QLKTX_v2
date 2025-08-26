@@ -33,8 +33,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPhanBo));
             this.dgvHopDong = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnXuatHD = new FontAwesome.Sharp.IconButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.chkMienTienPhong = new System.Windows.Forms.CheckBox();
             this.btnQuayLai = new FontAwesome.Sharp.IconButton();
@@ -50,16 +48,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.txtSoDotThu = new System.Windows.Forms.TextBox();
             this.txtGhiChu = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtHoTen = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtMSSV = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtSoDotThu = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHopDong)).BeginInit();
             this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmuSoThang)).BeginInit();
             this.SuspendLayout();
@@ -111,7 +108,6 @@
             // panel2
             // 
             this.panel2.AutoScroll = true;
-            this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.dgvHopDong);
             this.panel2.Controls.Add(this.groupBox3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -121,39 +117,6 @@
             this.panel2.Padding = new System.Windows.Forms.Padding(10, 0, 10, 10);
             this.panel2.Size = new System.Drawing.Size(1047, 523);
             this.panel2.TabIndex = 12;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.btnXuatHD);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(10, 443);
-            this.panel1.MaximumSize = new System.Drawing.Size(0, 70);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1027, 70);
-            this.panel1.TabIndex = 13;
-            // 
-            // btnXuatHD
-            // 
-            this.btnXuatHD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnXuatHD.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnXuatHD.FlatAppearance.BorderSize = 0;
-            this.btnXuatHD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnXuatHD.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXuatHD.ForeColor = System.Drawing.Color.Black;
-            this.btnXuatHD.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
-            this.btnXuatHD.IconColor = System.Drawing.Color.Coral;
-            this.btnXuatHD.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnXuatHD.IconSize = 25;
-            this.btnXuatHD.Location = new System.Drawing.Point(877, 12);
-            this.btnXuatHD.MaximumSize = new System.Drawing.Size(275, 45);
-            this.btnXuatHD.Name = "btnXuatHD";
-            this.btnXuatHD.Padding = new System.Windows.Forms.Padding(3);
-            this.btnXuatHD.Size = new System.Drawing.Size(143, 45);
-            this.btnXuatHD.TabIndex = 17;
-            this.btnXuatHD.Text = "Xuất hợp đồng";
-            this.btnXuatHD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnXuatHD.UseVisualStyleBackColor = false;
-            this.btnXuatHD.Click += new System.EventHandler(this.btnXuatHD_Click);
             // 
             // groupBox3
             // 
@@ -369,6 +332,16 @@
             this.label4.Text = "Phân Bổ Phòng";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // txtSoDotThu
+            // 
+            this.txtSoDotThu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSoDotThu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSoDotThu.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoDotThu.Location = new System.Drawing.Point(858, 75);
+            this.txtSoDotThu.Name = "txtSoDotThu";
+            this.txtSoDotThu.Size = new System.Drawing.Size(135, 30);
+            this.txtSoDotThu.TabIndex = 6;
+            // 
             // txtGhiChu
             // 
             this.txtGhiChu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -398,6 +371,7 @@
             this.txtHoTen.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHoTen.Location = new System.Drawing.Point(136, 75);
             this.txtHoTen.Name = "txtHoTen";
+            this.txtHoTen.ReadOnly = true;
             this.txtHoTen.Size = new System.Drawing.Size(169, 30);
             this.txtHoTen.TabIndex = 6;
             // 
@@ -420,6 +394,7 @@
             this.txtMSSV.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMSSV.Location = new System.Drawing.Point(136, 39);
             this.txtMSSV.Name = "txtMSSV";
+            this.txtMSSV.ReadOnly = true;
             this.txtMSSV.Size = new System.Drawing.Size(169, 30);
             this.txtMSSV.TabIndex = 6;
             // 
@@ -435,16 +410,6 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "Phân Bổ Sinh Viên";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtSoDotThu
-            // 
-            this.txtSoDotThu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSoDotThu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSoDotThu.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSoDotThu.Location = new System.Drawing.Point(858, 75);
-            this.txtSoDotThu.Name = "txtSoDotThu";
-            this.txtSoDotThu.Size = new System.Drawing.Size(135, 30);
-            this.txtSoDotThu.TabIndex = 6;
             // 
             // FormPhanBo
             // 
@@ -462,7 +427,6 @@
             this.Load += new System.EventHandler(this.FormPhanBo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHopDong)).EndInit();
             this.panel2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmuSoThang)).EndInit();
@@ -492,10 +456,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtHoTen;
-        private FontAwesome.Sharp.IconButton btnXuatHD;
         private System.Windows.Forms.TextBox txtSoDotThu;
     }
 }

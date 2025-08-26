@@ -32,7 +32,35 @@ namespace QLKTX_App.ChildForm_Admin
             dgvListTK.DataSource = bll.GetAll();
             dgvListTK.ClearSelection();
             ResetForm();
+
+            // ✅ Font to, rõ ràng
+            dgvListTK.DefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+            dgvListTK.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+
+            if (dgvListTK.Columns.Count > 0)
+            {
+                // ✅ Đặt lại tiêu đề cột
+                dgvListTK.Columns["MaNV"].HeaderText = "Mã NV";
+                dgvListTK.Columns["HoTen"].HeaderText = "Họ tên";
+                dgvListTK.Columns["TenDangNhap"].HeaderText = "Tên đăng nhập";
+                dgvListTK.Columns["MatKhau"].HeaderText = "Mật khẩu";
+                dgvListTK.Columns["TrangThai"].HeaderText = "Trạng thái";
+                dgvListTK.Columns["VaiTro"].HeaderText = "Vai trò";
+
+                // ✅ Căn giữa cho đẹp
+                dgvListTK.Columns["MaNV"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvListTK.Columns["TrangThai"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                dgvListTK.Columns["VaiTro"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                // ✅ Căn trái cho họ tên và tên đăng nhập (đọc dễ hơn)
+                dgvListTK.Columns["HoTen"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvListTK.Columns["TenDangNhap"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+
+            // ✅ Tăng chiều cao dòng
+            dgvListTK.RowTemplate.Height = 28;
         }
+
 
         private void LoadCboTrangThai()
         {

@@ -37,7 +37,35 @@ namespace QLKTX_App.ChildForm_NhanVien
         private void LoadData()
         {
             dgvListTheXe.DataSource = _bll.GetAll();
+            dgvListTheXe.ClearSelection();
+
+            if (dgvListTheXe.Columns.Count > 0)
+            {
+                // Đặt lại header
+                dgvListTheXe.Columns["MaThe"].HeaderText = "Mã thẻ";
+                dgvListTheXe.Columns["MSSV"].HeaderText = "MSSV";
+                dgvListTheXe.Columns["HoTen"].HeaderText = "Họ tên";
+                dgvListTheXe.Columns["MaLoaiXe"].HeaderText = "Mã loại xe";
+                dgvListTheXe.Columns["TenLoai"].HeaderText = "Loại xe";
+                dgvListTheXe.Columns["BienSo"].HeaderText = "Biển số";
+                dgvListTheXe.Columns["NgayDangKy"].HeaderText = "Ngày đăng ký";
+
+                // Căn giữa mấy cột code
+                dgvListTheXe.Columns["MaThe"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvListTheXe.Columns["MSSV"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgvListTheXe.Columns["MaLoaiXe"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                // Cột ngày format dd/MM/yyyy
+                dgvListTheXe.Columns["NgayDangKy"].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dgvListTheXe.Columns["NgayDangKy"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                // Font
+                dgvListTheXe.DefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+                dgvListTheXe.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
+                dgvListTheXe.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
         }
+
 
         private void btnDangKy_Click(object sender, EventArgs e)
         {
@@ -108,14 +136,32 @@ namespace QLKTX_App.ChildForm_NhanVien
 
         private void dgvListTheXe_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                var row = dgvListTheXe.Rows[e.RowIndex];
-                txtMaThe.Text = row.Cells["MaThe"].Value.ToString();
-                txtMSSV.Text = row.Cells["MSSV"].Value.ToString();
+            if (e.RowIndex < 0) return; // bỏ qua header
+
+            var row = dgvListTheXe.Rows[e.RowIndex];
+
+            // Mã thẻ
+            txtMaThe.Text = row.Cells["MaThe"].Value?.ToString() ?? "";
+
+            // MSSV
+            txtMSSV.Text = row.Cells["MSSV"].Value?.ToString() ?? "";
+
+            // Loại xe
+            if (row.Cells["MaLoaiXe"].Value != null)
                 cboLoaiXe.SelectedValue = row.Cells["MaLoaiXe"].Value;
-                txtBienSo.Text = row.Cells["BienSo"].Value.ToString();
-                dtpNgayDK.Value = Convert.ToDateTime(row.Cells["NgayDangKy"].Value);
+
+            // Biển số
+            txtBienSo.Text = row.Cells["BienSo"].Value?.ToString() ?? "";
+
+            // Ngày đăng ký
+            if (row.Cells["NgayDangKy"].Value != null &&
+                DateTime.TryParse(row.Cells["NgayDangKy"].Value.ToString(), out DateTime ngayDK))
+            {
+                dtpNgayDK.Value = ngayDK;
+            }
+            else
+            {
+                dtpNgayDK.Value = DateTime.Now; // fallback mặc định
             }
         }
     }

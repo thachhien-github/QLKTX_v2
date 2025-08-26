@@ -39,20 +39,38 @@ namespace QLKTX_App.GUI.ChildForm_NhanVien
             dgvListHD.DataSource = ttpBLL.GetAll();
             dgvListHD.ClearSelection();
 
-            // ✅ Format các cột tiền
-            if (dgvListHD.Columns.Contains("TienPhong"))
-                dgvListHD.Columns["TienPhong"].DefaultCellStyle.Format = "N0";
-            if (dgvListHD.Columns.Contains("TienTheChan"))
-                dgvListHD.Columns["TienTheChan"].DefaultCellStyle.Format = "N0";
-            if (dgvListHD.Columns.Contains("TongTien"))
-                dgvListHD.Columns["TongTien"].DefaultCellStyle.Format = "N0";
+            // Định nghĩa header text
+            var headers = new Dictionary<string, string>
+            {
+                { "MaHD", "Mã HĐ" },
+                { "MSSV", "MSSV" },
+                { "MaPhong", "Phòng" },
+                { "SoThangThu", "Số tháng" },
+                { "NgayThu", "Ngày thu" },
+                { "TienPhong", "Tiền phòng (VND)" },
+                { "TienTheChan", "Tiền Thế chân (VND)" },
+                { "TongTien", "Tổng tiền (VND)" },
+                { "GhiChu", "Ghi chú" }
+            };
 
-            // ✅ Căn phải cho đẹp
-            dgvListHD.Columns["TienPhong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvListHD.Columns["TienTheChan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvListHD.Columns["TongTien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            foreach (var kvp in headers)
+            {
+                if (dgvListHD.Columns.Contains(kvp.Key))
+                    dgvListHD.Columns[kvp.Key].HeaderText = kvp.Value;
+            }
+
+            // Các cột tiền tệ
+            string[] tienCols = { "TienPhong", "TienTheChan", "TongTien" };
+
+            foreach (string col in tienCols)
+            {
+                if (dgvListHD.Columns.Contains(col))
+                {
+                    dgvListHD.Columns[col].DefaultCellStyle.Format = "N0"; // 1,000 định dạng
+                    dgvListHD.Columns[col].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+            }
         }
-
 
         private void LoadThongTinHoaDon()
         {
@@ -88,8 +106,6 @@ namespace QLKTX_App.GUI.ChildForm_NhanVien
                 MessageBox.Show("Không tìm thấy phân bổ cho sinh viên này!", "Thông báo");
             }
         }
-
-
 
         private void cboPhong_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -225,21 +241,58 @@ namespace QLKTX_App.GUI.ChildForm_NhanVien
 
         private void dgvListHD_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && dgvListHD.Rows[e.RowIndex].Cells["ID"].Value != null)
-            {
-                DataGridViewRow row = dgvListHD.Rows[e.RowIndex];
+            if (e.RowIndex < 0) return; // bỏ qua header
 
-                txtMSSV.Text = row.Cells["MSSV"].Value.ToString();
+            DataGridViewRow row = dgvListHD.Rows[e.RowIndex];
 
+            // MSSV
+            txtMSSV.Text = row.Cells["MSSV"].Value?.ToString() ?? "";
+
+            // Phòng
+            if (row.Cells["MaPhong"].Value != null)
                 cboPhong.SelectedValue = row.Cells["MaPhong"].Value.ToString();
-                nmuSoThang.Value = Convert.ToInt32(row.Cells["SoThangThu"].Value);
-                dtpNgayLap.Value = Convert.ToDateTime(row.Cells["NgayThu"].Value);
 
-                txtTienPhong.Text = row.Cells["TienPhong"].Value.ToString();
-                txtTienTheChan.Text = row.Cells["TienTheChan"].Value.ToString();
-                txtTongTien.Text = row.Cells["TongTien"].Value.ToString();
-                txtGhiChu.Text = row.Cells["GhiChu"].Value != DBNull.Value ? row.Cells["GhiChu"].Value.ToString() : "";
-            }
+            // Số tháng
+            if (row.Cells["SoThangThu"].Value != null &&
+                int.TryParse(row.Cells["SoThangThu"].Value.ToString(), out int soThang))
+                nmuSoThang.Value = soThang;
+            else
+                nmuSoThang.Value = nmuSoThang.Minimum;
+
+            // Ngày thu
+            if (row.Cells["NgayThu"].Value != null &&
+                DateTime.TryParse(row.Cells["NgayThu"].Value.ToString(), out DateTime ngayThu))
+                dtpNgayLap.Value = ngayThu;
+            else
+                dtpNgayLap.Value = DateTime.Now;
+
+            // Tiền phòng
+            txtTienPhong.Text = row.Cells["TienPhong"].Value?.ToString() ?? "";
+
+            // Tiền thế chân
+            txtTienTheChan.Text = row.Cells["TienTheChan"].Value?.ToString() ?? "";
+
+            // Tổng tiền
+            txtTongTien.Text = row.Cells["TongTien"].Value?.ToString() ?? "";
+
+            // Ghi chú
+            txtGhiChu.Text = row.Cells["GhiChu"].Value != null && row.Cells["GhiChu"].Value != DBNull.Value
+                ? row.Cells["GhiChu"].Value.ToString()
+                : "";
+        }
+
+        private void btnTiep_Click(object sender, EventArgs e)
+        {
+            cboPhong.SelectedIndex = -1;
+            txtMSSV.Clear();
+            txtHoTen.Clear();
+            nmuSoThang.Value = nmuSoThang.Minimum;
+            dtpNgayLap.Value = DateTime.Now;
+            txtGhiChu.Clear();
+            txtTienPhong.Clear();
+            txtTienTheChan.Clear();
+            txtTongTien.Clear();
+            dgvListHD.ClearSelection();
         }
     }
 }
