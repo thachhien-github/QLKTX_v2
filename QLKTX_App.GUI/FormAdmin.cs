@@ -3,6 +3,7 @@ using QLKTX_App.ChildForm_Admin;
 using QLKTX_App.ChildForm_Comon;
 using QLKTX_App.ChildForm_NhanVien;
 using QLKTX_App.DTO;
+using QLKTX_App.GUI.ChildForm_Admin;
 using QLKTX_App.GUI.ChildForm_Comon;
 using System;
 using System.Collections.Generic;
@@ -326,7 +327,7 @@ namespace QLKTX_App
         {
             ActivateButton(sender, RGBColors.color6);
             if (MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?",
-        "Đăng xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                "Đăng xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 FormLogin.LastLoginTaiKhoan = null; // báo cho Program là logout
                 this.Close(); // đóng form chính → Program quay lại login
@@ -339,5 +340,11 @@ namespace QLKTX_App
             OpenChildForm(new FormHopDong());
         }
         #endregion
+
+        private void btnNapDLexcel_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color6);
+            OpenChildForm(new FormImportDB());
+        }
     }
 }
