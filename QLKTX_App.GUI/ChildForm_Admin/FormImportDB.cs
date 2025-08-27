@@ -132,90 +132,93 @@ namespace QLKTX_App.GUI.ChildForm_Admin
                 {
                     case "SinhVien":
                         return $@"
-                DELETE FROM SinhVien WHERE MSSV = N'{row["MSSV"]}';
-                INSERT INTO SinhVien (MSSV, HoTen, GioiTinh, NgaySinh, SDT, DiaChi)
-                VALUES (N'{row["MSSV"]}', N'{row["HoTen"]}', N'{row["GioiTinh"]}',
-                        '{row["NgaySinh"]}', '{row["SDT"]}', N'{row["DiaChi"]}')";
+        DELETE FROM SinhVien WHERE MSSV = N'{row["MSSV"]}';
+        INSERT INTO SinhVien (MSSV, HoTen, GioiTinh, NgaySinh, SDT, DiaChi)
+        VALUES (N'{row["MSSV"]}', N'{row["HoTen"]}', N'{row["GioiTinh"]}',
+                '{row["NgaySinh"]}', '{row["SDT"]}', N'{row["DiaChi"]}')";
 
                     case "Phong":
                         return $@"
-                DELETE FROM Phong WHERE MaPhong = N'{row["MaPhong"]}';
-                INSERT INTO Phong (MaPhong, MaTang, MaLoai, SoLuongToiDa, TrangThai)
-                VALUES (N'{row["MaPhong"]}', N'{row["MaTang"]}', N'{row["MaLoai"]}',
-                        {row["SoLuongToiDa"]}, N'{row["TrangThai"]}')";
+        DELETE FROM Phong WHERE MaPhong = N'{row["MaPhong"]}';
+        INSERT INTO Phong (MaPhong, MaTang, MaLoai, SoLuongToiDa, TrangThai)
+        VALUES (N'{row["MaPhong"]}', N'{row["MaTang"]}', N'{row["MaLoai"]}',
+                {row["SoLuongToiDa"]}, N'{row["TrangThai"]}')";
 
                     case "Tang":
                         return $@"
-                DELETE FROM Tang WHERE MaTang = N'{row["MaTang"]}';
-                INSERT INTO Tang (MaTang, TenTang)
-                VALUES (N'{row["MaTang"]}', N'{row["TenTang"]}')";
+        DELETE FROM Tang WHERE MaTang = N'{row["MaTang"]}';
+        INSERT INTO Tang (MaTang, TenTang)
+        VALUES (N'{row["MaTang"]}', N'{row["TenTang"]}')";
 
                     case "LoaiPhong":
                         return $@"
-                DELETE FROM LoaiPhong WHERE MaLoai = N'{row["MaLoai"]}';
-                INSERT INTO LoaiPhong (MaLoai, TenLoai, GiaPhong, SucChua)
-                VALUES (N'{row["MaLoai"]}', N'{row["TenLoai"]}', {row["GiaPhong"]}, {row["SucChua"]})";
+        DELETE FROM LoaiPhong WHERE MaLoai = N'{row["MaLoai"]}';
+        INSERT INTO LoaiPhong (MaLoai, TenLoai, SucChua, GiaPhong)
+        VALUES (N'{row["MaLoai"]}', N'{row["TenLoai"]}', {row["SucChua"]}, {row["GiaPhong"]})";
 
                     case "NhanVien":
                         return $@"
-                DELETE FROM NhanVien WHERE MaNV = N'{row["MaNV"]}';
-                INSERT INTO NhanVien (MaNV, HoTen, GioiTinh, NgaySinh, SDT, Email)
-                VALUES (N'{row["MaNV"]}', N'{row["HoTen"]}', N'{row["GioiTinh"]}', 
-                        '{row["NgaySinh"]}', '{row["SDT"]}', N'{row["Email"]}')";
+        DELETE FROM NhanVien WHERE MaNV = N'{row["MaNV"]}';
+        INSERT INTO NhanVien (MaNV, HoTen, GioiTinh, NgaySinh, SDT, Email)
+        VALUES (N'{row["MaNV"]}', N'{row["HoTen"]}', N'{row["GioiTinh"]}', 
+                '{row["NgaySinh"]}', '{row["SDT"]}', N'{row["Email"]}')";
 
                     case "TaiKhoan":
                         return $@"
-                DELETE FROM TaiKhoan WHERE TenDangNhap = N'{row["TenDangNhap"]}';
-                INSERT INTO TaiKhoan (MaNV, TenDangNhap, MatKhau, VaiTro, TrangThai)
-                VALUES (N'{row["MaNV"]}',N'{row["TenDangNhap"]}', N'{row["MatKhau"]}', 
-                        N'{row["VaiTro"]}', N'{row["TrangThai"]}')";
+        DELETE FROM TaiKhoan WHERE MaNV = N'{row["MaNV"]}';
+        INSERT INTO TaiKhoan (MaNV, TenDangNhap, MatKhau, VaiTro, TrangThai)
+        VALUES (N'{row["MaNV"]}',N'{row["TenDangNhap"]}', N'{row["MatKhau"]}', 
+                N'{row["VaiTro"]}', {row["TrangThai"]})";
 
                     case "PhanBo":
                         return $@"
-                DELETE FROM PhanBo WHERE MSSV = N'{row["MSSV"]}' AND MaPhong = N'{row["MaPhong"]}';
-                INSERT INTO PhanBo (MSSV, MaPhong, NgayVao, SoThang, SoDotThu, MienTienPhong)
-                VALUES (N'{row["MSSV"]}', N'{row["MaPhong"]}', '{row["NgayVao"]}',
-                        {row["SoThang"]}, {row["SoDotThu"]}, {row["MienTienPhong"]})";
+        DELETE FROM PhanBo WHERE MSSV = N'{row["MSSV"]}' AND MaPhong = N'{row["MaPhong"]}';
+        INSERT INTO PhanBo (MSSV, MaPhong, NgayPhanBo, SoThang, GhiChu, MienTienPhong, SoDotThu)
+        VALUES (N'{row["MSSV"]}', N'{row["MaPhong"]}', '{row["NgayPhanBo"]}',
+                {row["SoThang"]}, N'{row["GhiChu"]}', {row["MienTienPhong"]}, {row["SoDotThu"]})";
 
                     case "TheXe":
                         return $@"
-                DELETE FROM TheXe WHERE MaThe = N'{row["MaThe"]}';
-                INSERT INTO TheXe (MaThe, MSSV, MaLoaiXe, BienSo, NgayDangKy)
-                VALUES (N'{row["MaThe"]}', N'{row["MSSV"]}', N'{row["MaLoaiXe"]}', 
-                        N'{row["BienSo"]}', '{row["NgayDangKy"]}')";
+        DELETE FROM TheXe WHERE MaThe = N'{row["MaThe"]}';
+        INSERT INTO TheXe (MaThe, MSSV, MaLoaiXe, BienSo, NgayDangKy)
+        VALUES (N'{row["MaThe"]}', N'{row["MSSV"]}', N'{row["MaLoaiXe"]}', 
+                N'{row["BienSo"]}', '{row["NgayDangKy"]}')";
 
                     case "LoaiXe":
                         return $@"
-                DELETE FROM LoaiXe WHERE MaLoaiXe = N'{row["MaLoaiXe"]}';
-                INSERT INTO LoaiXe (MaLoaiXe, TenLoai, GiaGiuXe)
-                VALUES (N'{row["MaLoaiXe"]}', N'{row["TenLoai"]}', {row["GiaGiuXe"]})";
+        DELETE FROM LoaiXe WHERE MaLoaiXe = N'{row["MaLoaiXe"]}';
+        INSERT INTO LoaiXe (MaLoaiXe, TenLoai, GiaGiuXe)
+        VALUES (N'{row["MaLoaiXe"]}', N'{row["TenLoai"]}', {row["GiaGiuXe"]})";
 
                     case "ChiSo":
                         return $@"
-                DELETE FROM ChiSo WHERE MaPhong = N'{row["MaPhong"]}' AND Thang = {row["Thang"]} AND Nam = {row["Nam"]};
-                INSERT INTO ChiSo (MaPhong, Thang, Nam, DienCu, DienMoi, NuocCu, NuocMoi)
-                VALUES (N'{row["MaPhong"]}', {row["Thang"]}, {row["Nam"]},
-                        {row["DienCu"]}, {row["DienMoi"]}, {row["NuocCu"]}, {row["NuocMoi"]})";
+        DELETE FROM ChiSo WHERE MaPhong = N'{row["MaPhong"]}' AND Thang = {row["Thang"]} AND Nam = {row["Nam"]};
+        INSERT INTO ChiSo (MaPhong, Thang, Nam, DienCu, DienMoi, NuocCu, NuocMoi)
+        VALUES (N'{row["MaPhong"]}', {row["Thang"]}, {row["Nam"]},
+                {row["DienCu"]}, {row["DienMoi"]}, {row["NuocCu"]}, {row["NuocMoi"]})";
 
                     case "GiaDienNuoc":
                         return $@"
-                DELETE FROM GiaDienNuoc WHERE ID = N'{row["ID"]}';
-                INSERT INTO GiaDienNuoc (ID, GiaDien, GiaNuoc)
-                VALUES (N'{row["ID"]}', {row["GiaDien"]}, {row["GiaNuoc"]})";
+        DELETE FROM GiaDienNuoc WHERE ID = N'{row["ID"]}';
+        INSERT INTO GiaDienNuoc (ID, GiaDien, GiaNuoc)
+        VALUES (N'{row["ID"]}', {row["GiaDien"]}, {row["GiaNuoc"]})";
 
                     case "HoaDon":
                         return $@"
-                DELETE FROM HoaDon WHERE MaHD = N'{row["MaHD"]}';
-                INSERT INTO HoaDon (MaHD, MaPhong, ThangNam, NgayLap, TongTien)
-                VALUES (N'{row["MaHD"]}', N'{row["MaPhong"]}', N'{row["ThangNam"]}', 
-                        '{row["NgayLap"]}', {row["TongTien"]})";
+        DELETE FROM HoaDon WHERE MaHD = N'{row["MaHD"]}';
+        INSERT INTO HoaDon (MaHD, MaPhong, Thang, Nam, NgayLap, DienTieuThu, NuocTieuThu, SoLuongXe, TienDien, TienNuoc, TienGuiXe)
+        VALUES (N'{row["MaHD"]}', N'{row["MaPhong"]}', {row["Thang"]}, {row["Nam"]},
+                '{row["NgayLap"]}', {row["DienTieuThu"]}, {row["NuocTieuThu"]}, 
+                {row["SoLuongXe"]}, {row["TienDien"]}, {row["TienNuoc"]}, {row["TienGuiXe"]})";
 
                     case "ThanhToanPhong":
                         return $@"
-                DELETE FROM ThanhToanPhong WHERE ID = N'{row["ID"]}';
-                INSERT INTO ThanhToanPhong (ID, MSSV, MaPhong, SoThangThu, NgayThu)
-                VALUES (N'{row["ID"]}', N'{row["MSSV"]}', N'{row["MaPhong"]}', 
-                        {row["SoThangThu"]}, '{row["NgayThu"]}')";
+        DELETE FROM ThanhToanPhong WHERE ID = {row["ID"]};
+        SET IDENTITY_INSERT ThanhToanPhong ON;
+        INSERT INTO ThanhToanPhong (ID, MSSV, MaPhong, SoThangThu, NgayThu, NguoiThu, GhiChu, TienPhong, TienTheChan)
+        VALUES ({row["ID"]}, N'{row["MSSV"]}', N'{row["MaPhong"]}', {row["SoThangThu"]}, '{row["NgayThu"]}',
+                N'{row["NguoiThu"]}', N'{row["GhiChu"]}', {row["TienPhong"]}, {row["TienTheChan"]});
+        SET IDENTITY_INSERT ThanhToanPhong OFF;";
 
                     default:
                         return null;
@@ -226,6 +229,7 @@ namespace QLKTX_App.GUI.ChildForm_Admin
                 return null;
             }
         }
+
 
     }
 }
