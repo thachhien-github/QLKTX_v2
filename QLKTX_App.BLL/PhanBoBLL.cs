@@ -11,7 +11,11 @@ namespace QLKTX_App.BLL
         public DataTable GetAll() => _dal.GetAll();
         public DataTable GetBySinhVien(string mssv) => _dal.GetBySinhVien(mssv);
         public bool Insert(PhanBoModel pb) => _dal.Insert(pb) > 0;
-        public bool Delete(int id) => _dal.Delete(id) > 0;
+        public bool DeleteByMSSV(string mssv)
+        {
+            return _dal.DeleteByMSSV(mssv);
+        }
+
         public DataTable GetAllPhong() => _dal.GetAllPhong();
         public bool CheckDangO(string mssv) => _dal.CheckDangO(mssv);
         public DataTable GetChiTietPhanBo(string mssv, string maPhong) => _dal.GetChiTietPhanBo(mssv, maPhong);

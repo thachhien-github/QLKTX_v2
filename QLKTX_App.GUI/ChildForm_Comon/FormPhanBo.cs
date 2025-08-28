@@ -50,11 +50,50 @@ namespace QLKTX_App.ChildForm_Comon
             cboMaPhong.DataSource = tb;
         }
 
-
-
         private void LoadPhanBo()
         {
-            dgvHopDong.DataSource = _pbBLL.GetBySinhVien(_mssv);
+            var dt = _pbBLL.GetBySinhVien(_mssv);
+
+            if (dt == null || dt.Rows.Count == 0)
+            {
+                dgvHopDong.DataSource = null;
+                return;
+            }
+
+            bool hetHan = true;
+
+            foreach (DataRow row in dt.Rows)
+            {
+                DateTime ngayPB = row.Field<DateTime>("NgayPhanBo");
+                int soThang = row.Field<int>("SoThang");
+                DateTime ngayHetHan = ngayPB.AddMonths(soThang);
+
+                if (ngayHetHan > DateTime.Now) // ✅ còn hiệu lực
+                {
+                    hetHan = false;
+                    break;
+                }
+            }
+
+            if (hetHan)
+            {
+                // ❌ tất cả hợp đồng của MSSV này đều hết hạn
+                if (_pbBLL.DeleteByMSSV(_mssv))
+                {
+                    MessageBox.Show("Hợp đồng đã hết hạn, phân bổ của sinh viên đã được xóa!",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                dgvHopDong.DataSource = null;
+            }
+            else
+            {
+                // ✅ chỉ hiển thị hợp đồng còn hạn
+                var dtConHan = dt.AsEnumerable()
+                    .Where(r => r.Field<DateTime>("NgayPhanBo").AddMonths(r.Field<int>("SoThang")) > DateTime.Now)
+                    .CopyToDataTable();
+
+                dgvHopDong.DataSource = dtConHan;
+            }
         }
 
         private PhanBoModel GetInput()

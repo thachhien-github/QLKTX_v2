@@ -36,11 +36,17 @@ namespace QLKTX_App.DAL
             return _db.ExecuteNonQuery("sp_PhanBo_Them", true, prms);
         }
 
-        public int Delete(int id)
+        public bool DeleteByMSSV(string mssv)
         {
-            var prms = new[] { new SqlParameter("@ID", id) };
-            return _db.ExecuteNonQuery("sp_PhanBo_Xoa", true, prms);
+            string sql = "DELETE FROM PhanBo WHERE MSSV = @MSSV";
+            SqlParameter[] prms =
+            {
+                new SqlParameter("@MSSV", mssv)
+            };
+            return _db.ExecuteNonQuery(sql, false, prms) > 0;
         }
+
+
 
         public DataTable GetAllPhong()
         {

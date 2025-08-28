@@ -196,25 +196,47 @@ namespace QLKTX_App.ChildForm_Comon
                 return;
             }
 
-            int namChon = Convert.ToInt32(cboNam.SelectedItem);
-
-            // Lọc theo năm
-            var rows = _dtPhong.AsEnumerable()
-                .Where(r => r.Field<DateTime>("NgayThu").Year == namChon);
-
-            if (!rows.Any())
+            if (cboNam.SelectedIndex < 0)
             {
-                MessageBox.Show($"Không có dữ liệu phòng trong năm {namChon}!",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Vui lòng chọn Năm trước khi xuất báo cáo!",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            DataTable dtPhongLoc = rows.CopyToDataTable();
+            DataTable dtPhongLoc;
+
+            // ✅ Nếu chọn "Tất cả"
+            if (cboNam.SelectedItem.ToString() == "Tất cả")
+            {
+                dtPhongLoc = _dtPhong.Copy();
+            }
+            else
+            {
+                int namChon;
+                if (!int.TryParse(cboNam.SelectedItem.ToString(), out namChon))
+                {
+                    MessageBox.Show("Năm không hợp lệ, vui lòng chọn lại!",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var rows = _dtPhong.AsEnumerable()
+                    .Where(r => r.Field<DateTime>("NgayThu").Year == namChon);
+
+                if (!rows.Any())
+                {
+                    MessageBox.Show($"Không có dữ liệu phòng trong năm {namChon}!",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                dtPhongLoc = rows.CopyToDataTable();
+            }
 
             using (SaveFileDialog sfd = new SaveFileDialog()
             {
                 Filter = "Excel file|*.xlsx",
-                FileName = $"BaoCao_Phong_{namChon}_{DateTime.Now:yyyyMMdd}.xlsx"
+                FileName = $"BaoCao_Phong_{cboNam.SelectedItem}_{DateTime.Now:yyyyMMdd}.xlsx"
             })
             {
                 if (sfd.ShowDialog() == DialogResult.OK)
@@ -222,7 +244,7 @@ namespace QLKTX_App.ChildForm_Comon
                     try
                     {
                         ExcelExportPhong.XuatExcel(dtPhongLoc, sfd.FileName,
-                            $"BÁO CÁO DOANH THU PHÒNG NĂM {namChon}");
+                            $"BÁO CÁO DOANH THU PHÒNG ({cboNam.SelectedItem})");
                         MessageBox.Show("Xuất báo cáo phòng thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -244,18 +266,28 @@ namespace QLKTX_App.ChildForm_Comon
                 return;
             }
 
-            DateTime tuNgay = dtpTuNgay.Value;
-            DateTime denNgay = dtpDenNgay.Value;
-
-            // Lọc theo khoảng ngày
-            var rows = _dtDichVu.AsEnumerable()
-                .Where(r => r.Field<DateTime>("NgayLap") >= tuNgay
-                         && r.Field<DateTime>("NgayLap") <= denNgay);
-
-            // ✅ Nếu không có dòng nào thì return luôn
-            if (rows == null || !rows.Any())
+            // ✅ Kiểm tra đã chọn Tháng/Năm chưa
+            if (cboThangNam.SelectedIndex <= 0)
             {
-                MessageBox.Show($"Không có dữ liệu dịch vụ trong khoảng {tuNgay:dd/MM/yyyy} - {denNgay:dd/MM/yyyy}!",
+                MessageBox.Show("Vui lòng chọn Tháng/Năm trước khi xuất báo cáo!",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Lọc dữ liệu theo cboThangNam
+            string[] parts = cboThangNam.SelectedItem.ToString().Split('/');
+            int thang = int.Parse(parts[0]);
+            int nam = int.Parse(parts[1]);
+
+            var rows = _dtDichVu.AsEnumerable()
+                .Where(r =>
+                    r.Field<int>("Thang") == thang &&
+                    r.Field<int>("Nam") == nam
+                );
+
+            if (!rows.Any())
+            {
+                MessageBox.Show($"Không có dữ liệu dịch vụ trong tháng {thang}/{nam}!",
                     "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -265,7 +297,7 @@ namespace QLKTX_App.ChildForm_Comon
             using (SaveFileDialog sfd = new SaveFileDialog()
             {
                 Filter = "Excel file|*.xlsx",
-                FileName = $"BaoCao_DichVu_{tuNgay:yyyyMMdd}_{denNgay:yyyyMMdd}.xlsx"
+                FileName = $"BaoCao_DichVu_{nam}{thang:D2}.xlsx"
             })
             {
                 if (sfd.ShowDialog() == DialogResult.OK)
@@ -273,7 +305,7 @@ namespace QLKTX_App.ChildForm_Comon
                     try
                     {
                         ExcelExportHoaDonDV.XuatExcel(dtDVLoc, sfd.FileName,
-                            $"BÁO CÁO DOANH THU DỊCH VỤ ({tuNgay:dd/MM/yyyy} - {denNgay:dd/MM/yyyy})");
+                            $"BÁO CÁO DOANH THU DỊCH VỤ THÁNG {thang}/{nam}");
                         MessageBox.Show("Xuất báo cáo dịch vụ thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -310,12 +342,17 @@ namespace QLKTX_App.ChildForm_Comon
                 dgvDichVu.DataSource = dtFilter;
                 VeBieuDoTuHoaDon(dtFilter);
                 VeBieuDoTyLeDichVu(dtFilter);
+
+                // Tính lại tổng doanh thu dịch vụ
+                decimal tongDV = dtFilter.AsEnumerable().Sum(r => r.Field<decimal>("TongTien"));
+                lblTongDTDichVu.Text = tongDV.ToString("N0") + " đ";
             }
             else
             {
                 dgvDichVu.DataSource = null;
                 chartThang.Series.Clear();
                 chartPie.Series.Clear();
+                lblTongDTDichVu.Text = "0 đ";
             }
         }
 
