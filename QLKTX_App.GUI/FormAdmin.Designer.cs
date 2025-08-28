@@ -30,27 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAdmin));
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.panelThietLap = new System.Windows.Forms.Panel();
-            this.panelPhong = new System.Windows.Forms.Panel();
-            this.panelLogo = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.panelTop = new System.Windows.Forms.Panel();
-            this.lblChao = new System.Windows.Forms.Label();
-            this.lblTitleChildForm = new System.Windows.Forms.Label();
-            this.panelShadow = new System.Windows.Forms.Panel();
-            this.panelDesktop = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnMinimize = new FontAwesome.Sharp.IconPictureBox();
-            this.btnMaximize = new FontAwesome.Sharp.IconPictureBox();
-            this.btnExit = new FontAwesome.Sharp.IconPictureBox();
-            this.iconCurrentChildForm = new FontAwesome.Sharp.IconPictureBox();
             this.btnLogOut = new FontAwesome.Sharp.IconButton();
+            this.panelThietLap = new System.Windows.Forms.Panel();
             this.btnNapDLexcel = new FontAwesome.Sharp.IconButton();
             this.btnGia = new FontAwesome.Sharp.IconButton();
             this.btnThiepLap = new FontAwesome.Sharp.IconButton();
             this.btnThongKe = new FontAwesome.Sharp.IconButton();
+            this.panelPhong = new System.Windows.Forms.Panel();
             this.btnThemPhong = new FontAwesome.Sharp.IconButton();
             this.btnSoDoPhong = new FontAwesome.Sharp.IconButton();
             this.btnPhong = new FontAwesome.Sharp.IconButton();
@@ -58,20 +44,34 @@
             this.btnSinhVien = new FontAwesome.Sharp.IconButton();
             this.btnNhanVien = new FontAwesome.Sharp.IconButton();
             this.btnTaiKhoan = new FontAwesome.Sharp.IconButton();
+            this.panelLogo = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.btnHome = new System.Windows.Forms.PictureBox();
+            this.panelTop = new System.Windows.Forms.Panel();
+            this.lblChao = new System.Windows.Forms.Label();
+            this.lblTitleChildForm = new System.Windows.Forms.Label();
+            this.btnMinimize = new FontAwesome.Sharp.IconPictureBox();
+            this.btnMaximize = new FontAwesome.Sharp.IconPictureBox();
+            this.btnExit = new FontAwesome.Sharp.IconPictureBox();
+            this.iconCurrentChildForm = new FontAwesome.Sharp.IconPictureBox();
+            this.panelShadow = new System.Windows.Forms.Panel();
+            this.panelDesktop = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.btnXuatBC = new FontAwesome.Sharp.IconButton();
             this.panelMenu.SuspendLayout();
             this.panelThietLap.SuspendLayout();
             this.panelPhong.SuspendLayout();
             this.panelLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnHome)).BeginInit();
             this.panelTop.SuspendLayout();
-            this.panelDesktop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconCurrentChildForm)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnHome)).BeginInit();
+            this.panelDesktop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelMenu
@@ -96,212 +96,6 @@
             this.panelMenu.Size = new System.Drawing.Size(275, 730);
             this.panelMenu.TabIndex = 0;
             // 
-            // panelThietLap
-            // 
-            this.panelThietLap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(102)))));
-            this.panelThietLap.Controls.Add(this.btnNapDLexcel);
-            this.panelThietLap.Controls.Add(this.btnGia);
-            this.panelThietLap.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelThietLap.Location = new System.Drawing.Point(0, 660);
-            this.panelThietLap.MaximumSize = new System.Drawing.Size(275, 90);
-            this.panelThietLap.Name = "panelThietLap";
-            this.panelThietLap.Size = new System.Drawing.Size(254, 90);
-            this.panelThietLap.TabIndex = 26;
-            // 
-            // panelPhong
-            // 
-            this.panelPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(102)))));
-            this.panelPhong.Controls.Add(this.btnThemPhong);
-            this.panelPhong.Controls.Add(this.btnSoDoPhong);
-            this.panelPhong.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelPhong.Location = new System.Drawing.Point(0, 450);
-            this.panelPhong.MaximumSize = new System.Drawing.Size(275, 90);
-            this.panelPhong.Name = "panelPhong";
-            this.panelPhong.Size = new System.Drawing.Size(254, 90);
-            this.panelPhong.TabIndex = 24;
-            // 
-            // panelLogo
-            // 
-            this.panelLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
-            this.panelLogo.Controls.Add(this.label2);
-            this.panelLogo.Controls.Add(this.panel7);
-            this.panelLogo.Controls.Add(this.btnHome);
-            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelLogo.Location = new System.Drawing.Point(0, 0);
-            this.panelLogo.MaximumSize = new System.Drawing.Size(275, 150);
-            this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(254, 150);
-            this.panelLogo.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(0, 114);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(275, 24);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "QUẢN LÝ KÝ TÚC XÁ";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel7
-            // 
-            this.panel7.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel7.Location = new System.Drawing.Point(0, 142);
-            this.panel7.MaximumSize = new System.Drawing.Size(275, 8);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(254, 8);
-            this.panel7.TabIndex = 1;
-            // 
-            // panelTop
-            // 
-            this.panelTop.BackColor = System.Drawing.Color.Silver;
-            this.panelTop.Controls.Add(this.lblChao);
-            this.panelTop.Controls.Add(this.lblTitleChildForm);
-            this.panelTop.Controls.Add(this.btnMinimize);
-            this.panelTop.Controls.Add(this.btnMaximize);
-            this.panelTop.Controls.Add(this.btnExit);
-            this.panelTop.Controls.Add(this.iconCurrentChildForm);
-            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Location = new System.Drawing.Point(275, 0);
-            this.panelTop.MaximumSize = new System.Drawing.Size(0, 80);
-            this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1065, 80);
-            this.panelTop.TabIndex = 1;
-            this.panelTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTop_MouseDown);
-            // 
-            // lblChao
-            // 
-            this.lblChao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblChao.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblChao.ForeColor = System.Drawing.Color.White;
-            this.lblChao.Location = new System.Drawing.Point(10, 48);
-            this.lblChao.Name = "lblChao";
-            this.lblChao.Size = new System.Drawing.Size(1047, 28);
-            this.lblChao.TabIndex = 7;
-            this.lblChao.Text = "Xin chào!";
-            this.lblChao.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblTitleChildForm
-            // 
-            this.lblTitleChildForm.AutoSize = true;
-            this.lblTitleChildForm.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitleChildForm.ForeColor = System.Drawing.Color.White;
-            this.lblTitleChildForm.Location = new System.Drawing.Point(49, 18);
-            this.lblTitleChildForm.Name = "lblTitleChildForm";
-            this.lblTitleChildForm.Size = new System.Drawing.Size(51, 20);
-            this.lblTitleChildForm.TabIndex = 1;
-            this.lblTitleChildForm.Text = "Home";
-            // 
-            // panelShadow
-            // 
-            this.panelShadow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
-            this.panelShadow.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelShadow.Location = new System.Drawing.Point(275, 80);
-            this.panelShadow.MaximumSize = new System.Drawing.Size(0, 10);
-            this.panelShadow.Name = "panelShadow";
-            this.panelShadow.Size = new System.Drawing.Size(1065, 10);
-            this.panelShadow.TabIndex = 2;
-            // 
-            // panelDesktop
-            // 
-            this.panelDesktop.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panelDesktop.Controls.Add(this.pictureBox1);
-            this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDesktop.Location = new System.Drawing.Point(275, 90);
-            this.panelDesktop.Name = "panelDesktop";
-            this.panelDesktop.Size = new System.Drawing.Size(1065, 630);
-            this.panelDesktop.TabIndex = 3;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(275, 720);
-            this.panel1.MaximumSize = new System.Drawing.Size(0, 10);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1065, 10);
-            this.panel1.TabIndex = 6;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Enabled = false;
-            this.pictureBox1.Image = global::QLKTX_App.GUI.Properties.Resources.LOGO_01;
-            this.pictureBox1.Location = new System.Drawing.Point(350, 135);
-            this.pictureBox1.MaximumSize = new System.Drawing.Size(365, 365);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(365, 365);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.btnHome_Click);
-            // 
-            // btnMinimize
-            // 
-            this.btnMinimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMinimize.BackColor = System.Drawing.Color.Silver;
-            this.btnMinimize.IconChar = FontAwesome.Sharp.IconChar.WindowMinimize;
-            this.btnMinimize.IconColor = System.Drawing.Color.White;
-            this.btnMinimize.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnMinimize.IconSize = 33;
-            this.btnMinimize.Location = new System.Drawing.Point(950, 8);
-            this.btnMinimize.MaximumSize = new System.Drawing.Size(33, 33);
-            this.btnMinimize.Name = "btnMinimize";
-            this.btnMinimize.Size = new System.Drawing.Size(33, 33);
-            this.btnMinimize.TabIndex = 0;
-            this.btnMinimize.TabStop = false;
-            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
-            // 
-            // btnMaximize
-            // 
-            this.btnMaximize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMaximize.BackColor = System.Drawing.Color.Silver;
-            this.btnMaximize.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize;
-            this.btnMaximize.IconColor = System.Drawing.Color.White;
-            this.btnMaximize.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnMaximize.IconSize = 33;
-            this.btnMaximize.Location = new System.Drawing.Point(987, 8);
-            this.btnMaximize.MaximumSize = new System.Drawing.Size(33, 33);
-            this.btnMaximize.Name = "btnMaximize";
-            this.btnMaximize.Size = new System.Drawing.Size(33, 33);
-            this.btnMaximize.TabIndex = 0;
-            this.btnMaximize.TabStop = false;
-            this.btnMaximize.Click += new System.EventHandler(this.btnMaximize_Click);
-            // 
-            // btnExit
-            // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.BackColor = System.Drawing.Color.Silver;
-            this.btnExit.IconChar = FontAwesome.Sharp.IconChar.Remove;
-            this.btnExit.IconColor = System.Drawing.Color.White;
-            this.btnExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnExit.IconSize = 33;
-            this.btnExit.Location = new System.Drawing.Point(1024, 8);
-            this.btnExit.MaximumSize = new System.Drawing.Size(33, 33);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(33, 33);
-            this.btnExit.TabIndex = 0;
-            this.btnExit.TabStop = false;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // iconCurrentChildForm
-            // 
-            this.iconCurrentChildForm.BackColor = System.Drawing.Color.Silver;
-            this.iconCurrentChildForm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
-            this.iconCurrentChildForm.IconChar = FontAwesome.Sharp.IconChar.HomeLg;
-            this.iconCurrentChildForm.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
-            this.iconCurrentChildForm.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconCurrentChildForm.IconSize = 33;
-            this.iconCurrentChildForm.Location = new System.Drawing.Point(11, 8);
-            this.iconCurrentChildForm.MaximumSize = new System.Drawing.Size(33, 33);
-            this.iconCurrentChildForm.Name = "iconCurrentChildForm";
-            this.iconCurrentChildForm.Size = new System.Drawing.Size(33, 33);
-            this.iconCurrentChildForm.TabIndex = 0;
-            this.iconCurrentChildForm.TabStop = false;
-            // 
             // btnLogOut
             // 
             this.btnLogOut.Dock = System.Windows.Forms.DockStyle.Top;
@@ -325,6 +119,18 @@
             this.btnLogOut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLogOut.UseVisualStyleBackColor = true;
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click_1);
+            // 
+            // panelThietLap
+            // 
+            this.panelThietLap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(102)))));
+            this.panelThietLap.Controls.Add(this.btnNapDLexcel);
+            this.panelThietLap.Controls.Add(this.btnGia);
+            this.panelThietLap.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelThietLap.Location = new System.Drawing.Point(0, 660);
+            this.panelThietLap.MaximumSize = new System.Drawing.Size(275, 90);
+            this.panelThietLap.Name = "panelThietLap";
+            this.panelThietLap.Size = new System.Drawing.Size(254, 90);
+            this.panelThietLap.TabIndex = 26;
             // 
             // btnNapDLexcel
             // 
@@ -423,6 +229,18 @@
             this.btnThongKe.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnThongKe.UseVisualStyleBackColor = true;
             this.btnThongKe.Click += new System.EventHandler(this.btnThongKe_Click);
+            // 
+            // panelPhong
+            // 
+            this.panelPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(102)))));
+            this.panelPhong.Controls.Add(this.btnThemPhong);
+            this.panelPhong.Controls.Add(this.btnSoDoPhong);
+            this.panelPhong.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelPhong.Location = new System.Drawing.Point(0, 450);
+            this.panelPhong.MaximumSize = new System.Drawing.Size(275, 90);
+            this.panelPhong.Name = "panelPhong";
+            this.panelPhong.Size = new System.Drawing.Size(254, 90);
+            this.panelPhong.TabIndex = 24;
             // 
             // btnThemPhong
             // 
@@ -596,6 +414,40 @@
             this.btnTaiKhoan.UseVisualStyleBackColor = false;
             this.btnTaiKhoan.Click += new System.EventHandler(this.btnTaiKhoan_Click);
             // 
+            // panelLogo
+            // 
+            this.panelLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
+            this.panelLogo.Controls.Add(this.label2);
+            this.panelLogo.Controls.Add(this.panel7);
+            this.panelLogo.Controls.Add(this.btnHome);
+            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelLogo.Location = new System.Drawing.Point(0, 0);
+            this.panelLogo.MaximumSize = new System.Drawing.Size(275, 150);
+            this.panelLogo.Name = "panelLogo";
+            this.panelLogo.Size = new System.Drawing.Size(254, 150);
+            this.panelLogo.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(0, 114);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(275, 24);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "QUẢN LÝ KÝ TÚC XÁ";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel7.Location = new System.Drawing.Point(0, 142);
+            this.panel7.MaximumSize = new System.Drawing.Size(275, 8);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(254, 8);
+            this.panel7.TabIndex = 1;
+            // 
             // btnHome
             // 
             this.btnHome.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -608,6 +460,154 @@
             this.btnHome.TabIndex = 0;
             this.btnHome.TabStop = false;
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click_1);
+            // 
+            // panelTop
+            // 
+            this.panelTop.BackColor = System.Drawing.Color.Silver;
+            this.panelTop.Controls.Add(this.lblChao);
+            this.panelTop.Controls.Add(this.lblTitleChildForm);
+            this.panelTop.Controls.Add(this.btnMinimize);
+            this.panelTop.Controls.Add(this.btnMaximize);
+            this.panelTop.Controls.Add(this.btnExit);
+            this.panelTop.Controls.Add(this.iconCurrentChildForm);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(275, 0);
+            this.panelTop.MaximumSize = new System.Drawing.Size(0, 80);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(1065, 80);
+            this.panelTop.TabIndex = 1;
+            this.panelTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTop_MouseDown);
+            // 
+            // lblChao
+            // 
+            this.lblChao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblChao.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChao.ForeColor = System.Drawing.Color.White;
+            this.lblChao.Location = new System.Drawing.Point(10, 48);
+            this.lblChao.Name = "lblChao";
+            this.lblChao.Size = new System.Drawing.Size(1047, 28);
+            this.lblChao.TabIndex = 7;
+            this.lblChao.Text = "Xin chào!";
+            this.lblChao.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblTitleChildForm
+            // 
+            this.lblTitleChildForm.AutoSize = true;
+            this.lblTitleChildForm.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitleChildForm.ForeColor = System.Drawing.Color.White;
+            this.lblTitleChildForm.Location = new System.Drawing.Point(49, 18);
+            this.lblTitleChildForm.Name = "lblTitleChildForm";
+            this.lblTitleChildForm.Size = new System.Drawing.Size(51, 20);
+            this.lblTitleChildForm.TabIndex = 1;
+            this.lblTitleChildForm.Text = "Home";
+            // 
+            // btnMinimize
+            // 
+            this.btnMinimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMinimize.BackColor = System.Drawing.Color.Silver;
+            this.btnMinimize.IconChar = FontAwesome.Sharp.IconChar.WindowMinimize;
+            this.btnMinimize.IconColor = System.Drawing.Color.White;
+            this.btnMinimize.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnMinimize.IconSize = 33;
+            this.btnMinimize.Location = new System.Drawing.Point(950, 8);
+            this.btnMinimize.MaximumSize = new System.Drawing.Size(33, 33);
+            this.btnMinimize.Name = "btnMinimize";
+            this.btnMinimize.Size = new System.Drawing.Size(33, 33);
+            this.btnMinimize.TabIndex = 0;
+            this.btnMinimize.TabStop = false;
+            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
+            // 
+            // btnMaximize
+            // 
+            this.btnMaximize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMaximize.BackColor = System.Drawing.Color.Silver;
+            this.btnMaximize.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize;
+            this.btnMaximize.IconColor = System.Drawing.Color.White;
+            this.btnMaximize.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnMaximize.IconSize = 33;
+            this.btnMaximize.Location = new System.Drawing.Point(987, 8);
+            this.btnMaximize.MaximumSize = new System.Drawing.Size(33, 33);
+            this.btnMaximize.Name = "btnMaximize";
+            this.btnMaximize.Size = new System.Drawing.Size(33, 33);
+            this.btnMaximize.TabIndex = 0;
+            this.btnMaximize.TabStop = false;
+            this.btnMaximize.Click += new System.EventHandler(this.btnMaximize_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.BackColor = System.Drawing.Color.Silver;
+            this.btnExit.IconChar = FontAwesome.Sharp.IconChar.Remove;
+            this.btnExit.IconColor = System.Drawing.Color.White;
+            this.btnExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnExit.IconSize = 33;
+            this.btnExit.Location = new System.Drawing.Point(1024, 8);
+            this.btnExit.MaximumSize = new System.Drawing.Size(33, 33);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(33, 33);
+            this.btnExit.TabIndex = 0;
+            this.btnExit.TabStop = false;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // iconCurrentChildForm
+            // 
+            this.iconCurrentChildForm.BackColor = System.Drawing.Color.Silver;
+            this.iconCurrentChildForm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
+            this.iconCurrentChildForm.IconChar = FontAwesome.Sharp.IconChar.HomeLg;
+            this.iconCurrentChildForm.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
+            this.iconCurrentChildForm.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconCurrentChildForm.IconSize = 33;
+            this.iconCurrentChildForm.Location = new System.Drawing.Point(11, 8);
+            this.iconCurrentChildForm.MaximumSize = new System.Drawing.Size(33, 33);
+            this.iconCurrentChildForm.Name = "iconCurrentChildForm";
+            this.iconCurrentChildForm.Size = new System.Drawing.Size(33, 33);
+            this.iconCurrentChildForm.TabIndex = 0;
+            this.iconCurrentChildForm.TabStop = false;
+            // 
+            // panelShadow
+            // 
+            this.panelShadow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
+            this.panelShadow.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelShadow.Location = new System.Drawing.Point(275, 80);
+            this.panelShadow.MaximumSize = new System.Drawing.Size(0, 10);
+            this.panelShadow.Name = "panelShadow";
+            this.panelShadow.Size = new System.Drawing.Size(1065, 10);
+            this.panelShadow.TabIndex = 2;
+            // 
+            // panelDesktop
+            // 
+            this.panelDesktop.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelDesktop.Controls.Add(this.pictureBox1);
+            this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDesktop.Location = new System.Drawing.Point(275, 90);
+            this.panelDesktop.Name = "panelDesktop";
+            this.panelDesktop.Size = new System.Drawing.Size(1065, 630);
+            this.panelDesktop.TabIndex = 3;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Enabled = false;
+            this.pictureBox1.Image = global::QLKTX_App.GUI.Properties.Resources.LOGO_01;
+            this.pictureBox1.Location = new System.Drawing.Point(350, 135);
+            this.pictureBox1.MaximumSize = new System.Drawing.Size(365, 365);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(365, 365);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.btnHome_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(275, 720);
+            this.panel1.MaximumSize = new System.Drawing.Size(0, 10);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1065, 10);
+            this.panel1.TabIndex = 6;
             // 
             // btnXuatBC
             // 
@@ -653,15 +653,15 @@
             this.panelThietLap.ResumeLayout(false);
             this.panelPhong.ResumeLayout(false);
             this.panelLogo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnHome)).EndInit();
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
-            this.panelDesktop.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMinimize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMaximize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iconCurrentChildForm)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnHome)).EndInit();
+            this.panelDesktop.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
