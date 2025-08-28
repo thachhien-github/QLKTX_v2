@@ -225,7 +225,7 @@ namespace QLKTX_App.GUI.ChildForm_NhanVien
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
                         string filePath = sfd.FileName;
-                        HoaDonHDPdfExporter.XuatHoaDonHopDong(maHD, thangNam, ngayLap, chiTiet, filePath);
+                        HoaDonHDPdfExporter.XuatHoaDonHopDong(maHD, ngayLap, chiTiet, filePath);
 
                         MessageBox.Show("Xuất hóa đơn thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
