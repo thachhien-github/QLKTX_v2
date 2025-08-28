@@ -1,16 +1,17 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QLKTX_App.GUI")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Quản Lý Ký Túc Xá - HCMCT")]
+[assembly: AssemblyDescription("Phần mềm quản lý ký túc xá sinh viên.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("QLKTX_App.GUI")]
-[assembly: AssemblyCopyright("Copyright ©  2025")]
+[assembly: AssemblyCompany("Nhóm NCKH C24A.TH")]
+[assembly: AssemblyProduct("Quản Lý Ký Túc Xá - HCMCT")]
+[assembly: AssemblyCopyright("© 2025 Nhóm NCKH C24A.TH. Quản Lý Ký Túc Xá.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +30,6 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: NeutralResourcesLanguage("vi-VN")]
