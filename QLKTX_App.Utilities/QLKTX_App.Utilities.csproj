@@ -164,8 +164,6 @@
     <Compile Include="CurrentUser.cs" />
     <Compile Include="DbConfig.cs" />
     <Compile Include="ExcelExportHoaDonDV.cs" />
-    <Compile Include="HoaDonDVPdfExporter.cs" />
-    <Compile Include="HoaDonHDPdfExporter.cs" />
     <Compile Include="HopDongExporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExcelExportPhong.cs" />
@@ -173,6 +171,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QLKTX_App.DTO\QLKTX_App.DTO.csproj">
+      <Project>{4a42cf87-f38d-49e4-a0cc-2b8b53a26fea}</Project>
+      <Name>QLKTX_App.DTO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

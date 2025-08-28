@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvListHD = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnTiep = new FontAwesome.Sharp.IconButton();
             this.btnXuatHD = new FontAwesome.Sharp.IconButton();
             this.btnTaoHD = new FontAwesome.Sharp.IconButton();
             this.btnXoaHD = new FontAwesome.Sharp.IconButton();
@@ -50,7 +51,6 @@
             this.cboPhong = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnTiep = new FontAwesome.Sharp.IconButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListHD)).BeginInit();
             this.panel3.SuspendLayout();
@@ -73,15 +73,15 @@
             // dgvListHD
             // 
             this.dgvListHD.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(102)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvListHD.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(102)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvListHD.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvListHD.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvListHD.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dgvListHD.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -92,15 +92,15 @@
             this.dgvListHD.MultiSelect = false;
             this.dgvListHD.Name = "dgvListHD";
             this.dgvListHD.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvListHD.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvListHD.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvListHD.RowHeadersWidth = 51;
             this.dgvListHD.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.SystemColors.Window;
             this.dgvListHD.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -125,6 +125,30 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1027, 70);
             this.panel3.TabIndex = 24;
+            // 
+            // btnTiep
+            // 
+            this.btnTiep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTiep.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnTiep.FlatAppearance.BorderSize = 0;
+            this.btnTiep.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnTiep.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTiep.ForeColor = System.Drawing.Color.Black;
+            this.btnTiep.IconChar = FontAwesome.Sharp.IconChar.ArrowRight;
+            this.btnTiep.IconColor = System.Drawing.Color.Red;
+            this.btnTiep.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnTiep.IconSize = 25;
+            this.btnTiep.Location = new System.Drawing.Point(728, 13);
+            this.btnTiep.MaximumSize = new System.Drawing.Size(275, 45);
+            this.btnTiep.Name = "btnTiep";
+            this.btnTiep.Padding = new System.Windows.Forms.Padding(15, 3, 3, 3);
+            this.btnTiep.Size = new System.Drawing.Size(143, 45);
+            this.btnTiep.TabIndex = 17;
+            this.btnTiep.Text = "Tiếp";
+            this.btnTiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTiep.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTiep.UseVisualStyleBackColor = false;
+            this.btnTiep.Click += new System.EventHandler(this.btnTiep_Click);
             // 
             // btnXuatHD
             // 
@@ -349,30 +373,6 @@
             this.label1.TabIndex = 28;
             this.label1.Text = "Hóa Đơn Dịch Vụ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnTiep
-            // 
-            this.btnTiep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTiep.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnTiep.FlatAppearance.BorderSize = 0;
-            this.btnTiep.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnTiep.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTiep.ForeColor = System.Drawing.Color.Black;
-            this.btnTiep.IconChar = FontAwesome.Sharp.IconChar.ArrowRight;
-            this.btnTiep.IconColor = System.Drawing.Color.Red;
-            this.btnTiep.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnTiep.IconSize = 25;
-            this.btnTiep.Location = new System.Drawing.Point(728, 13);
-            this.btnTiep.MaximumSize = new System.Drawing.Size(275, 45);
-            this.btnTiep.Name = "btnTiep";
-            this.btnTiep.Padding = new System.Windows.Forms.Padding(15, 3, 3, 3);
-            this.btnTiep.Size = new System.Drawing.Size(143, 45);
-            this.btnTiep.TabIndex = 17;
-            this.btnTiep.Text = "Tiếp";
-            this.btnTiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTiep.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnTiep.UseVisualStyleBackColor = false;
-            this.btnTiep.Click += new System.EventHandler(this.btnTiep_Click);
             // 
             // FormHoaDonDV
             // 
