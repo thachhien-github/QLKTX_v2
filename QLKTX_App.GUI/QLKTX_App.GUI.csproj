@@ -7,7 +7,7 @@
     <ProjectGuid>{DBD12A39-98ED-42D8-8709-71A58974ACF4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>QLKTX_App.GUI</RootNamespace>
-    <AssemblyName>QLKTX_App.GUI</AssemblyName>
+    <AssemblyName>Quản Lý Ký Túc Xá - HCMCT</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
