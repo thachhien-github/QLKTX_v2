@@ -67,7 +67,7 @@
             this.txtMSSV.Location = new System.Drawing.Point(134, 55);
             this.txtMSSV.Name = "txtMSSV";
             this.txtMSSV.Size = new System.Drawing.Size(216, 30);
-            this.txtMSSV.TabIndex = 6;
+            this.txtMSSV.TabIndex = 0;
             // 
             // label2
             // 
@@ -137,7 +137,7 @@
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.btnXoa.Size = new System.Drawing.Size(116, 45);
-            this.btnXoa.TabIndex = 10;
+            this.btnXoa.TabIndex = 6;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXoa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -153,7 +153,7 @@
             this.dtpNgaySinh.Location = new System.Drawing.Point(497, 55);
             this.dtpNgaySinh.Name = "dtpNgaySinh";
             this.dtpNgaySinh.Size = new System.Drawing.Size(126, 30);
-            this.dtpNgaySinh.TabIndex = 9;
+            this.dtpNgaySinh.TabIndex = 2;
             // 
             // btnLamMoi
             // 
@@ -171,7 +171,7 @@
             this.btnLamMoi.Name = "btnLamMoi";
             this.btnLamMoi.Padding = new System.Windows.Forms.Padding(3);
             this.btnLamMoi.Size = new System.Drawing.Size(116, 45);
-            this.btnLamMoi.TabIndex = 11;
+            this.btnLamMoi.TabIndex = 8;
             this.btnLamMoi.Text = "Làm mới";
             this.btnLamMoi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLamMoi.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -218,7 +218,7 @@
             this.btnDangKy.Name = "btnDangKy";
             this.btnDangKy.Padding = new System.Windows.Forms.Padding(3);
             this.btnDangKy.Size = new System.Drawing.Size(116, 45);
-            this.btnDangKy.TabIndex = 12;
+            this.btnDangKy.TabIndex = 5;
             this.btnDangKy.Text = "Đăng Ký";
             this.btnDangKy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDangKy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -252,7 +252,7 @@
             this.btnPhanBo.Name = "btnPhanBo";
             this.btnPhanBo.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.btnPhanBo.Size = new System.Drawing.Size(116, 45);
-            this.btnPhanBo.TabIndex = 11;
+            this.btnPhanBo.TabIndex = 7;
             this.btnPhanBo.Text = "Phân bổ";
             this.btnPhanBo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPhanBo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -299,7 +299,7 @@
             this.txtSDT.Location = new System.Drawing.Point(764, 55);
             this.txtSDT.Name = "txtSDT";
             this.txtSDT.Size = new System.Drawing.Size(216, 30);
-            this.txtSDT.TabIndex = 6;
+            this.txtSDT.TabIndex = 3;
             // 
             // txtDiaChi
             // 
@@ -308,7 +308,7 @@
             this.txtDiaChi.Location = new System.Drawing.Point(764, 94);
             this.txtDiaChi.Name = "txtDiaChi";
             this.txtDiaChi.Size = new System.Drawing.Size(216, 30);
-            this.txtDiaChi.TabIndex = 6;
+            this.txtDiaChi.TabIndex = 4;
             // 
             // label3
             // 
@@ -328,7 +328,7 @@
             this.txtHoTen.Location = new System.Drawing.Point(134, 94);
             this.txtHoTen.Name = "txtHoTen";
             this.txtHoTen.Size = new System.Drawing.Size(216, 30);
-            this.txtHoTen.TabIndex = 6;
+            this.txtHoTen.TabIndex = 1;
             // 
             // panel2
             // 
@@ -426,7 +426,7 @@
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Padding = new System.Windows.Forms.Padding(1);
             this.btnTimKiem.Size = new System.Drawing.Size(100, 29);
-            this.btnTimKiem.TabIndex = 4;
+            this.btnTimKiem.TabIndex = 1;
             this.btnTimKiem.Text = "Tìm Kiếm";
             this.btnTimKiem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTimKiem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -442,7 +442,7 @@
             this.txtTimKiem.MaximumSize = new System.Drawing.Size(220, 30);
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(220, 30);
-            this.txtTimKiem.TabIndex = 3;
+            this.txtTimKiem.TabIndex = 0;
             // 
             // FormQLSV
             // 

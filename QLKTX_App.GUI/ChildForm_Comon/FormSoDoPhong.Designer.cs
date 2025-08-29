@@ -205,7 +205,7 @@
             this.cboTang.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.cboTang.Name = "cboTang";
             this.cboTang.Size = new System.Drawing.Size(177, 31);
-            this.cboTang.TabIndex = 14;
+            this.cboTang.TabIndex = 0;
             this.cboTang.SelectedIndexChanged += new System.EventHandler(this.cboTang_SelectedIndexChanged);
             // 
             // label3

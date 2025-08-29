@@ -218,7 +218,7 @@
             this.txtHoTen.Location = new System.Drawing.Point(549, 77);
             this.txtHoTen.Name = "txtHoTen";
             this.txtHoTen.Size = new System.Drawing.Size(235, 30);
-            this.txtHoTen.TabIndex = 8;
+            this.txtHoTen.TabIndex = 4;
             // 
             // cboVaiTro
             // 
@@ -227,7 +227,7 @@
             this.cboVaiTro.Location = new System.Drawing.Point(179, 115);
             this.cboVaiTro.Name = "cboVaiTro";
             this.cboVaiTro.Size = new System.Drawing.Size(235, 31);
-            this.cboVaiTro.TabIndex = 4;
+            this.cboVaiTro.TabIndex = 2;
             this.cboVaiTro.SelectedIndexChanged += new System.EventHandler(this.cboMaNV_SelectedIndexChanged);
             // 
             // cboMaNV
@@ -237,7 +237,7 @@
             this.cboMaNV.Location = new System.Drawing.Point(549, 37);
             this.cboMaNV.Name = "cboMaNV";
             this.cboMaNV.Size = new System.Drawing.Size(235, 31);
-            this.cboMaNV.TabIndex = 4;
+            this.cboMaNV.TabIndex = 3;
             this.cboMaNV.SelectedIndexChanged += new System.EventHandler(this.cboMaNV_SelectedIndexChanged);
             // 
             // cboTrangThai
@@ -247,7 +247,7 @@
             this.cboTrangThai.Location = new System.Drawing.Point(549, 115);
             this.cboTrangThai.Name = "cboTrangThai";
             this.cboTrangThai.Size = new System.Drawing.Size(235, 31);
-            this.cboTrangThai.TabIndex = 4;
+            this.cboTrangThai.TabIndex = 5;
             // 
             // label7
             // 
@@ -298,7 +298,7 @@
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Padding = new System.Windows.Forms.Padding(12, 3, 3, 3);
             this.btnXoa.Size = new System.Drawing.Size(110, 35);
-            this.btnXoa.TabIndex = 6;
+            this.btnXoa.TabIndex = 7;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXoa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -321,7 +321,7 @@
             this.btnTiep.Name = "btnTiep";
             this.btnTiep.Padding = new System.Windows.Forms.Padding(12, 3, 3, 3);
             this.btnTiep.Size = new System.Drawing.Size(110, 35);
-            this.btnTiep.TabIndex = 7;
+            this.btnTiep.TabIndex = 8;
             this.btnTiep.Text = "Tiếp";
             this.btnTiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTiep.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -344,7 +344,7 @@
             this.btnDangKy.Name = "btnDangKy";
             this.btnDangKy.Padding = new System.Windows.Forms.Padding(3);
             this.btnDangKy.Size = new System.Drawing.Size(110, 35);
-            this.btnDangKy.TabIndex = 5;
+            this.btnDangKy.TabIndex = 6;
             this.btnDangKy.Text = "Đăng Ký";
             this.btnDangKy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDangKy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;

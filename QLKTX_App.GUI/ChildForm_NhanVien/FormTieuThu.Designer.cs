@@ -95,7 +95,7 @@
             this.btnTiep.Name = "btnTiep";
             this.btnTiep.Padding = new System.Windows.Forms.Padding(3);
             this.btnTiep.Size = new System.Drawing.Size(101, 39);
-            this.btnTiep.TabIndex = 12;
+            this.btnTiep.TabIndex = 13;
             this.btnTiep.Text = "Tiếp";
             this.btnTiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTiep.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -118,7 +118,7 @@
             this.btnTinh.Name = "btnTinh";
             this.btnTinh.Padding = new System.Windows.Forms.Padding(3);
             this.btnTinh.Size = new System.Drawing.Size(101, 39);
-            this.btnTinh.TabIndex = 13;
+            this.btnTinh.TabIndex = 9;
             this.btnTinh.Text = "Tính";
             this.btnTinh.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTinh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -188,7 +188,7 @@
             this.txtNuocMoi.Location = new System.Drawing.Point(777, 74);
             this.txtNuocMoi.Name = "txtNuocMoi";
             this.txtNuocMoi.Size = new System.Drawing.Size(149, 30);
-            this.txtNuocMoi.TabIndex = 14;
+            this.txtNuocMoi.TabIndex = 7;
             // 
             // label9
             // 
@@ -208,7 +208,7 @@
             this.txtNuocCu.Location = new System.Drawing.Point(777, 38);
             this.txtNuocCu.Name = "txtNuocCu";
             this.txtNuocCu.Size = new System.Drawing.Size(149, 30);
-            this.txtNuocCu.TabIndex = 15;
+            this.txtNuocCu.TabIndex = 6;
             // 
             // txtNuocTT
             // 
@@ -218,7 +218,7 @@
             this.txtNuocTT.Name = "txtNuocTT";
             this.txtNuocTT.ReadOnly = true;
             this.txtNuocTT.Size = new System.Drawing.Size(149, 30);
-            this.txtNuocTT.TabIndex = 16;
+            this.txtNuocTT.TabIndex = 8;
             // 
             // btnXoa
             // 
@@ -259,7 +259,7 @@
             this.btnSua.Name = "btnSua";
             this.btnSua.Padding = new System.Windows.Forms.Padding(3);
             this.btnSua.Size = new System.Drawing.Size(101, 39);
-            this.btnSua.TabIndex = 13;
+            this.btnSua.TabIndex = 11;
             this.btnSua.Text = "Sửa";
             this.btnSua.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSua.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -282,7 +282,7 @@
             this.btnThem.Name = "btnThem";
             this.btnThem.Padding = new System.Windows.Forms.Padding(3);
             this.btnThem.Size = new System.Drawing.Size(101, 39);
-            this.btnThem.TabIndex = 13;
+            this.btnThem.TabIndex = 10;
             this.btnThem.Text = "Thêm";
             this.btnThem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnThem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -296,7 +296,7 @@
             this.cboPhong.Location = new System.Drawing.Point(181, 38);
             this.cboPhong.Name = "cboPhong";
             this.cboPhong.Size = new System.Drawing.Size(105, 31);
-            this.cboPhong.TabIndex = 10;
+            this.cboPhong.TabIndex = 0;
             // 
             // cboNam
             // 
@@ -305,7 +305,7 @@
             this.cboNam.Location = new System.Drawing.Point(181, 112);
             this.cboNam.Name = "cboNam";
             this.cboNam.Size = new System.Drawing.Size(105, 31);
-            this.cboNam.TabIndex = 10;
+            this.cboNam.TabIndex = 2;
             // 
             // cboThang
             // 
@@ -314,7 +314,7 @@
             this.cboThang.Location = new System.Drawing.Point(181, 75);
             this.cboThang.Name = "cboThang";
             this.cboThang.Size = new System.Drawing.Size(105, 31);
-            this.cboThang.TabIndex = 10;
+            this.cboThang.TabIndex = 1;
             // 
             // label6
             // 
@@ -345,7 +345,7 @@
             this.txtDienMoi.Location = new System.Drawing.Point(460, 74);
             this.txtDienMoi.Name = "txtDienMoi";
             this.txtDienMoi.Size = new System.Drawing.Size(149, 30);
-            this.txtDienMoi.TabIndex = 6;
+            this.txtDienMoi.TabIndex = 4;
             // 
             // label10
             // 
@@ -387,7 +387,7 @@
             this.txtDienCu.Location = new System.Drawing.Point(460, 38);
             this.txtDienCu.Name = "txtDienCu";
             this.txtDienCu.Size = new System.Drawing.Size(149, 30);
-            this.txtDienCu.TabIndex = 6;
+            this.txtDienCu.TabIndex = 3;
             // 
             // label2
             // 
@@ -408,7 +408,7 @@
             this.txtDienTT.Name = "txtDienTT";
             this.txtDienTT.ReadOnly = true;
             this.txtDienTT.Size = new System.Drawing.Size(149, 30);
-            this.txtDienTT.TabIndex = 6;
+            this.txtDienTT.TabIndex = 5;
             // 
             // btnTimKiem
             // 

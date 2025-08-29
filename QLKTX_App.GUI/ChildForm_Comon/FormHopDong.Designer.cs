@@ -99,7 +99,7 @@
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Padding = new System.Windows.Forms.Padding(1);
             this.btnTimKiem.Size = new System.Drawing.Size(100, 30);
-            this.btnTimKiem.TabIndex = 1;
+            this.btnTimKiem.TabIndex = 3;
             this.btnTimKiem.Text = "Tìm Kiếm";
             this.btnTimKiem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTimKiem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -126,7 +126,7 @@
             this.txtMSSV.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.txtMSSV.Name = "txtMSSV";
             this.txtMSSV.Size = new System.Drawing.Size(134, 30);
-            this.txtMSSV.TabIndex = 5;
+            this.txtMSSV.TabIndex = 0;
             // 
             // cboPhong
             // 
@@ -137,7 +137,7 @@
             this.cboPhong.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.cboPhong.Name = "cboPhong";
             this.cboPhong.Size = new System.Drawing.Size(94, 31);
-            this.cboPhong.TabIndex = 6;
+            this.cboPhong.TabIndex = 1;
             // 
             // cboTrangThai
             // 
@@ -148,7 +148,7 @@
             this.cboTrangThai.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.cboTrangThai.Name = "cboTrangThai";
             this.cboTrangThai.Size = new System.Drawing.Size(147, 31);
-            this.cboTrangThai.TabIndex = 7;
+            this.cboTrangThai.TabIndex = 2;
             // 
             // label3
             // 
@@ -267,7 +267,7 @@
             this.btnXuatHopDong.Name = "btnXuatHopDong";
             this.btnXuatHopDong.Padding = new System.Windows.Forms.Padding(3);
             this.btnXuatHopDong.Size = new System.Drawing.Size(143, 45);
-            this.btnXuatHopDong.TabIndex = 16;
+            this.btnXuatHopDong.TabIndex = 1;
             this.btnXuatHopDong.Text = "Xuất hợp đồng";
             this.btnXuatHopDong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnXuatHopDong.UseVisualStyleBackColor = false;
@@ -290,7 +290,7 @@
             this.btnGiaHan.Name = "btnGiaHan";
             this.btnGiaHan.Padding = new System.Windows.Forms.Padding(3);
             this.btnGiaHan.Size = new System.Drawing.Size(143, 45);
-            this.btnGiaHan.TabIndex = 7;
+            this.btnGiaHan.TabIndex = 0;
             this.btnGiaHan.Text = "Gia hạn";
             this.btnGiaHan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGiaHan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;

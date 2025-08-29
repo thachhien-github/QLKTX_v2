@@ -143,7 +143,7 @@
             this.btnTiep.Name = "btnTiep";
             this.btnTiep.Padding = new System.Windows.Forms.Padding(15, 3, 3, 3);
             this.btnTiep.Size = new System.Drawing.Size(143, 45);
-            this.btnTiep.TabIndex = 17;
+            this.btnTiep.TabIndex = 2;
             this.btnTiep.Text = "Tiếp";
             this.btnTiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTiep.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -167,7 +167,7 @@
             this.btnXuatHD.Name = "btnXuatHD";
             this.btnXuatHD.Padding = new System.Windows.Forms.Padding(3);
             this.btnXuatHD.Size = new System.Drawing.Size(143, 45);
-            this.btnXuatHD.TabIndex = 16;
+            this.btnXuatHD.TabIndex = 3;
             this.btnXuatHD.Text = "Xuất Hóa Đơn";
             this.btnXuatHD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnXuatHD.UseVisualStyleBackColor = false;
@@ -190,7 +190,7 @@
             this.btnTaoHD.Name = "btnTaoHD";
             this.btnTaoHD.Padding = new System.Windows.Forms.Padding(3);
             this.btnTaoHD.Size = new System.Drawing.Size(143, 45);
-            this.btnTaoHD.TabIndex = 15;
+            this.btnTaoHD.TabIndex = 0;
             this.btnTaoHD.Text = "Tạo Hóa Đơn";
             this.btnTaoHD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnTaoHD.UseVisualStyleBackColor = false;
@@ -213,7 +213,7 @@
             this.btnXoaHD.Name = "btnXoaHD";
             this.btnXoaHD.Padding = new System.Windows.Forms.Padding(15, 3, 3, 3);
             this.btnXoaHD.Size = new System.Drawing.Size(142, 45);
-            this.btnXoaHD.TabIndex = 14;
+            this.btnXoaHD.TabIndex = 1;
             this.btnXoaHD.Text = "Xóa";
             this.btnXoaHD.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXoaHD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -249,7 +249,7 @@
             this.dtpNgayLap.Location = new System.Drawing.Point(175, 9);
             this.dtpNgayLap.Name = "dtpNgayLap";
             this.dtpNgayLap.Size = new System.Drawing.Size(114, 30);
-            this.dtpNgayLap.TabIndex = 20;
+            this.dtpNgayLap.TabIndex = 0;
             // 
             // label10
             // 
@@ -268,7 +268,7 @@
             this.txtSLxe.Location = new System.Drawing.Point(580, 82);
             this.txtSLxe.Name = "txtSLxe";
             this.txtSLxe.Size = new System.Drawing.Size(157, 30);
-            this.txtSLxe.TabIndex = 13;
+            this.txtSLxe.TabIndex = 5;
             // 
             // txtCSnuoc
             // 
@@ -276,7 +276,7 @@
             this.txtCSnuoc.Location = new System.Drawing.Point(580, 46);
             this.txtCSnuoc.Name = "txtCSnuoc";
             this.txtCSnuoc.Size = new System.Drawing.Size(157, 30);
-            this.txtCSnuoc.TabIndex = 13;
+            this.txtCSnuoc.TabIndex = 4;
             // 
             // label7
             // 
@@ -295,7 +295,7 @@
             this.txtCSdien.Location = new System.Drawing.Point(580, 10);
             this.txtCSdien.Name = "txtCSdien";
             this.txtCSdien.Size = new System.Drawing.Size(157, 30);
-            this.txtCSdien.TabIndex = 13;
+            this.txtCSdien.TabIndex = 3;
             // 
             // label6
             // 
@@ -326,7 +326,7 @@
             this.cboThangNam.Location = new System.Drawing.Point(175, 45);
             this.cboThangNam.Name = "cboThangNam";
             this.cboThangNam.Size = new System.Drawing.Size(114, 31);
-            this.cboThangNam.TabIndex = 12;
+            this.cboThangNam.TabIndex = 1;
             this.cboThangNam.SelectedIndexChanged += new System.EventHandler(this.cboThangNam_SelectedIndexChanged);
             // 
             // label3
@@ -347,7 +347,7 @@
             this.cboPhong.Location = new System.Drawing.Point(175, 80);
             this.cboPhong.Name = "cboPhong";
             this.cboPhong.Size = new System.Drawing.Size(114, 31);
-            this.cboPhong.TabIndex = 12;
+            this.cboPhong.TabIndex = 2;
             this.cboPhong.SelectedIndexChanged += new System.EventHandler(this.cboPhong_SelectedIndexChanged);
             // 
             // label2

@@ -113,7 +113,7 @@
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnLogOut.Size = new System.Drawing.Size(254, 60);
-            this.btnLogOut.TabIndex = 21;
+            this.btnLogOut.TabIndex = 7;
             this.btnLogOut.Text = "Đăng Xuất";
             this.btnLogOut.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLogOut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -150,7 +150,7 @@
             this.btnNapDLexcel.Name = "btnNapDLexcel";
             this.btnNapDLexcel.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
             this.btnNapDLexcel.Size = new System.Drawing.Size(254, 45);
-            this.btnNapDLexcel.TabIndex = 8;
+            this.btnNapDLexcel.TabIndex = 1;
             this.btnNapDLexcel.Text = "Nạp Dữ Liệu Excel";
             this.btnNapDLexcel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNapDLexcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -175,7 +175,7 @@
             this.btnGia.Name = "btnGia";
             this.btnGia.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
             this.btnGia.Size = new System.Drawing.Size(254, 45);
-            this.btnGia.TabIndex = 7;
+            this.btnGia.TabIndex = 0;
             this.btnGia.Text = "Giá";
             this.btnGia.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGia.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -199,7 +199,7 @@
             this.btnThiepLap.Name = "btnThiepLap";
             this.btnThiepLap.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnThiepLap.Size = new System.Drawing.Size(254, 60);
-            this.btnThiepLap.TabIndex = 20;
+            this.btnThiepLap.TabIndex = 6;
             this.btnThiepLap.Text = "Thiết Lập";
             this.btnThiepLap.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnThiepLap.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -223,7 +223,7 @@
             this.btnThongKe.Name = "btnThongKe";
             this.btnThongKe.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnThongKe.Size = new System.Drawing.Size(254, 60);
-            this.btnThongKe.TabIndex = 19;
+            this.btnThongKe.TabIndex = 5;
             this.btnThongKe.Text = "Thống Kê";
             this.btnThongKe.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnThongKe.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -260,7 +260,7 @@
             this.btnThemPhong.Name = "btnThemPhong";
             this.btnThemPhong.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
             this.btnThemPhong.Size = new System.Drawing.Size(254, 45);
-            this.btnThemPhong.TabIndex = 5;
+            this.btnThemPhong.TabIndex = 1;
             this.btnThemPhong.Text = "Thêm Phòng";
             this.btnThemPhong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnThemPhong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -285,7 +285,7 @@
             this.btnSoDoPhong.Name = "btnSoDoPhong";
             this.btnSoDoPhong.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
             this.btnSoDoPhong.Size = new System.Drawing.Size(254, 45);
-            this.btnSoDoPhong.TabIndex = 3;
+            this.btnSoDoPhong.TabIndex = 0;
             this.btnSoDoPhong.Text = "Sơ Đồ Phòng";
             this.btnSoDoPhong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSoDoPhong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -309,7 +309,7 @@
             this.btnPhong.Name = "btnPhong";
             this.btnPhong.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnPhong.Size = new System.Drawing.Size(254, 60);
-            this.btnPhong.TabIndex = 18;
+            this.btnPhong.TabIndex = 4;
             this.btnPhong.Text = "Quản Lý Phòng";
             this.btnPhong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPhong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -333,7 +333,7 @@
             this.btnQLHopDong.Name = "btnQLHopDong";
             this.btnQLHopDong.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnQLHopDong.Size = new System.Drawing.Size(254, 60);
-            this.btnQLHopDong.TabIndex = 27;
+            this.btnQLHopDong.TabIndex = 3;
             this.btnQLHopDong.Text = "Quản Lý Hợp Đồng";
             this.btnQLHopDong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnQLHopDong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -357,7 +357,7 @@
             this.btnSinhVien.Name = "btnSinhVien";
             this.btnSinhVien.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnSinhVien.Size = new System.Drawing.Size(254, 60);
-            this.btnSinhVien.TabIndex = 17;
+            this.btnSinhVien.TabIndex = 2;
             this.btnSinhVien.Text = "Quản Lý Sinh Viên";
             this.btnSinhVien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSinhVien.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -381,7 +381,7 @@
             this.btnNhanVien.Name = "btnNhanVien";
             this.btnNhanVien.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnNhanVien.Size = new System.Drawing.Size(254, 60);
-            this.btnNhanVien.TabIndex = 15;
+            this.btnNhanVien.TabIndex = 1;
             this.btnNhanVien.Text = "Quản Lý Nhân Viên";
             this.btnNhanVien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNhanVien.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -407,7 +407,7 @@
             this.btnTaiKhoan.Name = "btnTaiKhoan";
             this.btnTaiKhoan.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnTaiKhoan.Size = new System.Drawing.Size(254, 60);
-            this.btnTaiKhoan.TabIndex = 14;
+            this.btnTaiKhoan.TabIndex = 0;
             this.btnTaiKhoan.Text = "Quản Lý Tài Khoản";
             this.btnTaiKhoan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTaiKhoan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;

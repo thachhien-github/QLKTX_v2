@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtTimKiem = new System.Windows.Forms.TextBox();
             this.dgvListTheXe = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -66,20 +66,20 @@
             this.txtTimKiem.MinimumSize = new System.Drawing.Size(220, 30);
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(220, 30);
-            this.txtTimKiem.TabIndex = 3;
+            this.txtTimKiem.TabIndex = 0;
             // 
             // dgvListTheXe
             // 
             this.dgvListTheXe.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(102)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvListTheXe.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(102)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvListTheXe.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvListTheXe.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvListTheXe.Cursor = System.Windows.Forms.Cursors.Hand;
             this.dgvListTheXe.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -90,15 +90,15 @@
             this.dgvListTheXe.MultiSelect = false;
             this.dgvListTheXe.Name = "dgvListTheXe";
             this.dgvListTheXe.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvListTheXe.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvListTheXe.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvListTheXe.RowHeadersWidth = 51;
             this.dgvListTheXe.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.SystemColors.Window;
             this.dgvListTheXe.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -151,7 +151,7 @@
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Padding = new System.Windows.Forms.Padding(1);
             this.btnTimKiem.Size = new System.Drawing.Size(100, 29);
-            this.btnTimKiem.TabIndex = 4;
+            this.btnTimKiem.TabIndex = 1;
             this.btnTimKiem.Text = "Tìm Kiếm";
             this.btnTimKiem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTimKiem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -211,7 +211,7 @@
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Padding = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnXoa.Size = new System.Drawing.Size(115, 39);
-            this.btnXoa.TabIndex = 11;
+            this.btnXoa.TabIndex = 6;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXoa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -234,7 +234,7 @@
             this.btnTiep.Name = "btnTiep";
             this.btnTiep.Padding = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnTiep.Size = new System.Drawing.Size(115, 39);
-            this.btnTiep.TabIndex = 12;
+            this.btnTiep.TabIndex = 7;
             this.btnTiep.Text = "Tiếp";
             this.btnTiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTiep.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -257,7 +257,7 @@
             this.btnDangKy.Name = "btnDangKy";
             this.btnDangKy.Padding = new System.Windows.Forms.Padding(3);
             this.btnDangKy.Size = new System.Drawing.Size(115, 39);
-            this.btnDangKy.TabIndex = 13;
+            this.btnDangKy.TabIndex = 5;
             this.btnDangKy.Text = "Đăng Ký";
             this.btnDangKy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDangKy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -271,7 +271,7 @@
             this.cboLoaiXe.Location = new System.Drawing.Point(544, 38);
             this.cboLoaiXe.Name = "cboLoaiXe";
             this.cboLoaiXe.Size = new System.Drawing.Size(202, 31);
-            this.cboLoaiXe.TabIndex = 10;
+            this.cboLoaiXe.TabIndex = 2;
             // 
             // dtpNgayDK
             // 
@@ -282,7 +282,7 @@
             this.dtpNgayDK.Location = new System.Drawing.Point(544, 115);
             this.dtpNgayDK.Name = "dtpNgayDK";
             this.dtpNgayDK.Size = new System.Drawing.Size(137, 30);
-            this.dtpNgayDK.TabIndex = 9;
+            this.dtpNgayDK.TabIndex = 4;
             // 
             // label6
             // 
@@ -313,7 +313,7 @@
             this.txtBienSo.Location = new System.Drawing.Point(544, 78);
             this.txtBienSo.Name = "txtBienSo";
             this.txtBienSo.Size = new System.Drawing.Size(202, 30);
-            this.txtBienSo.TabIndex = 6;
+            this.txtBienSo.TabIndex = 3;
             // 
             // label5
             // 
@@ -344,7 +344,7 @@
             this.txtMaThe.Location = new System.Drawing.Point(160, 78);
             this.txtMaThe.Name = "txtMaThe";
             this.txtMaThe.Size = new System.Drawing.Size(202, 30);
-            this.txtMaThe.TabIndex = 6;
+            this.txtMaThe.TabIndex = 1;
             // 
             // label2
             // 
@@ -364,7 +364,7 @@
             this.txtMSSV.Location = new System.Drawing.Point(160, 41);
             this.txtMSSV.Name = "txtMSSV";
             this.txtMSSV.Size = new System.Drawing.Size(202, 30);
-            this.txtMSSV.TabIndex = 6;
+            this.txtMSSV.TabIndex = 0;
             // 
             // label1
             // 

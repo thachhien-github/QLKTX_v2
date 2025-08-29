@@ -151,7 +151,7 @@
             this.btnTiep.Name = "btnTiep";
             this.btnTiep.Padding = new System.Windows.Forms.Padding(15, 3, 3, 3);
             this.btnTiep.Size = new System.Drawing.Size(143, 45);
-            this.btnTiep.TabIndex = 18;
+            this.btnTiep.TabIndex = 2;
             this.btnTiep.Text = "Tiếp";
             this.btnTiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTiep.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -175,7 +175,7 @@
             this.btnXuatHD.Name = "btnXuatHD";
             this.btnXuatHD.Padding = new System.Windows.Forms.Padding(3);
             this.btnXuatHD.Size = new System.Drawing.Size(143, 45);
-            this.btnXuatHD.TabIndex = 16;
+            this.btnXuatHD.TabIndex = 3;
             this.btnXuatHD.Text = "Xuất Hóa Đơn";
             this.btnXuatHD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnXuatHD.UseVisualStyleBackColor = false;
@@ -198,7 +198,7 @@
             this.btnTaoHD.Name = "btnTaoHD";
             this.btnTaoHD.Padding = new System.Windows.Forms.Padding(3);
             this.btnTaoHD.Size = new System.Drawing.Size(143, 45);
-            this.btnTaoHD.TabIndex = 15;
+            this.btnTaoHD.TabIndex = 0;
             this.btnTaoHD.Text = "Tạo Hóa Đơn";
             this.btnTaoHD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnTaoHD.UseVisualStyleBackColor = false;
@@ -221,7 +221,7 @@
             this.btnXoaHD.Name = "btnXoaHD";
             this.btnXoaHD.Padding = new System.Windows.Forms.Padding(15, 3, 3, 3);
             this.btnXoaHD.Size = new System.Drawing.Size(142, 45);
-            this.btnXoaHD.TabIndex = 14;
+            this.btnXoaHD.TabIndex = 1;
             this.btnXoaHD.Text = "Xóa";
             this.btnXoaHD.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXoaHD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -263,7 +263,7 @@
             this.dtpNgayLap.Location = new System.Drawing.Point(800, 89);
             this.dtpNgayLap.Name = "dtpNgayLap";
             this.dtpNgayLap.Size = new System.Drawing.Size(149, 30);
-            this.dtpNgayLap.TabIndex = 20;
+            this.dtpNgayLap.TabIndex = 8;
             // 
             // label10
             // 
@@ -282,7 +282,7 @@
             this.nmuSoThang.Location = new System.Drawing.Point(465, 15);
             this.nmuSoThang.Name = "nmuSoThang";
             this.nmuSoThang.Size = new System.Drawing.Size(186, 30);
-            this.nmuSoThang.TabIndex = 14;
+            this.nmuSoThang.TabIndex = 3;
             // 
             // txtGhiChu
             // 
@@ -290,7 +290,7 @@
             this.txtGhiChu.Location = new System.Drawing.Point(800, 50);
             this.txtGhiChu.Name = "txtGhiChu";
             this.txtGhiChu.Size = new System.Drawing.Size(214, 30);
-            this.txtGhiChu.TabIndex = 13;
+            this.txtGhiChu.TabIndex = 7;
             // 
             // txtTongTien
             // 
@@ -298,7 +298,7 @@
             this.txtTongTien.Location = new System.Drawing.Point(800, 14);
             this.txtTongTien.Name = "txtTongTien";
             this.txtTongTien.Size = new System.Drawing.Size(214, 30);
-            this.txtTongTien.TabIndex = 13;
+            this.txtTongTien.TabIndex = 6;
             // 
             // label8
             // 
@@ -317,7 +317,7 @@
             this.txtTienTheChan.Location = new System.Drawing.Point(465, 90);
             this.txtTienTheChan.Name = "txtTienTheChan";
             this.txtTienTheChan.Size = new System.Drawing.Size(186, 30);
-            this.txtTienTheChan.TabIndex = 13;
+            this.txtTienTheChan.TabIndex = 5;
             // 
             // label7
             // 
@@ -336,7 +336,7 @@
             this.txtTienPhong.Location = new System.Drawing.Point(465, 54);
             this.txtTienPhong.Name = "txtTienPhong";
             this.txtTienPhong.Size = new System.Drawing.Size(186, 30);
-            this.txtTienPhong.TabIndex = 13;
+            this.txtTienPhong.TabIndex = 4;
             // 
             // label6
             // 
@@ -366,7 +366,7 @@
             this.txtHoTen.Location = new System.Drawing.Point(124, 90);
             this.txtHoTen.Name = "txtHoTen";
             this.txtHoTen.Size = new System.Drawing.Size(177, 30);
-            this.txtHoTen.TabIndex = 13;
+            this.txtHoTen.TabIndex = 2;
             this.txtHoTen.Leave += new System.EventHandler(this.txtMSSV_Leave);
             // 
             // txtMSSV
@@ -375,7 +375,7 @@
             this.txtMSSV.Location = new System.Drawing.Point(124, 54);
             this.txtMSSV.Name = "txtMSSV";
             this.txtMSSV.Size = new System.Drawing.Size(177, 30);
-            this.txtMSSV.TabIndex = 13;
+            this.txtMSSV.TabIndex = 1;
             this.txtMSSV.Leave += new System.EventHandler(this.txtMSSV_Leave);
             // 
             // label4
@@ -407,7 +407,7 @@
             this.cboPhong.Location = new System.Drawing.Point(124, 17);
             this.cboPhong.Name = "cboPhong";
             this.cboPhong.Size = new System.Drawing.Size(177, 31);
-            this.cboPhong.TabIndex = 12;
+            this.cboPhong.TabIndex = 0;
             this.cboPhong.SelectedIndexChanged += new System.EventHandler(this.cboPhong_SelectedIndexChanged);
             // 
             // label3

@@ -348,7 +348,7 @@
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Padding = new System.Windows.Forms.Padding(15, 3, 3, 3);
             this.btnXoa.Size = new System.Drawing.Size(107, 37);
-            this.btnXoa.TabIndex = 7;
+            this.btnXoa.TabIndex = 6;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnXoa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -371,7 +371,7 @@
             this.btnTiep.Name = "btnTiep";
             this.btnTiep.Padding = new System.Windows.Forms.Padding(15, 3, 3, 3);
             this.btnTiep.Size = new System.Drawing.Size(107, 37);
-            this.btnTiep.TabIndex = 8;
+            this.btnTiep.TabIndex = 7;
             this.btnTiep.Text = "Tiếp";
             this.btnTiep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTiep.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -394,7 +394,7 @@
             this.btnDangKy.Name = "btnDangKy";
             this.btnDangKy.Padding = new System.Windows.Forms.Padding(3);
             this.btnDangKy.Size = new System.Drawing.Size(107, 37);
-            this.btnDangKy.TabIndex = 6;
+            this.btnDangKy.TabIndex = 5;
             this.btnDangKy.Text = "Đăng Ký";
             this.btnDangKy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDangKy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;

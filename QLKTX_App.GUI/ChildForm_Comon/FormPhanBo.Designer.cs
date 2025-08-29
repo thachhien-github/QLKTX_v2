@@ -175,7 +175,7 @@
             this.btnQuayLai.Name = "btnQuayLai";
             this.btnQuayLai.Padding = new System.Windows.Forms.Padding(3);
             this.btnQuayLai.Size = new System.Drawing.Size(116, 38);
-            this.btnQuayLai.TabIndex = 17;
+            this.btnQuayLai.TabIndex = 8;
             this.btnQuayLai.Text = "Quay Lại";
             this.btnQuayLai.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnQuayLai.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -192,7 +192,7 @@
             this.dtpNgayPhanBo.Location = new System.Drawing.Point(533, 111);
             this.dtpNgayPhanBo.Name = "dtpNgayPhanBo";
             this.dtpNgayPhanBo.Size = new System.Drawing.Size(135, 30);
-            this.dtpNgayPhanBo.TabIndex = 16;
+            this.dtpNgayPhanBo.TabIndex = 4;
             // 
             // label6
             // 
@@ -213,7 +213,7 @@
             this.nmuSoThang.Location = new System.Drawing.Point(533, 75);
             this.nmuSoThang.Name = "nmuSoThang";
             this.nmuSoThang.Size = new System.Drawing.Size(135, 30);
-            this.nmuSoThang.TabIndex = 14;
+            this.nmuSoThang.TabIndex = 3;
             // 
             // cboMaPhong
             // 
@@ -223,7 +223,7 @@
             this.cboMaPhong.Location = new System.Drawing.Point(533, 38);
             this.cboMaPhong.Name = "cboMaPhong";
             this.cboMaPhong.Size = new System.Drawing.Size(135, 31);
-            this.cboMaPhong.TabIndex = 13;
+            this.cboMaPhong.TabIndex = 2;
             // 
             // label9
             // 
@@ -277,7 +277,7 @@
             this.btnPhanBo.Name = "btnPhanBo";
             this.btnPhanBo.Padding = new System.Windows.Forms.Padding(3);
             this.btnPhanBo.Size = new System.Drawing.Size(121, 38);
-            this.btnPhanBo.TabIndex = 5;
+            this.btnPhanBo.TabIndex = 7;
             this.btnPhanBo.Text = "Phân Bổ";
             this.btnPhanBo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPhanBo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -340,7 +340,7 @@
             this.txtSoDotThu.Location = new System.Drawing.Point(858, 75);
             this.txtSoDotThu.Name = "txtSoDotThu";
             this.txtSoDotThu.Size = new System.Drawing.Size(135, 30);
-            this.txtSoDotThu.TabIndex = 6;
+            this.txtSoDotThu.TabIndex = 5;
             // 
             // txtGhiChu
             // 
@@ -373,7 +373,7 @@
             this.txtHoTen.Name = "txtHoTen";
             this.txtHoTen.ReadOnly = true;
             this.txtHoTen.Size = new System.Drawing.Size(169, 30);
-            this.txtHoTen.TabIndex = 6;
+            this.txtHoTen.TabIndex = 1;
             // 
             // label17
             // 
@@ -396,7 +396,7 @@
             this.txtMSSV.Name = "txtMSSV";
             this.txtMSSV.ReadOnly = true;
             this.txtMSSV.Size = new System.Drawing.Size(169, 30);
-            this.txtMSSV.TabIndex = 6;
+            this.txtMSSV.TabIndex = 0;
             // 
             // label1
             // 
