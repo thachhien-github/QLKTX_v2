@@ -1,7 +1,8 @@
-﻿using System.Data;
-using System.Data.SqlClient;
-using QLKTX_App.DTO;
+﻿using QLKTX_App.DTO;
 using QLKTX_App.Utilities;
+using System;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace QLKTX_App.DAL
 {
@@ -23,56 +24,38 @@ namespace QLKTX_App.DAL
 
         public int Insert(SinhVienModel sv)
         {
-            string sql = @"INSERT INTO SinhVien(MSSV, HoTen, NgaySinh, GioiTinh, SDT, DiaChi)
-                           VALUES(@MSSV, @HoTen, @NgaySinh, @GioiTinh, @SDT, @DiaChi)";
-            using (var conn = _db.GetConnection())
-            using (var cmd = new SqlCommand(sql, conn))
+            var prms = new[]
             {
-                cmd.Parameters.AddWithValue("@MSSV", sv.MSSV);
-                cmd.Parameters.AddWithValue("@HoTen", sv.HoTen);
-                cmd.Parameters.AddWithValue("@NgaySinh", sv.NgaySinh);
-                cmd.Parameters.AddWithValue("@GioiTinh", sv.GioiTinh);
-                cmd.Parameters.AddWithValue("@SDT", sv.SDT);
-                cmd.Parameters.AddWithValue("@DiaChi", sv.DiaChi);
-                conn.Open();
-                return cmd.ExecuteNonQuery();
-            }
+                new SqlParameter("@MSSV", sv.MSSV),
+                new SqlParameter("@HoTen", sv.HoTen),
+                new SqlParameter("@GioiTinh", (object)sv.GioiTinh ?? DBNull.Value),
+                new SqlParameter("@NgaySinh", (object)sv.NgaySinh ?? DBNull.Value),
+                new SqlParameter("@SDT", (object)sv.SDT ?? DBNull.Value),
+                new SqlParameter("@DiaChi", (object)sv.DiaChi ?? DBNull.Value)
+            };
+            return _dbh.ExecuteNonQuery("sp_SinhVien_Them", true, prms);
+        }
+
+        public int Update(SinhVienModel sv)
+        {
+            var prms = new[]
+            {
+                new SqlParameter("@MSSV", sv.MSSV),
+                new SqlParameter("@HoTen", sv.HoTen),
+                new SqlParameter("@GioiTinh", (object)sv.GioiTinh ?? DBNull.Value),
+                new SqlParameter("@NgaySinh", (object)sv.NgaySinh ?? DBNull.Value),
+                new SqlParameter("@SDT", (object)sv.SDT ?? DBNull.Value),
+                new SqlParameter("@DiaChi", (object)sv.DiaChi ?? DBNull.Value)
+            };
+            return _dbh.ExecuteNonQuery("sp_SinhVien_Sua", true, prms);
         }
 
         public int Delete(string mssv)
         {
-            using (var conn = _db.GetConnection())
-            {
-                conn.Open();
-                using (var tran = conn.BeginTransaction())
-                {
-                    try
-                    {
-                        // Xóa dữ liệu phân bổ của sinh viên trước
-                        using (var cmd1 = new SqlCommand("DELETE FROM PhanBo WHERE MSSV=@mssv", conn, tran))
-                        {
-                            cmd1.Parameters.AddWithValue("@mssv", mssv);
-                            cmd1.ExecuteNonQuery();
-                        }
-
-                        // Sau đó mới xóa sinh viên
-                        using (var cmd2 = new SqlCommand("DELETE FROM SinhVien WHERE MSSV=@mssv", conn, tran))
-                        {
-                            cmd2.Parameters.AddWithValue("@mssv", mssv);
-                            int rows = cmd2.ExecuteNonQuery();
-
-                            tran.Commit();
-                            return rows;
-                        }
-                    }
-                    catch
-                    {
-                        tran.Rollback();
-                        throw;
-                    }
-                }
-            }
+            var prms = new[] { new SqlParameter("@MSSV", mssv) };
+            return _dbh.ExecuteNonQuery("sp_SinhVien_Xoa", true, prms);
         }
+
 
 
         public DataTable GetByPhong(string maPhong)

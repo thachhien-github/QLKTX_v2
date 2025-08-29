@@ -19,6 +19,9 @@ namespace QLKTX_App.ChildForm_Comon
         private readonly SinhVienBLL _svBLL = new SinhVienBLL();
         private readonly PhongBLL _phongBLL = new PhongBLL();
         private readonly PhanBoBLL _pbBLL = new PhanBoBLL();
+        private bool isEditMode = false;
+
+
         public FormQLSV()
         {
             InitializeComponent();
@@ -75,12 +78,30 @@ namespace QLKTX_App.ChildForm_Comon
                 DiaChi = txtDiaChi.Text.Trim()
             };
 
-            if (_svBLL.Insert(sv))
+            if (isEditMode) // đang cập nhật
             {
-                MessageBox.Show("Thêm sinh viên thành công!");
-                LoadSinhVien();
+                if (_svBLL.Update(sv))
+                {
+                    MessageBox.Show("Cập nhật sinh viên thành công!");
+                    LoadSinhVien();
+                }
+                else MessageBox.Show("Cập nhật thất bại!");
             }
-            else MessageBox.Show("Thêm thất bại!");
+            else // đang thêm mới
+            {
+                if (_svBLL.Insert(sv))
+                {
+                    MessageBox.Show("Thêm sinh viên thành công!");
+                    LoadSinhVien();
+                }
+                else MessageBox.Show("Thêm thất bại!");
+            }
+
+            // Reset lại sau khi lưu
+            isEditMode = false;
+            txtMSSV.Enabled = true;
+            
+            btnLamMoi_Click(sender, e); // gọi hàm làm mới
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -134,13 +155,14 @@ namespace QLKTX_App.ChildForm_Comon
             txtHoTen.Text = row.Cells["HoTen"].Value?.ToString() ?? "";
 
             // Ngày sinh
-            if (row.Cells["NgaySinh"].Value != null && DateTime.TryParse(row.Cells["NgaySinh"].Value.ToString(), out DateTime ns))
+            if (row.Cells["NgaySinh"].Value != null &&
+                DateTime.TryParse(row.Cells["NgaySinh"].Value.ToString(), out DateTime ns))
             {
                 dtpNgaySinh.Value = ns;
             }
             else
             {
-                dtpNgaySinh.Value = DateTime.Now; // gán mặc định để tránh crash
+                dtpNgaySinh.Value = DateTime.Now; // gán mặc định
             }
 
             // Giới tính
@@ -153,6 +175,10 @@ namespace QLKTX_App.ChildForm_Comon
 
             // Địa chỉ
             txtDiaChi.Text = row.Cells["DiaChi"].Value?.ToString() ?? "";
+
+            // 🔥 Đánh dấu là đang sửa
+            isEditMode = true;
+            txtMSSV.Enabled = false; // không cho sửa MSSV vì nó là khóa chính
         }
     }
 }
