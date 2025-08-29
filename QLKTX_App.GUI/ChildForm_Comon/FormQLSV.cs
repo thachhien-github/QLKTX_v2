@@ -104,17 +104,6 @@ namespace QLKTX_App.ChildForm_Comon
             btnLamMoi_Click(sender, e); // gọi hàm làm mới
         }
 
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            string mssv = txtMSSV.Text.Trim();
-            if (_svBLL.Delete(mssv))
-            {
-                MessageBox.Show("Xóa thành công!");
-                LoadSinhVien();
-            }
-            else MessageBox.Show("Xóa thất bại!");
-        }
-
         private void btnPhanBo_Click(object sender, EventArgs e)
         {
             if (dgvListSV.CurrentRow == null)

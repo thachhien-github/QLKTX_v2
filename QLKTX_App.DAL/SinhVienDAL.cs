@@ -50,12 +50,6 @@ namespace QLKTX_App.DAL
             return _dbh.ExecuteNonQuery("sp_SinhVien_Sua", true, prms);
         }
 
-        public int Delete(string mssv)
-        {
-            var prms = new[] { new SqlParameter("@MSSV", mssv) };
-            return _dbh.ExecuteNonQuery("sp_SinhVien_Xoa", true, prms);
-        }
-
 
 
         public DataTable GetByPhong(string maPhong)

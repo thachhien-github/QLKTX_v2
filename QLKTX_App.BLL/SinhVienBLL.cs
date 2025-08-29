@@ -14,17 +14,5 @@ namespace QLKTX_App.BLL
         public bool Insert(SinhVienModel sv) => _dal.Insert(sv) > 0;
         public bool Update(SinhVienModel sv) => _dal.Update(sv) > 0;
         public DataTable GetByPhong(string maPhong) => _dal.GetByPhong(maPhong);
-
-        public bool Delete(string mssv)
-        {
-            bool ok = _dal.Delete(mssv) > 0;
-            if (ok)
-            {
-                string maPhong = _pbDAL.GetPhongByMSSV(mssv);
-                if (!string.IsNullOrEmpty(maPhong))
-                    _phongBLL.CapNhatTrangThai(maPhong);
-            }
-            return ok;
-        }
     }
 }
