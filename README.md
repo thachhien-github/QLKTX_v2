@@ -2,17 +2,20 @@
 
 ## 📸 Hình ảnh giao diện
 
+## 📸 Hình ảnh giao diện
+
 ### 🔧 Cấu hình Server
-![Cấu hình Server](<img width="591" height="386" alt="Image" src="https://github.com/user-attachments/assets/4d6aa85e-57fc-42d2-928d-87d61c2a825f" />)
+<img src="https://github.com/user-attachments/assets/4d6aa85e-57fc-42d2-928d-87d61c2a825f" width="500">
 
 ### 🔑 Đăng nhập
-![Đăng nhập](<img width="783" height="494" alt="Image" src="https://github.com/user-attachments/assets/65ca4cd5-1722-4066-b172-94bbad81fdcd" />)
+<img src="https://github.com/user-attachments/assets/65ca4cd5-1722-4066-b172-94bbad81fdcd" width="500">
 
 ### 🖥 Giao diện Admin
-![Giao diện Admin](<img width="1080" height="626" alt="Image" src="https://github.com/user-attachments/assets/b185a88e-9138-4503-af75-54b9c826213f" />)
+<img src="https://github.com/user-attachments/assets/b185a88e-9138-4503-af75-54b9c826213f" width="600">
 
 ### 🖥 Giao diện Nhân viên
-![Giao diện Nhân viên](<img width="1078" height="620" alt="Image" src="https://github.com/user-attachments/assets/096200ca-13f6-49e3-b122-769608a67a4a" />)
+<img src="https://github.com/user-attachments/assets/096200ca-13f6-49e3-b122-769608a67a4a" width="600">
+
 
 ---
 
