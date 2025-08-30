@@ -3,7 +3,7 @@
 ## 📸 Hình ảnh giao diện
 
 ### 🔧 Cấu hình Server
-![Cấu hình Server](<img width="591" height="386" alt="Image" src="https://github.com/user-attachments/assets/4d6aa85e-57fc-42d2-928d-87d61c2a825f" />)
+![Cấu hình Server]<img width="591" height="386" alt="Image" src="https://github.com/user-attachments/assets/4d6aa85e-57fc-42d2-928d-87d61c2a825f" />
 
 ### 🔑 Đăng nhập
 ![Đăng nhập](<img width="783" height="494" alt="Image" src="https://github.com/user-attachments/assets/65ca4cd5-1722-4066-b172-94bbad81fdcd" />)
