@@ -40,6 +40,24 @@ namespace QLKTX_App.ChildForm_Comon
 
             // Gắn sự kiện CellClick
             dgvHopDong.CellClick += dgvHopDong_CellClick;
+
+            // ✅ Gán mặc định ngày phân bổ: 1/8 năm hiện tại
+            dtpNgayPhanBo.Value = new DateTime(DateTime.Now.Year, 8, 1);
+
+            // ✅ Tự tính số tháng còn lại theo khóa (dựa vào 2 số đầu MSSV)
+            if (!string.IsNullOrWhiteSpace(_mssv) && _mssv.Length >= 2)
+            {
+                int khoa = 2000 + int.Parse(_mssv.Substring(0, 2)); // ví dụ 24 → 2024
+                int namHienTai = DateTime.Now.Year;
+                int namHocThu = namHienTai - khoa + 1; // năm 1,2,3...
+
+                if (namHocThu == 1 || namHocThu == 2)
+                    nmuSoThang.Value = 10; // năm 1 và năm 2: 10 tháng
+                else if (namHocThu == 3)
+                    nmuSoThang.Value = 5;  // năm cuối: 5 tháng
+                else
+                    nmuSoThang.Value = 0;  // quá hạn, không phân bổ
+            }
         }
 
         private void LoadPhong()

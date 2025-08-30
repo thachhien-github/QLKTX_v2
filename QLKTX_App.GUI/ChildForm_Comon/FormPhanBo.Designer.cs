@@ -209,9 +209,11 @@
             // nmuSoThang
             // 
             this.nmuSoThang.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.nmuSoThang.Enabled = false;
             this.nmuSoThang.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nmuSoThang.Location = new System.Drawing.Point(533, 75);
             this.nmuSoThang.Name = "nmuSoThang";
+            this.nmuSoThang.ReadOnly = true;
             this.nmuSoThang.Size = new System.Drawing.Size(135, 30);
             this.nmuSoThang.TabIndex = 3;
             // 
