@@ -1,6 +1,5 @@
 ---
 
-## 📸 Hình ảnh giao diện
 
 ## 📸 Hình ảnh giao diện
 
