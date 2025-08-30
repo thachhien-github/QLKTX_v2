@@ -9,10 +9,10 @@
 ![Đăng nhập](<img width="783" height="494" alt="Image" src="https://github.com/user-attachments/assets/65ca4cd5-1722-4066-b172-94bbad81fdcd" />)
 
 ### 🖥 Giao diện Admin
-![Giao diện Admin](<img width="1078" height="620" alt="Image" src="https://github.com/user-attachments/assets/096200ca-13f6-49e3-b122-769608a67a4a" />)
+![Giao diện Admin](<img width="1080" height="626" alt="Image" src="https://github.com/user-attachments/assets/b185a88e-9138-4503-af75-54b9c826213f" />)
 
 ### 🖥 Giao diện Nhân viên
-![Giao diện Nhân viên](<img width="1080" height="626" alt="Image" src="https://github.com/user-attachments/assets/b185a88e-9138-4503-af75-54b9c826213f" />)
+![Giao diện Nhân viên](<img width="1078" height="620" alt="Image" src="https://github.com/user-attachments/assets/096200ca-13f6-49e3-b122-769608a67a4a" />)
 
 ---
 
