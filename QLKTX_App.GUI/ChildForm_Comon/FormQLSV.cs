@@ -129,6 +129,8 @@ namespace QLKTX_App.ChildForm_Comon
             txtSDT.Clear();
             txtDiaChi.Clear();
             radNam.Checked = true;
+
+            txtMSSV.Enabled = true; // cho phép nhập MSSV
         }
 
         private void dgvListSV_CellClick(object sender, DataGridViewCellEventArgs e)
