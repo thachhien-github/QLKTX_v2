@@ -80,6 +80,7 @@ namespace QLKTX_App.ChildForm_Admin
         {
             txtTenDangNhap.Clear();
             txtMatKhau.Clear();
+            cboMaNV.SelectedIndex = -1;  // chỉ load khi bấm nút thêm mới
             cboTrangThai.SelectedIndex = -1;
             cboVaiTro.SelectedIndex = -1;
             txtHoTen.Clear();   // chỉ load khi chọn nhân viên
@@ -121,6 +122,7 @@ namespace QLKTX_App.ChildForm_Admin
                 txtTenDangNhap.Text = row.Cells["TenDangNhap"].Value.ToString();
                 txtHoTen.Text = row.Cells["HoTen"].Value.ToString();
                 txtMatKhau.Text = row.Cells["MatKhau"].Value.ToString();
+                cboMaNV.Text = row.Cells["MaNV"].Value.ToString();
                 cboTrangThai.Text = row.Cells["TrangThai"].Value.ToString();
                 cboVaiTro.Text = row.Cells["VaiTro"].Value.ToString();
 
@@ -141,7 +143,7 @@ namespace QLKTX_App.ChildForm_Admin
             {
                 if (string.IsNullOrEmpty(cboMaNV.Text))
                 {
-                    MessageBox.Show("⚠️ Chưa chọn nhân viên!", "Thông báo",
+                    MessageBox.Show("Chưa chọn nhân viên!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -154,11 +156,11 @@ namespace QLKTX_App.ChildForm_Admin
             {
                 if (string.IsNullOrEmpty(cboMaNV.Text))
                 {
-                    MessageBox.Show("⚠️ Chưa chọn nhân viên!", "Thông báo",
+                    MessageBox.Show("Chưa chọn nhân viên!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                string maNV = cboMaNV.SelectedValue.ToString();
+                string maNV = dgvListTK.SelectedRows[0].Cells["MaNV"].Value.ToString();
 
                 // ✅ Sửa: Update cũng phải theo MaNV
                 result = bll.Update(maNV, tenDN, mk, trangThai, vaiTro);

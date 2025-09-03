@@ -71,15 +71,14 @@ namespace QLKTX_App.DAL
                 new SqlParameter("@VaiTro", vaiTro));
         }
 
-        public int Update(string maNV, string tenDN, string matKhau, bool trangThai, string vaiTro)
+        public int UpdateTrangThai(string maNV, bool trangThai)
         {
-            return db.ExecuteNonQuery("sp_TaiKhoan_Sua", true,
-                new SqlParameter("@MaNV", maNV),
-                new SqlParameter("@TenDangNhap", tenDN),
-                new SqlParameter("@MatKhau", matKhau),
+            string sql = "UPDATE TaiKhoan SET TrangThai = @TrangThai WHERE MaNV = @MaNV";
+            return db.ExecuteNonQuery(sql, false,
                 new SqlParameter("@TrangThai", trangThai),
-                new SqlParameter("@VaiTro", vaiTro));
+                new SqlParameter("@MaNV", maNV));
         }
+
 
         public int Delete(string maNV)
         {
