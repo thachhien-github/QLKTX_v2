@@ -48,8 +48,14 @@ namespace QLKTX_App.Utilities
 
                             string colName = data.Columns[c].ColumnName.ToLower();
 
+                            // ✅ Cột số 5 (Ngày)
+                            if (c == 4) // cột thứ 5 (index bắt đầu từ 0)
+                            {
+                                ws.Cells[r + 4, c + 1].Style.Numberformat.Format = "dd/MM/yyyy";
+                                ws.Cells[r + 4, c + 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            }
                             // Cột tiền
-                            if (colName.Contains("tien") || colName.Contains("gia"))
+                            else if (colName.Contains("tien") || colName.Contains("gia"))
                             {
                                 ws.Cells[r + 4, c + 1].Style.Numberformat.Format = "#,##0";
                                 ws.Cells[r + 4, c + 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
@@ -72,6 +78,7 @@ namespace QLKTX_App.Utilities
                             ws.Cells[r + 4, c + 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                         }
                     }
+
 
                     // ===== 4. DÒNG TỔNG CỘNG =====
                     int totalRow = data.Rows.Count + 4;

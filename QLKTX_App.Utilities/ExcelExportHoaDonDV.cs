@@ -47,7 +47,12 @@ namespace QLKTX_App.Utilities
                             ws.Cells[r + 4, c + 1].Value = data.Rows[r][c];
                             string colName = data.Columns[c].ColumnName.ToLower();
 
-                            if (colName.Contains("tien") || colName.Contains("tong"))
+                            if (c == 4) // ✅ Cột số 5 (index 0-based)
+                            {
+                                ws.Cells[r + 4, c + 1].Style.Numberformat.Format = "dd/MM/yyyy";
+                                ws.Cells[r + 4, c + 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            }
+                            else if (colName.Contains("tien") || colName.Contains("tong"))
                             {
                                 ws.Cells[r + 4, c + 1].Style.Numberformat.Format = "#,##0";
                                 ws.Cells[r + 4, c + 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
@@ -68,6 +73,7 @@ namespace QLKTX_App.Utilities
                             ws.Cells[r + 4, c + 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                         }
                     }
+
 
                     // TỔNG CỘNG
                     int totalRow = data.Rows.Count + 4;
