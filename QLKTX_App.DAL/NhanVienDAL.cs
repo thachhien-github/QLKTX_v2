@@ -42,8 +42,24 @@ namespace QLKTX_App.DAL
         // Xóa nhân viên
         public int Delete(string maNV)
         {
-            return db.ExecuteNonQuery("sp_NhanVien_Xoa", true,
-                new SqlParameter("@MaNV", maNV));
+            string sql = @"
+        BEGIN TRY
+            BEGIN TRAN;
+
+            -- Xóa tài khoản trước
+            DELETE FROM TaiKhoan WHERE MaNV = @MaNV;
+
+            -- Xóa nhân viên
+            DELETE FROM NhanVien WHERE MaNV = @MaNV;
+
+            COMMIT TRAN;
+        END TRY
+        BEGIN CATCH
+            ROLLBACK TRAN;
+            THROW;
+        END CATCH";
+
+            return db.ExecuteNonQuery(sql, false, new SqlParameter("@MaNV", maNV));
         }
     }
 }

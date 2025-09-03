@@ -137,6 +137,15 @@ namespace QLKTX_App.ChildForm_Comon
                 return;
             }
 
+            // ✅ Kiểm tra số tháng còn lại
+            if (nmuSoThang.Value <= 0)
+            {
+                string khoa = _mssv.Substring(0, 2);
+                MessageBox.Show($"Sinh viên khóa C{khoa} đã hết hạn ở ký túc xá.",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             // 🔎 Kiểm tra sinh viên đã có hợp đồng còn hiệu lực chưa
             if (_pbBLL.CheckDangO(_mssv))
             {

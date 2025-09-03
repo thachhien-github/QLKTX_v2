@@ -110,17 +110,40 @@ namespace QLKTX_App.ChildForm_Admin
         {
             if (dgvListNV.SelectedRows.Count == 0)
             {
-                MessageBox.Show("⚠️ Vui lòng chọn nhân viên để xóa!", "Thông báo",
+                MessageBox.Show("Vui lòng chọn nhân viên để xóa!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            string maNV = dgvListNV.SelectedRows[0].Cells["MaNV"].Value.ToString();
-            var result = bll.Delete(maNV);
 
-            if (result.Contains("thành công"))
-                MessageBox.Show(result, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else
-                MessageBox.Show(result, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            string maNV = dgvListNV.SelectedRows[0].Cells["MaNV"].Value.ToString();
+
+            try
+            {
+                var result = bll.Delete(maNV);
+
+                if (result.Contains("thành công"))
+                {
+                    MessageBox.Show(result, "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(result, "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (System.Data.SqlClient.SqlException ex)
+            {
+                // Bắt lỗi từ SQL (ví dụ: ràng buộc FK, THROW trong SP)
+                MessageBox.Show($"Lỗi SQL: {ex.Message}",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                // Lỗi khác
+                MessageBox.Show($"Lỗi hệ thống: {ex.Message}",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             LoadData();
             ResetForm();

@@ -177,18 +177,46 @@ namespace QLKTX_App.ChildForm_Admin
         {
             if (dgvListTK.SelectedRows.Count == 0)
             {
-                MessageBox.Show("⚠️ Vui lòng chọn tài khoản để xóa!", "Thông báo",
+                MessageBox.Show("Vui lòng chọn tài khoản để xóa!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            // ✅ Sửa: Lấy MaNV, không phải TenDangNhap
-            string maNV = dgvListTK.SelectedRows[0].Cells["MaNV"].Value.ToString();
-            var result = bll.Delete(maNV);
 
-            if (result.Contains("thành công"))
-                MessageBox.Show(result, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else
-                MessageBox.Show(result, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            string maNV = dgvListTK.SelectedRows[0].Cells["MaNV"].Value.ToString();
+
+            try
+            {
+                var result = bll.Delete(maNV);
+
+                if (result.Contains("thành công"))
+                {
+                    MessageBox.Show(result, "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(result, "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 547) // Lỗi khóa ngoại
+                {
+                    MessageBox.Show("Tài khoản đang gắn với nhân viên, không thể xóa!",
+                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("lỗi: " + ex.Message,
+                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("lỗi: " + ex.Message,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             LoadData();
             ResetForm();
