@@ -66,7 +66,7 @@ namespace QLKTX_App
                     return;
                 }
 
-                // 3. Hỏi người dùng có muốn tạo DB mới không
+                // 3. Hỏi người dùng có muốn tạo DB mới không "yes"
                 if (MessageBox.Show("Không tìm thấy cơ sở dữ liệu. Bạn có muốn tạo mới?",
                     "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
