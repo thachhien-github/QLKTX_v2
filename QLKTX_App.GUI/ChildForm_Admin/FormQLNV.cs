@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TheArtOfDevHtmlRenderer.Adapters;
@@ -72,6 +73,79 @@ namespace QLKTX_App.ChildForm_Admin
 
         #endregion
 
+        #region hàm kiểm tra dữ liệu nhập
+
+        // ==============================
+        //  Regex kiểm tra dữ liệu
+        // ==============================
+        private bool IsValidPhone(string phone)
+        {
+            // Số điện thoại gồm 10 chữ số, bắt đầu bằng số 0
+            return Regex.IsMatch(phone, @"^0\d{9}$");
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            // Email có ký tự trước và sau @, có domain hợp lệ
+            return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+        }
+
+        // ==============================
+        //  Kiểm tra dữ liệu nhập
+        // ==============================
+        private bool ValidateInput()
+        {
+            // Kiểm tra mã nhân viên
+            if (string.IsNullOrWhiteSpace(txtMaNV.Text))
+            {
+                MessageBox.Show("Mã nhân viên không được để trống!",
+                    "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMaNV.Focus();
+                return false;
+            }
+
+            // Kiểm tra họ tên
+            if (string.IsNullOrWhiteSpace(txtHoTen.Text))
+            {
+                MessageBox.Show("Họ tên không được để trống!",
+                    "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtHoTen.Focus();
+                return false;
+            }
+
+            // Kiểm tra số điện thoại
+            if (!IsValidPhone(txtSDT.Text.Trim()))
+            {
+                MessageBox.Show("Số điện thoại phải gồm 10 chữ số và bắt đầu bằng số 0!",
+                    "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSDT.Focus();
+                return false;
+            }
+
+            // Kiểm tra email
+            if (!IsValidEmail(txtEmail.Text.Trim()))
+            {
+                MessageBox.Show("Email không hợp lệ!",
+                    "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEmail.Focus();
+                return false;
+            }
+
+            // Kiểm tra ngày sinh
+            if (dtpNgaySinh.Value.Date >= DateTime.Now.Date)
+            {
+                MessageBox.Show("Ngày sinh không hợp lệ!",
+                    "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpNgaySinh.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        #endregion
+
+
         private void FormQLNV_Load(object sender, EventArgs e)
         {
             LoadData();
@@ -80,6 +154,8 @@ namespace QLKTX_App.ChildForm_Admin
         #region sự kiện nút bấm
         private void btnDangKy_Click(object sender, EventArgs e)
         {
+            if (!ValidateInput()) return; // Nếu sai thì dừng lại
+
             string maNV = txtMaNV.Text.Trim();
             string hoTen = txtHoTen.Text.Trim();
             string gioiTinh = radNam.Checked ? "Nam" : "Nữ";
@@ -116,6 +192,18 @@ namespace QLKTX_App.ChildForm_Admin
             }
 
             string maNV = dgvListNV.SelectedRows[0].Cells["MaNV"].Value.ToString();
+
+            // Hỏi trước khi xóa
+            DialogResult confirm = MessageBox.Show(
+                $"Bạn có chắc chắn muốn xóa nhân viên có mã: {maNV} không?",
+                "Xác nhận xóa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirm != DialogResult.Yes)
+            {
+                return; // Nếu chọn No thì thoát
+            }
 
             try
             {

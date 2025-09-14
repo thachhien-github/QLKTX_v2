@@ -47,93 +47,49 @@ namespace QLKTX_App.ChildForm_Admin
             dgvGiaPhong.DataSource = tb;
             dgvGiaPhong.ClearSelection();
 
-            // ✅ Font to, rõ ràng
-            dgvGiaPhong.DefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
-            dgvGiaPhong.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
-
-            if (dgvGiaPhong.Columns.Count > 0)
-            {
-                // ✅ Đặt lại tiêu đề cột
-                dgvGiaPhong.Columns["MaLoai"].HeaderText = "Mã loại";
-                dgvGiaPhong.Columns["TenLoai"].HeaderText = "Tên loại phòng";
-                dgvGiaPhong.Columns["GiaPhong"].HeaderText = "Giá phòng (VND)";
-                dgvGiaPhong.Columns["SucChua"].HeaderText = "Sức chứa";
-
-                // ✅ Định dạng giá tiền
-                dgvGiaPhong.Columns["GiaPhong"].DefaultCellStyle.Format = "N0";
-                dgvGiaPhong.Columns["GiaPhong"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-                // ✅ Căn giữa mấy cột mã và sức chứa
-                dgvGiaPhong.Columns["MaLoai"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                dgvGiaPhong.Columns["SucChua"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
-                // ✅ Căn trái tên loại cho dễ đọc
-                dgvGiaPhong.Columns["TenLoai"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            }
-
-            // ✅ Tăng chiều cao dòng
-            dgvGiaPhong.RowTemplate.Height = 28;
-
             // 🔽 Fill combobox
-            var tbCb = tb.Copy();
-            var row = tbCb.NewRow();
-            row["MaLoai"] = "";
-            row["TenLoai"] = "";
-            row["GiaPhong"] = 0;
-            row["SucChua"] = 0;
-            tbCb.Rows.InsertAt(row, 0);
-
+            cboMaLoaiPhong.DropDownStyle = ComboBoxStyle.DropDown; // cho phép nhập thêm
             cboMaLoaiPhong.DisplayMember = "MaLoai";
             cboMaLoaiPhong.ValueMember = "MaLoai";
-            cboMaLoaiPhong.DataSource = tbCb;
+            cboMaLoaiPhong.DataSource = tb;
         }
-
 
         private void BindGiaPhongFromGrid()
         {
             if (dgvGiaPhong.CurrentRow == null) return;
             var r = dgvGiaPhong.CurrentRow;
-            cboMaLoaiPhong.SelectedValue = r.Cells["MaLoai"].Value?.ToString();
+            cboMaLoaiPhong.Text = r.Cells["MaLoai"].Value?.ToString();
             txtTenLoaiPhong.Text = r.Cells["TenLoai"].Value?.ToString();
             txtDGPhong.Text = r.Cells["GiaPhong"].Value?.ToString();
             txtSucChua.Text = r.Cells["SucChua"].Value?.ToString();
         }
 
-        private bool TryGetGiaPhongInput(out LoaiPhongModel m, bool allowEmptyMa = true)
+        private bool TryGetGiaPhongInput(out LoaiPhongModel m, bool isUpdate = false)
         {
             m = null;
-            string ma = (cboMaLoaiPhong.SelectedValue ?? "").ToString().Trim();
+            string ma = cboMaLoaiPhong.Text.Trim();
             string ten = txtTenLoaiPhong.Text.Trim();
             string giaText = txtDGPhong.Text.Trim();
             string sucChuaText = txtSucChua.Text.Trim();
 
+            if (string.IsNullOrWhiteSpace(ma))
+            {
+                MessageBox.Show("Mã loại phòng không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(ten))
+            {
+                MessageBox.Show("Tên loại phòng không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
             if (!decimal.TryParse(giaText, out decimal gia) || gia < 0)
             {
                 MessageBox.Show("Đơn giá phòng không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-
             if (!int.TryParse(sucChuaText, out int sucChua) || sucChua <= 0)
             {
                 MessageBox.Show("Sức chứa phải là số nguyên dương!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(ma))
-            {
-                if (!allowEmptyMa)
-                {
-                    MessageBox.Show("Vui lòng chọn Mã loại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-                ma = Microsoft.VisualBasic.Interaction.InputBox("Nhập mã loại phòng (ví dụ: LP1):", "Thêm loại phòng");
-                if (string.IsNullOrWhiteSpace(ma))
-                    return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(ten))
-            {
-                MessageBox.Show("Tên loại phòng không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -144,26 +100,23 @@ namespace QLKTX_App.ChildForm_Admin
 
         private void btnLuuGiaPhong_Click(object sender, EventArgs e)
         {
-            bool isUpdate = !string.IsNullOrWhiteSpace((cboMaLoaiPhong.SelectedValue ?? "").ToString());
-
-            if (!TryGetGiaPhongInput(out var m, allowEmptyMa: !isUpdate)) return;
+            bool isUpdate = dgvGiaPhong.CurrentRow != null;
+            if (!TryGetGiaPhongInput(out var m, isUpdate)) return;
 
             bool ok = isUpdate ? _lpBLL.Update(m) : _lpBLL.Insert(m);
-            if (ok)
-            {
-                MessageBox.Show(isUpdate ? "Cập nhật loại phòng thành công!" : "Thêm loại phòng thành công!",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadGiaPhong();
-            }
-            else
-            {
-                MessageBox.Show("Lưu thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            MessageBox.Show(ok
+                ? (isUpdate ? "Cập nhật thành công!" : "Thêm thành công!")
+                : "Lưu thất bại!",
+                ok ? "Thông báo" : "Lỗi",
+                MessageBoxButtons.OK,
+                ok ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+
+            if (ok) LoadGiaPhong();
         }
 
         private void btnXoaPhong_Click(object sender, EventArgs e)
         {
-            string ma = (cboMaLoaiPhong.SelectedValue ?? "").ToString();
+            string ma = cboMaLoaiPhong.Text.Trim();
             if (string.IsNullOrWhiteSpace(ma))
             {
                 MessageBox.Show("Vui lòng chọn Mã loại để xóa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -173,21 +126,17 @@ namespace QLKTX_App.ChildForm_Admin
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 bool ok = _lpBLL.Delete(ma);
-                if (ok)
-                {
-                    MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadGiaPhong();
-                }
-                else
-                {
-                    MessageBox.Show("Xóa thất bại! (Có thể đang được tham chiếu)", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show(ok ? "Xóa thành công!" : "Xóa thất bại! (Có thể đang được tham chiếu)",
+                    ok ? "Thông báo" : "Lỗi", MessageBoxButtons.OK,
+                    ok ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+                if (ok) LoadGiaPhong();
             }
         }
 
         private void btnlammoiPhong_Click(object sender, EventArgs e)
         {
-            cboMaLoaiPhong.SelectedIndex = 0;
+            cboMaLoaiPhong.SelectedIndex = -1;
+            cboMaLoaiPhong.Text = "";
             txtTenLoaiPhong.Clear();
             txtDGPhong.Clear();
             txtSucChua.Clear();

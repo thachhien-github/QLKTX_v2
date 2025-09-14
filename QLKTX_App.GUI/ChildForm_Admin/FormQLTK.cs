@@ -133,39 +133,83 @@ namespace QLKTX_App.ChildForm_Admin
 
         private void btnDangKy_Click(object sender, EventArgs e)
         {
+            // ==============================
+            //  Kiểm tra dữ liệu nhập
+            // ==============================
+            if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text))
+            {
+                MessageBox.Show("Tên đăng nhập không được để trống!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenDangNhap.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtMatKhau.Text))
+            {
+                MessageBox.Show("Mật khẩu không được để trống!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMatKhau.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(cboTrangThai.Text))
+            {
+                MessageBox.Show("Chưa chọn trạng thái!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboTrangThai.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(cboVaiTro.Text))
+            {
+                MessageBox.Show("Chưa chọn vai trò!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboVaiTro.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(cboMaNV.Text))
+            {
+                MessageBox.Show("Chưa chọn nhân viên!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboMaNV.Focus();
+                return;
+            }
+
+            // ==============================
+            //  Lấy dữ liệu từ form
+            // ==============================
             string tenDN = txtTenDangNhap.Text.Trim();
             string mk = txtMatKhau.Text.Trim();
             bool trangThai = (cboTrangThai.Text == "Còn hoạt động");
             string vaiTro = cboVaiTro.Text.Trim();
+            string maNV;
 
             string result;
+
             if (isInsert)
             {
-                if (string.IsNullOrEmpty(cboMaNV.Text))
-                {
-                    MessageBox.Show("Chưa chọn nhân viên!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                string maNV = cboMaNV.SelectedValue.ToString();
-
-                // ✅ Sửa: MaNV đi trước
+                // Insert -> lấy MaNV từ ComboBox
+                maNV = cboMaNV.SelectedValue.ToString();
                 result = bll.Insert(maNV, tenDN, mk, trangThai, vaiTro);
             }
             else
             {
-                if (string.IsNullOrEmpty(cboMaNV.Text))
+                // Update -> lấy MaNV từ DataGridView (dòng đang chọn)
+                if (dgvListTK.SelectedRows.Count == 0)
                 {
-                    MessageBox.Show("Chưa chọn nhân viên!", "Thông báo",
+                    MessageBox.Show("Vui lòng chọn tài khoản cần cập nhật!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                string maNV = dgvListTK.SelectedRows[0].Cells["MaNV"].Value.ToString();
 
-                // ✅ Sửa: Update cũng phải theo MaNV
+                maNV = dgvListTK.SelectedRows[0].Cells["MaNV"].Value.ToString();
                 result = bll.Update(maNV, tenDN, mk, trangThai, vaiTro);
             }
 
+            // ==============================
+            //  Kết quả trả về
+            // ==============================
             if (result.Contains("thành công"))
                 MessageBox.Show(result, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
@@ -185,6 +229,13 @@ namespace QLKTX_App.ChildForm_Admin
             }
 
             string maNV = dgvListTK.SelectedRows[0].Cells["MaNV"].Value.ToString();
+
+            // ✅ Hỏi trước khi xóa
+            var confirm = MessageBox.Show("Bạn có chắc chắn muốn xóa tài khoản của nhân viên [" + maNV + "] không?",
+                "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (confirm != DialogResult.Yes)
+                return;
 
             try
             {
@@ -210,13 +261,13 @@ namespace QLKTX_App.ChildForm_Admin
                 }
                 else
                 {
-                    MessageBox.Show("lỗi: " + ex.Message,
+                    MessageBox.Show("Lỗi SQL: " + ex.Message,
                         "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("lỗi: " + ex.Message,
+                MessageBox.Show("Lỗi hệ thống: " + ex.Message,
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
