@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TheArtOfDevHtmlRenderer.Adapters;
+using static iText.Commons.Utils.PlaceHolderTextUtil;
 
 namespace QLKTX_App.ChildForm_Admin
 {
@@ -23,6 +24,11 @@ namespace QLKTX_App.ChildForm_Admin
         public FormQLNV()
         {
             InitializeComponent();
+        }
+
+        private void FormQLNV_Load(object sender, EventArgs e)
+        {
+            LoadData();
         }
 
         #region phương thức load dữ liệu
@@ -145,12 +151,6 @@ namespace QLKTX_App.ChildForm_Admin
 
         #endregion
 
-
-        private void FormQLNV_Load(object sender, EventArgs e)
-        {
-            LoadData();
-        }
-
         #region sự kiện nút bấm
         private void btnDangKy_Click(object sender, EventArgs e)
         {
@@ -242,15 +242,6 @@ namespace QLKTX_App.ChildForm_Admin
             ResetForm();
         }
 
-        private void btnTimKiem_Click(object sender, EventArgs e)
-        {
-            string keyword = txtSearch.Text.Trim().ToLower();
-            DataTable dt = bll.GetAll();
-            DataView dv = dt.DefaultView;
-            dv.RowFilter = $"MaNV LIKE '%{keyword}%' OR HoTen LIKE '%{keyword}%'";
-            dgvListNV.DataSource = dv.ToTable();
-        }
-
         private void dgvListNV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return; // bỏ qua header
@@ -292,7 +283,19 @@ namespace QLKTX_App.ChildForm_Admin
             txtMaNV.Enabled = false;
             isInsert = false;
         }
+
+
+
         #endregion
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string keyword = txtSearch.Text.Trim().ToLower();
+            DataTable dt = bll.GetAll();
+            DataView dv = dt.DefaultView;
+            dv.RowFilter = $"MaNV LIKE '%{keyword}%' OR HoTen LIKE '%{keyword}%'";
+            dgvListNV.DataSource = dv.ToTable();
+        }
     }
 }
         

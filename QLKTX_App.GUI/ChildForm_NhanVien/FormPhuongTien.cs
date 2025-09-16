@@ -123,17 +123,6 @@ namespace QLKTX_App.ChildForm_NhanVien
             dtpNgayDK.Value = DateTime.Now;
         }
 
-        private void btnTimKiem_Click(object sender, EventArgs e)
-        {
-            string kw = txtTimKiem.Text.Trim();
-            if (string.IsNullOrEmpty(kw))
-            {
-                LoadData();
-                return;
-            }
-            dgvListTheXe.DataSource = _bll.Search(kw);
-        }
-
         private void dgvListTheXe_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return; // bỏ qua header
@@ -163,6 +152,15 @@ namespace QLKTX_App.ChildForm_NhanVien
             {
                 dtpNgayDK.Value = DateTime.Now; // fallback mặc định
             }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string keyword = txtSearch.Text.Trim().ToLower();
+            DataTable dt = _bll.GetAll();
+            DataView dv = dt.DefaultView;
+            dv.RowFilter = $"MSSV LIKE '%{keyword}%' OR MaThe LIKE '%{keyword}%' OR BienSo LIKE '%{keyword}%'";
+            dgvListTheXe.DataSource = dv.ToTable();
         }
     }
 }

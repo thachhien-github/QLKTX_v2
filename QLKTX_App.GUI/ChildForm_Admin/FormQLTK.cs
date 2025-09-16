@@ -12,13 +12,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using static iText.Commons.Utils.PlaceHolderTextUtil;
 
 namespace QLKTX_App.ChildForm_Admin
 {
     public partial class FormQLTK : Form
     {
         private readonly QLTaiKhoanBLL bll = new QLTaiKhoanBLL();
-
         private bool isInsert = true;
 
         public FormQLTK()
@@ -299,5 +299,14 @@ namespace QLKTX_App.ChildForm_Admin
             }
         }
         #endregion
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string keyword = txtSearch.Text.Trim().ToLower();
+            DataTable dt = bll.GetAll();
+            DataView dv = dt.DefaultView;
+            dv.RowFilter = $"TenDangNhap LIKE '%{keyword}%' OR HoTen LIKE '%{keyword}%'";
+            dgvListTK.DataSource = dv.ToTable();
+        }
     }
 }
