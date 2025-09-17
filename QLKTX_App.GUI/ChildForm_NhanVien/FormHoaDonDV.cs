@@ -306,5 +306,40 @@ namespace QLKTX_App.ChildForm_NhanVien
             txtSLxe.Clear();
             dgvListHD.ClearSelection();
         }
+
+        private void dgvListHD_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return; // bỏ qua header
+
+            DataGridViewRow row = dgvListHD.Rows[e.RowIndex];
+
+            try
+            {
+                // Chọn phòng
+                if (row.Cells["MaPhong"].Value != null)
+                    cboPhong.SelectedValue = row.Cells["MaPhong"].Value.ToString();
+
+                // Gộp tháng/năm để chọn lại
+                if (row.Cells["Thang"].Value != null && row.Cells["Nam"].Value != null)
+                {
+                    string value = $"{Convert.ToInt32(row.Cells["Thang"].Value):D2}-{row.Cells["Nam"].Value}";
+                    cboThangNam.SelectedValue = value;
+                }
+
+                // Ngày lập
+                if (row.Cells["NgayLap"].Value != null)
+                    dtpNgayLap.Value = Convert.ToDateTime(row.Cells["NgayLap"].Value);
+
+                // Chỉ số điện, nước, số xe
+                txtCSdien.Text = row.Cells["DienTieuThu"].Value?.ToString() ?? "0";
+                txtCSnuoc.Text = row.Cells["NuocTieuThu"].Value?.ToString() ?? "0";
+                txtSLxe.Text = row.Cells["SoLuongXe"].Value?.ToString() ?? "0";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi load dữ liệu: " + ex.Message,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

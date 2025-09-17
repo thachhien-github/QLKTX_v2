@@ -40,6 +40,7 @@
             this.btnTest = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.lblHuongDan = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -137,11 +138,26 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // lblHuongDan
+            // 
+            this.lblHuongDan.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHuongDan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblHuongDan.Location = new System.Drawing.Point(12, 297);
+            this.lblHuongDan.Name = "lblHuongDan";
+            this.lblHuongDan.Size = new System.Drawing.Size(509, 28);
+            this.lblHuongDan.TabIndex = 7;
+            this.lblHuongDan.Text = "Hướng dẫn";
+            this.lblHuongDan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblHuongDan.Click += new System.EventHandler(this.lblHuongDan_Click);
+            this.lblHuongDan.MouseEnter += new System.EventHandler(this.lblHuongDan_MouseEnter);
+            this.lblHuongDan.MouseLeave += new System.EventHandler(this.lblHuongDan_MouseLeave);
+            // 
             // FormCauHinh
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 313);
+            this.ClientSize = new System.Drawing.Size(533, 334);
+            this.Controls.Add(this.lblHuongDan);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnTest);
@@ -157,7 +173,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(560, 360);
             this.MinimizeBox = false;
             this.Name = "FormCauHinh";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -180,5 +195,6 @@
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label lblHuongDan;
     }
 }

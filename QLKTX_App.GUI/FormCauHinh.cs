@@ -132,5 +132,34 @@ namespace QLKTX_App
                 Password = txtPassword.Text.Trim()
             };
         }
+
+        private void lblHuongDan_Click(object sender, EventArgs e)
+        {
+            string huongDan = @"Quy trình cấu hình kết nối
+1. Nhập thông tin SQL Server:
+    - Server: Tên máy chủ SQL (ví dụ: .\SQLEXPRESS hoặc localhost)
+    - Database: Tên cơ sở dữ liệu (ví dụ: QLKTX)
+    - User: Tài khoản đăng nhập SQL (ví dụ: sa)
+    - Password: Mật khẩu của tài khoản
+2. Bấm 'Test' để kiểm tra kết nối.
+3. Nếu thành công, bấm 'Save' để lưu cấu hình.
+    Nếu cơ sở dữ liệu chưa tồn tại:
+    - Chương trình sẽ hỏi bạn có muốn tạo mới hay không.
+    - Chọn Yes để tạo Database mới.";
+            MessageBox.Show(huongDan, "Hướng dẫn cấu hình",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void lblHuongDan_MouseEnter(object sender, EventArgs e)
+        {
+            lblHuongDan.ForeColor = Color.Blue;
+            lblHuongDan.Font = new Font(lblHuongDan.Font, FontStyle.Underline);
+        }
+
+        private void lblHuongDan_MouseLeave(object sender, EventArgs e)
+        {
+            lblHuongDan.ForeColor = Color.Gray;
+            lblHuongDan.Font = new Font(lblHuongDan.Font, FontStyle.Italic);
+        }
     }
 }
