@@ -9,6 +9,7 @@ namespace QLKTX_App.BLL
         private readonly ChiSoDAL _dal = new ChiSoDAL();
 
         public List<ChiSoModel> GetAll() => _dal.GetAll();
+        public ChiSoModel GetChiSoGanNhat(string maPhong) => _dal.GetChiSoGanNhat(maPhong);
 
         public void Them(ChiSoModel cs) => _dal.Them(cs);
 

@@ -29,6 +29,8 @@ namespace QLKTX_App.ChildForm_NhanVien
             LoadThang();
             LoadNam();
             LoadData();
+
+            cboPhong.SelectedIndexChanged += cboPhong_SelectedIndexChanged;
         }
 
         private void LoadPhong()
@@ -245,6 +247,37 @@ namespace QLKTX_App.ChildForm_NhanVien
             dgvListChiSo.ClearSelection();
 
             txtDienCu.Focus();
+        }
+
+        private void cboPhong_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboPhong.SelectedValue == null) return;
+
+            string maPhong = cboPhong.SelectedValue.ToString();
+            var csGanNhat = _bll.GetChiSoGanNhat(maPhong);
+
+            if (csGanNhat != null)
+            {
+                // Gán chỉ số cũ = chỉ số mới của tháng trước
+                txtDienCu.Text = csGanNhat.DienMoi.ToString();
+                txtNuocCu.Text = csGanNhat.NuocMoi.ToString();
+
+                // Xóa dữ liệu mới để người dùng nhập
+                txtDienMoi.Clear();
+                txtNuocMoi.Clear();
+                txtDienTT.Clear();
+                txtNuocTT.Clear();
+            }
+            else
+            {
+                // Nếu phòng chưa có dữ liệu -> set = 0
+                txtDienCu.Text = "0";
+                txtNuocCu.Text = "0";
+                txtDienMoi.Clear();
+                txtNuocMoi.Clear();
+                txtDienTT.Clear();
+                txtNuocTT.Clear();
+            }
         }
     }
 }

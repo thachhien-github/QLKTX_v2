@@ -229,6 +229,13 @@ namespace QLKTX_App.GUI.ChildForm_NhanVien
 
                         MessageBox.Show("Xuất hóa đơn thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // ✅ Mở file sau khi xuất
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                        {
+                            FileName = filePath,
+                            UseShellExecute = true
+                        });
                     }
                 }
             }

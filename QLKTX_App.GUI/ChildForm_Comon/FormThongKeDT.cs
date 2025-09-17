@@ -205,15 +205,13 @@ namespace QLKTX_App.ChildForm_Comon
 
             DataTable dtPhongLoc;
 
-            // ✅ Nếu chọn "Tất cả"
             if (cboNam.SelectedItem.ToString() == "Tất cả")
             {
                 dtPhongLoc = _dtPhong.Copy();
             }
             else
             {
-                int namChon;
-                if (!int.TryParse(cboNam.SelectedItem.ToString(), out namChon))
+                if (!int.TryParse(cboNam.SelectedItem.ToString(), out int namChon))
                 {
                     MessageBox.Show("Năm không hợp lệ, vui lòng chọn lại!",
                         "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -243,10 +241,20 @@ namespace QLKTX_App.ChildForm_Comon
                 {
                     try
                     {
-                        ExcelExportPhong.XuatExcel(dtPhongLoc, sfd.FileName,
+                        string filePath = sfd.FileName;
+
+                        ExcelExportPhong.XuatExcel(dtPhongLoc, filePath,
                             $"BÁO CÁO DOANH THU PHÒNG ({cboNam.SelectedItem})");
+
                         MessageBox.Show("Xuất báo cáo phòng thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // ✅ Mở file Excel sau khi tạo
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                        {
+                            FileName = filePath,
+                            UseShellExecute = true
+                        });
                     }
                     catch (Exception ex)
                     {
@@ -266,7 +274,6 @@ namespace QLKTX_App.ChildForm_Comon
                 return;
             }
 
-            // ✅ Kiểm tra đã chọn Tháng/Năm chưa
             if (cboThangNam.SelectedIndex <= 0)
             {
                 MessageBox.Show("Vui lòng chọn Tháng/Năm trước khi xuất báo cáo!",
@@ -274,16 +281,12 @@ namespace QLKTX_App.ChildForm_Comon
                 return;
             }
 
-            // Lọc dữ liệu theo cboThangNam
             string[] parts = cboThangNam.SelectedItem.ToString().Split('/');
             int thang = int.Parse(parts[0]);
             int nam = int.Parse(parts[1]);
 
             var rows = _dtDichVu.AsEnumerable()
-                .Where(r =>
-                    r.Field<int>("Thang") == thang &&
-                    r.Field<int>("Nam") == nam
-                );
+                .Where(r => r.Field<int>("Thang") == thang && r.Field<int>("Nam") == nam);
 
             if (!rows.Any())
             {
@@ -304,10 +307,20 @@ namespace QLKTX_App.ChildForm_Comon
                 {
                     try
                     {
-                        ExcelExportHoaDonDV.XuatExcel(dtDVLoc, sfd.FileName,
+                        string filePath = sfd.FileName;
+
+                        ExcelExportHoaDonDV.XuatExcel(dtDVLoc, filePath,
                             $"BÁO CÁO DOANH THU DỊCH VỤ THÁNG {thang}/{nam}");
+
                         MessageBox.Show("Xuất báo cáo dịch vụ thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // ✅ Mở file Excel sau khi tạo
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                        {
+                            FileName = filePath,
+                            UseShellExecute = true
+                        });
                     }
                     catch (Exception ex)
                     {

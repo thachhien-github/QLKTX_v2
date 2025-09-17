@@ -124,8 +124,6 @@ namespace QLKTX_App.ChildForm_Comon
             return true;
         }
 
-
-
         private void btnDangKy_Click(object sender, EventArgs e)
         {
             // Kiểm tra dữ liệu trước

@@ -66,9 +66,68 @@ namespace QLKTX_App.ChildForm_NhanVien
             }
         }
 
+        private bool ValidateInput()
+        {
+            string maThe = txtMaThe.Text.Trim();
+            string mssv = txtMSSV.Text.Trim();
+            string bienSo = txtBienSo.Text.Trim();
+
+            // Mã thẻ
+            if (string.IsNullOrEmpty(maThe))
+            {
+                MessageBox.Show("Vui lòng nhập mã thẻ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // MSSV
+            if (string.IsNullOrEmpty(mssv))
+            {
+                MessageBox.Show("Vui lòng nhập MSSV!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (mssv.Length != 10 || !mssv.All(char.IsDigit))
+            {
+                MessageBox.Show("MSSV phải gồm đúng 10 chữ số!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // Kiểm tra khóa học từ MSSV
+            int khoaSV = int.Parse(mssv.Substring(0, 2));
+            int khoaHienTai = DateTime.Now.Year % 100; // Ví dụ 2025 -> 25
+
+            if (khoaSV > khoaHienTai)
+            {
+                MessageBox.Show($"Hiện tại mới có đến khóa {khoaHienTai}, chưa có khóa {khoaSV}!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            else if (khoaSV < khoaHienTai - 2)
+            {
+                MessageBox.Show($"Sinh viên khóa {khoaSV} đã hết hạn đăng ký ở KTX!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // Loại xe
+            if (cboLoaiXe.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn loại xe!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // Biển số
+            if (string.IsNullOrEmpty(bienSo))
+            {
+                MessageBox.Show("Vui lòng nhập biển số!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
 
         private void btnDangKy_Click(object sender, EventArgs e)
         {
+            if (!ValidateInput())
+                return;
+
             try
             {
                 var xe = new TheXeModel
@@ -82,13 +141,34 @@ namespace QLKTX_App.ChildForm_NhanVien
 
                 if (_bll.Them(xe))
                 {
-                    MessageBox.Show("Đăng ký thành công!");
+                    MessageBox.Show("Đăng ký phương tiện thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadData();
+
+                    // 🔥 Highlight dòng vừa thêm
+                    foreach (DataGridViewRow row in dgvListTheXe.Rows)
+                    {
+                        if (row.Cells["MaThe"].Value?.ToString() == xe.MaThe)
+                        {
+                            dgvListTheXe.ClearSelection();
+                            row.Selected = true;
+                            dgvListTheXe.CurrentCell = row.Cells[0]; // focus vào cột đầu tiên
+                            dgvListTheXe.FirstDisplayedScrollingRowIndex = row.Index;
+                            break;
+                        }
+                    }
                 }
+                else
+                {
+                    MessageBox.Show("Đăng ký thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Lỗi cơ sở dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message);
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -121,6 +201,9 @@ namespace QLKTX_App.ChildForm_NhanVien
             txtBienSo.Clear();
             cboLoaiXe.SelectedIndex = -1;
             dtpNgayDK.Value = DateTime.Now;
+
+            txtMSSV.ReadOnly = false; // cho phép nhập MSSV mới
+            txtMSSV.Focus();
         }
 
         private void dgvListTheXe_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -134,6 +217,7 @@ namespace QLKTX_App.ChildForm_NhanVien
 
             // MSSV
             txtMSSV.Text = row.Cells["MSSV"].Value?.ToString() ?? "";
+            txtMSSV.ReadOnly = true; // không cho sửa MSSV khi đã có thẻ
 
             // Loại xe
             if (row.Cells["MaLoaiXe"].Value != null)

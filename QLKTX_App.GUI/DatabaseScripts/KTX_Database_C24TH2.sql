@@ -574,8 +574,46 @@ END
 GO
 
 CREATE OR ALTER PROCEDURE dbo.sp_PhanBo_Sua
+    @MSSV NVARCHAR(10),       -- Sinh viên
+    @MaPhong VARCHAR(10),     -- Phòng
+    @NgayPhanBo DATE,         -- Ngày bắt đầu phân bổ
+    @SoThang INT,             -- Thời gian thuê (tháng)
+    @SoDotThu TINYINT = 1,    -- 1 hoặc 2
+    @MienTienPhong BIT = 0,   -- Miễn phí hay không
+    @GhiChu NVARCHAR(200) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- 1. Kiểm tra tồn tại phân bổ
+    IF NOT EXISTS (SELECT 1 FROM dbo.PhanBo WHERE MSSV=@MSSV AND MaPhong=@MaPhong)
+    BEGIN
+        THROW 65010, N'Không tìm thấy phân bổ để sửa.', 1;
+    END
+
+    -- 2. Kiểm tra hợp lệ của tham số
+    IF @SoThang IS NULL OR @SoThang <= 0
+        THROW 65011, N'Số tháng hợp đồng phải > 0.', 1;
+    IF @SoDotThu NOT IN (1,2)
+        THROW 65012, N'Số đợt thu chỉ được là 1 hoặc 2.', 1;
+
+    -- 3. Cập nhật phân bổ
+    UPDATE dbo.PhanBo
+    SET NgayPhanBo    = @NgayPhanBo,
+        SoThang       = @SoThang,
+        SoDotThu      = @SoDotThu,
+        MienTienPhong = @MienTienPhong,
+        GhiChu        = @GhiChu
+    WHERE MSSV=@MSSV AND MaPhong=@MaPhong;
+
+    PRINT N'Cập nhật phân bổ thành công!';
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.sp_PhanBo_ChuyenPhong
     @MSSV NVARCHAR(10),
-    @MaPhong VARCHAR(10),
+    @MaPhongCu VARCHAR(10),
+    @MaPhongMoi VARCHAR(10),
     @NgayPhanBo DATE,
     @SoThang INT,
     @SoDotThu TINYINT = 1,
@@ -584,18 +622,30 @@ CREATE OR ALTER PROCEDURE dbo.sp_PhanBo_Sua
 AS
 BEGIN
     SET NOCOUNT ON;
-    IF NOT EXISTS(SELECT 1 FROM dbo.PhanBo WHERE MSSV=@MSSV AND MaPhong=@MaPhong)
-        THROW 65007, N'Không tìm thấy phân bổ.', 1;
-    IF @SoThang IS NULL OR @SoThang <= 0
-        THROW 65005, N'Số tháng hợp đồng phải > 0.', 1;
-    IF @SoDotThu NOT IN (1,2)
-        THROW 65006, N'Số đợt thu chỉ là 1 hoặc 2.', 1;
 
-    UPDATE dbo.PhanBo
-    SET NgayPhanBo=@NgayPhanBo, SoThang=@SoThang, SoDotThu=@SoDotThu, MienTienPhong=@MienTienPhong, GhiChu=@GhiChu
-    WHERE MSSV=@MSSV AND MaPhong=@MaPhong;
+    -- 1. Kiểm tra phân bổ cũ có tồn tại
+    IF NOT EXISTS (SELECT 1 FROM dbo.PhanBo WHERE MSSV=@MSSV AND MaPhong=@MaPhongCu)
+    BEGIN
+        THROW 65020, N'❌ Không tìm thấy phân bổ ở phòng cũ.', 1;
+    END
+
+    -- 2. Kiểm tra phòng mới có tồn tại
+    IF NOT EXISTS (SELECT 1 FROM dbo.Phong WHERE MaPhong=@MaPhongMoi)
+    BEGIN
+        THROW 65021, N'❌ Phòng mới không tồn tại.', 1;
+    END
+
+    -- 3. Xóa phân bổ cũ
+    DELETE FROM dbo.PhanBo WHERE MSSV=@MSSV AND MaPhong=@MaPhongCu;
+
+    -- 4. Thêm phân bổ mới
+    INSERT INTO dbo.PhanBo(MSSV, MaPhong, NgayPhanBo, SoThang, SoDotThu, MienTienPhong, GhiChu)
+    VALUES(@MSSV, @MaPhongMoi, @NgayPhanBo, @SoThang, @SoDotThu, @MienTienPhong, @GhiChu);
+
+    PRINT N'✅ Chuyển phòng thành công!';
 END
 GO
+
 
 CREATE OR ALTER PROCEDURE dbo.sp_PhanBo_Xoa
     @MSSV NVARCHAR(10),

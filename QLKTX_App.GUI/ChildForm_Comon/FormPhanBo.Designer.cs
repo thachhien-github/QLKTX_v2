@@ -34,6 +34,7 @@
             this.dgvHopDong = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnSua = new FontAwesome.Sharp.IconButton();
             this.chkMienTienPhong = new System.Windows.Forms.CheckBox();
             this.btnQuayLai = new FontAwesome.Sharp.IconButton();
             this.dtpNgayPhanBo = new System.Windows.Forms.DateTimePicker();
@@ -63,6 +64,7 @@
             // 
             // dgvHopDong
             // 
+            this.dgvHopDong.AllowUserToAddRows = false;
             this.dgvHopDong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
@@ -120,6 +122,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnSua);
             this.groupBox3.Controls.Add(this.chkMienTienPhong);
             this.groupBox3.Controls.Add(this.btnQuayLai);
             this.groupBox3.Controls.Add(this.dtpNgayPhanBo);
@@ -148,6 +151,29 @@
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Thông tin sinh viên";
+            // 
+            // btnSua
+            // 
+            this.btnSua.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnSua.FlatAppearance.BorderSize = 0;
+            this.btnSua.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSua.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSua.ForeColor = System.Drawing.Color.Black;
+            this.btnSua.IconChar = FontAwesome.Sharp.IconChar.Edit;
+            this.btnSua.IconColor = System.Drawing.Color.DarkOrange;
+            this.btnSua.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnSua.IconSize = 25;
+            this.btnSua.Location = new System.Drawing.Point(755, 165);
+            this.btnSua.MaximumSize = new System.Drawing.Size(275, 45);
+            this.btnSua.Name = "btnSua";
+            this.btnSua.Padding = new System.Windows.Forms.Padding(3);
+            this.btnSua.Size = new System.Drawing.Size(116, 38);
+            this.btnSua.TabIndex = 19;
+            this.btnSua.Text = "Sửa";
+            this.btnSua.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSua.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnSua.UseVisualStyleBackColor = false;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // chkMienTienPhong
             // 
@@ -274,7 +300,7 @@
             this.btnPhanBo.IconColor = System.Drawing.Color.LimeGreen;
             this.btnPhanBo.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnPhanBo.IconSize = 25;
-            this.btnPhanBo.Location = new System.Drawing.Point(750, 165);
+            this.btnPhanBo.Location = new System.Drawing.Point(628, 165);
             this.btnPhanBo.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnPhanBo.Name = "btnPhanBo";
             this.btnPhanBo.Padding = new System.Windows.Forms.Padding(3);
@@ -461,5 +487,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtHoTen;
         private System.Windows.Forms.TextBox txtSoDotThu;
+        private FontAwesome.Sharp.IconButton btnSua;
     }
 }

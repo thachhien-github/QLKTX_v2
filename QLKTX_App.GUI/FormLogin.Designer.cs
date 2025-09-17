@@ -62,7 +62,7 @@
             this.chkHienMK.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkHienMK.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkHienMK.ForeColor = System.Drawing.Color.DarkGray;
-            this.chkHienMK.Location = new System.Drawing.Point(47, 297);
+            this.chkHienMK.Location = new System.Drawing.Point(45, 297);
             this.chkHienMK.Name = "chkHienMK";
             this.chkHienMK.Size = new System.Drawing.Size(141, 27);
             this.chkHienMK.TabIndex = 8;
@@ -89,7 +89,7 @@
             this.btnDangNhap.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
             this.btnDangNhap.HoverState.FillColor = System.Drawing.Color.White;
             this.btnDangNhap.HoverState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
-            this.btnDangNhap.Location = new System.Drawing.Point(109, 355);
+            this.btnDangNhap.Location = new System.Drawing.Point(99, 355);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(154, 47);
             this.btnDangNhap.TabIndex = 2;
@@ -103,7 +103,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(372, 74);
+            this.label1.Size = new System.Drawing.Size(344, 74);
             this.label1.TabIndex = 0;
             this.label1.Text = "QUẢN LÝ KÝ TÚC XÁ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -122,10 +122,10 @@
             this.panelLogin.CustomBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(99)))), ((int)(((byte)(102)))));
             this.panelLogin.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelLogin.FillColor = System.Drawing.Color.White;
-            this.panelLogin.Location = new System.Drawing.Point(503, 75);
+            this.panelLogin.Location = new System.Drawing.Point(531, 75);
             this.panelLogin.MaximumSize = new System.Drawing.Size(400, 450);
             this.panelLogin.Name = "panelLogin";
-            this.panelLogin.Size = new System.Drawing.Size(372, 450);
+            this.panelLogin.Size = new System.Drawing.Size(344, 450);
             this.panelLogin.TabIndex = 6;
             // 
             // txtPassword
@@ -143,14 +143,14 @@
             this.txtPassword.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
             this.txtPassword.IconLeft = global::QLKTX_App.GUI.Properties.Resources.lock_padlock_symbol_for_protect_icon_icons_com_56926;
             this.txtPassword.IconLeftSize = new System.Drawing.Size(25, 25);
-            this.txtPassword.Location = new System.Drawing.Point(47, 246);
+            this.txtPassword.Location = new System.Drawing.Point(45, 246);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(10);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Padding = new System.Windows.Forms.Padding(10);
             this.txtPassword.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.txtPassword.PlaceholderText = "Password";
             this.txtPassword.SelectedText = "";
-            this.txtPassword.Size = new System.Drawing.Size(279, 38);
+            this.txtPassword.Size = new System.Drawing.Size(251, 38);
             this.txtPassword.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
             this.txtPassword.TabIndex = 1;
             this.txtPassword.UseSystemPasswordChar = true;
@@ -158,7 +158,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::QLKTX_App.GUI.Properties.Resources.LOGO_01;
-            this.pictureBox1.Location = new System.Drawing.Point(146, 77);
+            this.pictureBox1.Location = new System.Drawing.Point(132, 79);
             this.pictureBox1.MaximumSize = new System.Drawing.Size(80, 80);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(80, 80);
@@ -181,14 +181,14 @@
             this.txtUsername.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
             this.txtUsername.IconLeft = global::QLKTX_App.GUI.Properties.Resources.user_icon_150670;
             this.txtUsername.IconLeftSize = new System.Drawing.Size(25, 25);
-            this.txtUsername.Location = new System.Drawing.Point(47, 192);
+            this.txtUsername.Location = new System.Drawing.Point(45, 192);
             this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Padding = new System.Windows.Forms.Padding(10);
             this.txtUsername.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.txtUsername.PlaceholderText = "Username";
             this.txtUsername.SelectedText = "";
-            this.txtUsername.Size = new System.Drawing.Size(279, 38);
+            this.txtUsername.Size = new System.Drawing.Size(251, 38);
             this.txtUsername.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
             this.txtUsername.TabIndex = 0;
             // 
@@ -209,10 +209,10 @@
             this.iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.Remove;
             this.iconPictureBox2.IconColor = System.Drawing.Color.White;
             this.iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconPictureBox2.IconSize = 30;
-            this.iconPictureBox2.Location = new System.Drawing.Point(908, 12);
+            this.iconPictureBox2.IconSize = 42;
+            this.iconPictureBox2.Location = new System.Drawing.Point(903, 5);
             this.iconPictureBox2.Name = "iconPictureBox2";
-            this.iconPictureBox2.Size = new System.Drawing.Size(30, 30);
+            this.iconPictureBox2.Size = new System.Drawing.Size(42, 42);
             this.iconPictureBox2.TabIndex = 5;
             this.iconPictureBox2.TabStop = false;
             this.iconPictureBox2.Click += new System.EventHandler(this.iconPictureBox2_Click);
@@ -269,10 +269,10 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::QLKTX_App.GUI.Properties.Resources.LOGO_01;
-            this.pictureBox2.Location = new System.Drawing.Point(164, 111);
-            this.pictureBox2.MaximumSize = new System.Drawing.Size(250, 250);
+            this.pictureBox2.Location = new System.Drawing.Point(139, 95);
+            this.pictureBox2.MaximumSize = new System.Drawing.Size(300, 300);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(250, 250);
+            this.pictureBox2.Size = new System.Drawing.Size(300, 300);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 11;
             this.pictureBox2.TabStop = false;

@@ -207,6 +207,7 @@
             this.txtNuocCu.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNuocCu.Location = new System.Drawing.Point(777, 38);
             this.txtNuocCu.Name = "txtNuocCu";
+            this.txtNuocCu.ReadOnly = true;
             this.txtNuocCu.Size = new System.Drawing.Size(149, 30);
             this.txtNuocCu.TabIndex = 6;
             // 
@@ -297,6 +298,7 @@
             this.cboPhong.Name = "cboPhong";
             this.cboPhong.Size = new System.Drawing.Size(105, 31);
             this.cboPhong.TabIndex = 0;
+            this.cboPhong.SelectedIndexChanged += new System.EventHandler(this.cboPhong_SelectedIndexChanged);
             // 
             // cboNam
             // 
@@ -386,6 +388,7 @@
             this.txtDienCu.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDienCu.Location = new System.Drawing.Point(460, 38);
             this.txtDienCu.Name = "txtDienCu";
+            this.txtDienCu.ReadOnly = true;
             this.txtDienCu.Size = new System.Drawing.Size(149, 30);
             this.txtDienCu.TabIndex = 3;
             // 
@@ -437,6 +440,7 @@
             // 
             // dgvListChiSo
             // 
+            this.dgvListChiSo.AllowUserToAddRows = false;
             this.dgvListChiSo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));

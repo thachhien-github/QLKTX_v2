@@ -46,6 +46,39 @@ namespace QLKTX_App.DAL
             return _db.ExecuteNonQuery(sql, false, prms) > 0;
         }
 
+        public bool Update(PhanBoModel pb)
+        {
+            var prms = new[]
+            {
+                new SqlParameter("@MSSV", pb.MSSV),
+                new SqlParameter("@MaPhong", pb.MaPhong),
+                new SqlParameter("@NgayPhanBo", pb.NgayPhanBo),
+                new SqlParameter("@SoThang", pb.SoThang),
+                new SqlParameter("@SoDotThu", pb.SoDotThu),
+                new SqlParameter("@MienTienPhong", pb.MienTienPhong ? 1 : 0),
+                new SqlParameter("@GhiChu", pb.GhiChu ?? (object)DBNull.Value)
+            };
+
+            return _db.ExecuteNonQuery("sp_PhanBo_Sua", true, prms) > 0;
+        }
+
+        public bool ChuyenPhong(PhanBoModel pb, string maPhongCu)
+        {
+            var prms = new[]
+            {
+                new SqlParameter("@MSSV", pb.MSSV),
+                new SqlParameter("@MaPhongCu", maPhongCu),
+                new SqlParameter("@MaPhongMoi", pb.MaPhong),
+                new SqlParameter("@NgayPhanBo", pb.NgayPhanBo),
+                new SqlParameter("@SoThang", pb.SoThang),
+                new SqlParameter("@SoDotThu", pb.SoDotThu),
+                new SqlParameter("@MienTienPhong", pb.MienTienPhong ? 1 : 0),
+                new SqlParameter("@GhiChu", pb.GhiChu ?? (object)DBNull.Value)
+            };
+
+            return _db.ExecuteNonQuery("sp_PhanBo_ChuyenPhong", true, prms) > 0;
+        }
+
 
 
         public DataTable GetAllPhong()

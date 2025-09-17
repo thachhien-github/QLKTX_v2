@@ -62,7 +62,7 @@ namespace QLKTX_App.ChildForm_Comon
 
         private void LoadPhong()
         {
-            var tb = _phongBLL.GetAll();   // ✅ Lấy danh sách phòng từ BLL Phong
+            var tb = _phongBLL.GetAll();   // Lấy danh sách phòng từ BLL Phong
             cboMaPhong.DisplayMember = "MaPhong";
             cboMaPhong.ValueMember = "MaPhong";
             cboMaPhong.DataSource = tb;
@@ -222,6 +222,53 @@ namespace QLKTX_App.ChildForm_Comon
 
             // Ghi chú
             txtGhiChu.Text = row.Cells["GhiChu"].Value?.ToString() ?? "";
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvHopDong.CurrentRow == null)
+                {
+                    MessageBox.Show("Vui lòng chọn một hợp đồng để sửa!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string maPhongCu = dgvHopDong.CurrentRow.Cells["MaPhong"].Value.ToString();
+                var pb = GetInput();
+
+                bool result;
+                if (pb.MaPhong != maPhongCu)
+                {
+                    // chuyển phòng
+                    result = _pbBLL.ChuyenPhong(pb, maPhongCu);
+                }
+                else
+                {
+                    // chỉ sửa thông tin
+                    result = _pbBLL.Update(pb);
+                }
+
+                if (result)
+                {
+                    MessageBox.Show("✅ Cập nhật phân bổ thành công!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadPhanBo();
+                    _phongBLL.CapNhatTrangThai(maPhongCu);
+                    _phongBLL.CapNhatTrangThai(pb.MaPhong);
+                }
+                else
+                {
+                    MessageBox.Show("❌ Cập nhật thất bại!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

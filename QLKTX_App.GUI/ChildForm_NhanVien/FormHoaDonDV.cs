@@ -262,9 +262,8 @@ namespace QLKTX_App.ChildForm_NhanVien
                     GiaNuoc = gia.GiaNuoc,
                     GiaXe = gia.GiaXe,
                     TongTien = Convert.ToDecimal(row.Cells["TongTien"].Value),
-                    NgayLap = Convert.ToDateTime(row.Cells["NgayLap"].Value) // ✅ thêm dòng này
+                    NgayLap = Convert.ToDateTime(row.Cells["NgayLap"].Value)
                 };
-
 
                 using (SaveFileDialog sfd = new SaveFileDialog()
                 {
@@ -274,9 +273,20 @@ namespace QLKTX_App.ChildForm_NhanVien
                 {
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        HoaDonDVPdfExporter.XuatHoaDonDichVu(ct, sfd.FileName);
+                        string filePath = sfd.FileName;
+
+                        // Xuất PDF
+                        HoaDonDVPdfExporter.XuatHoaDonDichVu(ct, filePath);
+
                         MessageBox.Show("Xuất hóa đơn thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // ✅ Mở file PDF ngay sau khi tạo
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                        {
+                            FileName = filePath,
+                            UseShellExecute = true
+                        });
                     }
                 }
             }

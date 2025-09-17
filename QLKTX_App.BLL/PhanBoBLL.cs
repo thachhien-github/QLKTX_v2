@@ -19,6 +19,14 @@ namespace QLKTX_App.BLL
         public DataTable GetAllPhong() => _dal.GetAllPhong();
         public bool CheckDangO(string mssv) => _dal.CheckDangO(mssv);
         public DataTable GetChiTietPhanBo(string mssv, string maPhong) => _dal.GetChiTietPhanBo(mssv, maPhong);
+        public bool Update(PhanBoModel pb)
+        {
+            return _dal.Update(pb);
+        }
 
+        public bool ChuyenPhong(PhanBoModel pb, string maPhongCu)
+        {
+            return _dal.ChuyenPhong(pb, maPhongCu);
+        }
     }
 }

@@ -32,6 +32,33 @@ namespace QLKTX_App.DAL
             return list;
         }
 
+        public ChiSoModel GetChiSoGanNhat(string maPhong)
+        {
+            string sql = @"
+                SELECT TOP 1 *
+                FROM ChiSo
+                WHERE MaPhong = @MaPhong
+                ORDER BY Nam DESC, Thang DESC";
+
+            var dt = db.ExecuteQuery(sql, false, new SqlParameter("@MaPhong", maPhong));
+            if (dt.Rows.Count == 0) return null;
+
+            var row = dt.Rows[0];
+            return new ChiSoModel
+            {
+                MaPhong = row["MaPhong"].ToString(),
+                Thang = Convert.ToInt32(row["Thang"]),
+                Nam = Convert.ToInt32(row["Nam"]),
+                DienCu = Convert.ToInt32(row["DienCu"]),
+                DienMoi = Convert.ToInt32(row["DienMoi"]),
+                DienTieuThu = Convert.ToInt32(row["DienTieuThu"]),
+                NuocCu = Convert.ToInt32(row["NuocCu"]),
+                NuocMoi = Convert.ToInt32(row["NuocMoi"]),
+                NuocTieuThu = Convert.ToInt32(row["NuocTieuThu"])
+            };
+        }
+
+
         public int Them(ChiSoModel cs)
         {
             return db.ExecuteNonQuery("sp_ChiSo_Them", true,
