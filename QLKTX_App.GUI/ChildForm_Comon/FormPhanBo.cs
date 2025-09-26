@@ -270,5 +270,33 @@ namespace QLKTX_App.ChildForm_Comon
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            string mssv = dgvHopDong.CurrentRow.Cells["MSSV"].Value.ToString();
+            string maPhong = dgvHopDong.CurrentRow.Cells["MaPhong"].Value.ToString();
+
+            var confirm = MessageBox.Show(
+                $"Bạn có chắc chắn muốn xóa phân bổ của SV {mssv} tại phòng {maPhong}?",
+                "Xác nhận",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirm == DialogResult.Yes)
+            {
+                try
+                {
+                    if (_pbBLL.Delete(mssv, maPhong))
+                    {
+                        MessageBox.Show("Xóa phân bổ thành công!");
+                        LoadPhanBo(); // hàm reload lại DataGridView
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

@@ -15,6 +15,23 @@ namespace QLKTX_App.Utilities
             {
                 ExcelPackage.License.SetNonCommercialPersonal("Thach Hien");
 
+                // header bằng tiếng Việt có dấu
+                var headerMap = new System.Collections.Generic.Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+                {
+                    { "MaHD", "Mã HĐ" },
+                    { "MaPhong", "Phòng" },
+                    { "Thang", "Tháng" },
+                    { "Nam", "Năm" },
+                    { "NgayLap", "Ngày lập" },
+                    { "DienTieuThu", "Chỉ số điện" },
+                    { "NuocTieuThu", "Chỉ số nước" },
+                    { "SoLuongXe", "Số lượng xe" },
+                    { "TienDien", "Tiền điện" },
+                    { "TienNuoc", "Tiền nước" },
+                    { "TienGuiXe", "Tiền xe" },
+                    { "TongTien", "Thành tiền" }
+                };
+
                 using (var package = new ExcelPackage())
                 {
                     var ws = package.Workbook.Worksheets.Add("DanhSachHoaDon");
@@ -27,10 +44,13 @@ namespace QLKTX_App.Utilities
                     ws.Cells[1, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                     ws.Cells[1, 1, 1, data.Columns.Count].Merge = true;
 
-                    // HEADER
+                    // ===== 2. HEADER =====
                     for (int i = 0; i < data.Columns.Count; i++)
                     {
-                        ws.Cells[3, i + 1].Value = data.Columns[i].ColumnName;
+                        string colName = data.Columns[i].ColumnName;
+                        string headerText = headerMap.ContainsKey(colName) ? headerMap[colName] : colName;
+
+                        ws.Cells[3, i + 1].Value = headerText; // ✅ dùng tiếng Việt
                         ws.Cells[3, i + 1].Style.Font.Bold = true;
                         ws.Cells[3, i + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
                         ws.Cells[3, i + 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
@@ -39,7 +59,7 @@ namespace QLKTX_App.Utilities
                         ws.Cells[3, i + 1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
                     }
 
-                    // DATA
+                    // ===== 3. DỮ LIỆU =====
                     for (int r = 0; r < data.Rows.Count; r++)
                     {
                         for (int c = 0; c < data.Columns.Count; c++)
@@ -47,7 +67,7 @@ namespace QLKTX_App.Utilities
                             ws.Cells[r + 4, c + 1].Value = data.Rows[r][c];
                             string colName = data.Columns[c].ColumnName.ToLower();
 
-                            if (c == 4) // ✅ Cột số 5 (index 0-based)
+                            if (colName.Contains("ngay"))
                             {
                                 ws.Cells[r + 4, c + 1].Style.Numberformat.Format = "dd/MM/yyyy";
                                 ws.Cells[r + 4, c + 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -74,8 +94,7 @@ namespace QLKTX_App.Utilities
                         }
                     }
 
-
-                    // TỔNG CỘNG
+                    // ===== 4. TỔNG CỘNG =====
                     int totalRow = data.Rows.Count + 4;
                     ws.Cells[totalRow, 1].Value = "Tổng cộng";
                     ws.Cells[totalRow, 1, totalRow, data.Columns.Count - 4].Merge = true;

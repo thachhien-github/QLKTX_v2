@@ -24,6 +24,12 @@ namespace QLKTX_App.BLL
             return _dal.Update(pb);
         }
 
+        public bool Delete(string mssv, string maPhong)
+        {
+            return _dal.Delete(mssv, maPhong);
+        }
+
+
         public bool ChuyenPhong(PhanBoModel pb, string maPhongCu)
         {
             return _dal.ChuyenPhong(pb, maPhongCu);

@@ -46,6 +46,24 @@ namespace QLKTX_App.DAL
             return _db.ExecuteNonQuery(sql, false, prms) > 0;
         }
 
+        public bool Delete(string mssv, string maPhong)
+        {
+            var prms = new[]
+            {
+                new SqlParameter("@MSSV", mssv),
+                new SqlParameter("@MaPhong", maPhong)
+            };
+
+            try
+            {
+                return _db.ExecuteNonQuery("sp_PhanBo_Xoa", true, prms) > 0;
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Message); // Lấy message từ THROW trong SQL
+            }
+        }
+
         public bool Update(PhanBoModel pb)
         {
             var prms = new[]

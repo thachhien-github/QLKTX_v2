@@ -44,6 +44,11 @@ namespace QLKTX_App.ChildForm_Comon
                 dgvPhong.Columns["TongTien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
 
+            if (dgvPhong.Columns.Contains("GhiChu"))
+            {
+                dgvPhong.Columns["GhiChu"].DisplayIndex = dgvPhong.Columns.Count - 1;
+            }
+
             // ===== Hóa đơn dịch vụ =====
             _dtDichVu = _dvBLL.LayDanhSachHoaDon();
             dgvDichVu.DataSource = _dtDichVu;
@@ -267,67 +272,112 @@ namespace QLKTX_App.ChildForm_Comon
 
         private void btnExportDichVu_Click(object sender, EventArgs e)
         {
-            if (_dtDichVu == null || _dtDichVu.Rows.Count == 0)
+            try
             {
-                MessageBox.Show("Không có dữ liệu để xuất báo cáo!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            if (cboThangNam.SelectedIndex <= 0)
-            {
-                MessageBox.Show("Vui lòng chọn Tháng/Năm trước khi xuất báo cáo!",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            string[] parts = cboThangNam.SelectedItem.ToString().Split('/');
-            int thang = int.Parse(parts[0]);
-            int nam = int.Parse(parts[1]);
-
-            var rows = _dtDichVu.AsEnumerable()
-                .Where(r => r.Field<int>("Thang") == thang && r.Field<int>("Nam") == nam);
-
-            if (!rows.Any())
-            {
-                MessageBox.Show($"Không có dữ liệu dịch vụ trong tháng {thang}/{nam}!",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            DataTable dtDVLoc = rows.CopyToDataTable();
-
-            using (SaveFileDialog sfd = new SaveFileDialog()
-            {
-                Filter = "Excel file|*.xlsx",
-                FileName = $"BaoCao_DichVu_{nam}{thang:D2}.xlsx"
-            })
-            {
-                if (sfd.ShowDialog() == DialogResult.OK)
+                if (_dtDichVu == null || _dtDichVu.Rows.Count == 0)
                 {
-                    try
+                    MessageBox.Show("Không có dữ liệu để xuất báo cáo!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Nếu chọn "Tất cả" trong cboThangNam -> báo cáo theo năm
+                if (cboThangNam.SelectedIndex == 0)
+                {
+                    // Yêu cầu chọn năm
+                    if (cboNam.SelectedIndex <= 0)
                     {
-                        string filePath = sfd.FileName;
-
-                        ExcelExportHoaDonDV.XuatExcel(dtDVLoc, filePath,
-                            $"BÁO CÁO DOANH THU DỊCH VỤ THÁNG {thang}/{nam}");
-
-                        MessageBox.Show("Xuất báo cáo dịch vụ thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        // ✅ Mở file Excel sau khi tạo
-                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
-                        {
-                            FileName = filePath,
-                            UseShellExecute = true
-                        });
+                        MessageBox.Show("Vui lòng chọn Năm để xuất báo cáo dịch vụ!",
+                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                     }
-                    catch (Exception ex)
+
+                    int nam = int.Parse(cboNam.SelectedItem.ToString());
+
+                    var rows = _dtDichVu.AsEnumerable()
+                        .Where(r => r.Field<int>("Nam") == nam);
+
+                    if (!rows.Any())
                     {
-                        MessageBox.Show("Lỗi khi xuất báo cáo: " + ex.Message, "Lỗi",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"Không có dữ liệu dịch vụ trong năm {nam}!",
+                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    DataTable dtDVLoc = rows.CopyToDataTable();
+
+                    using (SaveFileDialog sfd = new SaveFileDialog()
+                    {
+                        Filter = "Excel file|*.xlsx",
+                        FileName = $"BaoCao_DichVu_Nam{nam}_{DateTime.Now:yyyyMMdd}.xlsx"
+                    })
+                    {
+                        if (sfd.ShowDialog() == DialogResult.OK)
+                        {
+                            string filePath = sfd.FileName;
+
+                            ExcelExportHoaDonDV.XuatExcel(dtDVLoc, filePath,
+                                $"BÁO CÁO DOANH THU DỊCH VỤ NĂM {nam}");
+
+                            MessageBox.Show("Xuất báo cáo dịch vụ theo năm thành công!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                            {
+                                FileName = filePath,
+                                UseShellExecute = true
+                            });
+                        }
                     }
                 }
+                else
+                {
+                    // Xuất theo tháng như cũ
+                    string[] parts = cboThangNam.SelectedItem.ToString().Split('/');
+                    int thang = int.Parse(parts[0]);
+                    int nam = int.Parse(parts[1]);
+
+                    var rows = _dtDichVu.AsEnumerable()
+                        .Where(r => r.Field<int>("Thang") == thang && r.Field<int>("Nam") == nam);
+
+                    if (!rows.Any())
+                    {
+                        MessageBox.Show($"Không có dữ liệu dịch vụ trong tháng {thang}/{nam}!",
+                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    DataTable dtDVLoc = rows.CopyToDataTable();
+
+                    using (SaveFileDialog sfd = new SaveFileDialog()
+                    {
+                        Filter = "Excel file|*.xlsx",
+                        FileName = $"BaoCao_DichVu_{nam}{thang:D2}.xlsx"
+                    })
+                    {
+                        if (sfd.ShowDialog() == DialogResult.OK)
+                        {
+                            string filePath = sfd.FileName;
+
+                            ExcelExportHoaDonDV.XuatExcel(dtDVLoc, filePath,
+                                $"BÁO CÁO DOANH THU DỊCH VỤ THÁNG {thang}/{nam}");
+
+                            MessageBox.Show("Xuất báo cáo dịch vụ theo tháng thành công!", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                            {
+                                FileName = filePath,
+                                UseShellExecute = true
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi khi xuất báo cáo dịch vụ!\n\nChi tiết: " + ex.Message,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

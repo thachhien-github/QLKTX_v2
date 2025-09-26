@@ -56,6 +56,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.txtMSSV = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnXoa = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHopDong)).BeginInit();
             this.panel2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -122,6 +123,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnXoa);
             this.groupBox3.Controls.Add(this.btnSua);
             this.groupBox3.Controls.Add(this.chkMienTienPhong);
             this.groupBox3.Controls.Add(this.btnQuayLai);
@@ -163,7 +165,7 @@
             this.btnSua.IconColor = System.Drawing.Color.DarkOrange;
             this.btnSua.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnSua.IconSize = 25;
-            this.btnSua.Location = new System.Drawing.Point(755, 165);
+            this.btnSua.Location = new System.Drawing.Point(633, 165);
             this.btnSua.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnSua.Name = "btnSua";
             this.btnSua.Padding = new System.Windows.Forms.Padding(3);
@@ -300,7 +302,7 @@
             this.btnPhanBo.IconColor = System.Drawing.Color.LimeGreen;
             this.btnPhanBo.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnPhanBo.IconSize = 25;
-            this.btnPhanBo.Location = new System.Drawing.Point(628, 165);
+            this.btnPhanBo.Location = new System.Drawing.Point(506, 165);
             this.btnPhanBo.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnPhanBo.Name = "btnPhanBo";
             this.btnPhanBo.Padding = new System.Windows.Forms.Padding(3);
@@ -439,6 +441,29 @@
             this.label1.Text = "Phân Bổ Sinh Viên";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnXoa
+            // 
+            this.btnXoa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnXoa.FlatAppearance.BorderSize = 0;
+            this.btnXoa.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnXoa.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoa.ForeColor = System.Drawing.Color.Black;
+            this.btnXoa.IconChar = FontAwesome.Sharp.IconChar.CircleXmark;
+            this.btnXoa.IconColor = System.Drawing.Color.Red;
+            this.btnXoa.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnXoa.IconSize = 25;
+            this.btnXoa.Location = new System.Drawing.Point(755, 165);
+            this.btnXoa.MaximumSize = new System.Drawing.Size(275, 45);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Padding = new System.Windows.Forms.Padding(3);
+            this.btnXoa.Size = new System.Drawing.Size(116, 38);
+            this.btnXoa.TabIndex = 19;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnXoa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnXoa.UseVisualStyleBackColor = false;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
+            // 
             // FormPhanBo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -488,5 +513,6 @@
         private System.Windows.Forms.TextBox txtHoTen;
         private System.Windows.Forms.TextBox txtSoDotThu;
         private FontAwesome.Sharp.IconButton btnSua;
+        private FontAwesome.Sharp.IconButton btnXoa;
     }
 }

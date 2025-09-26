@@ -44,10 +44,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.panelLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox2)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -219,6 +221,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label4);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 525);
             this.panel2.MaximumSize = new System.Drawing.Size(0, 75);
@@ -257,7 +260,7 @@
             // 
             // label3
             // 
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(81, 448);
             this.label3.Name = "label3";
@@ -276,6 +279,17 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 11;
             this.pictureBox2.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(0, 38);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(950, 28);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "© 2025 – Hệ thống quản lý ký túc xá | Version 1.0.0.1";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormLogin
             // 
@@ -306,6 +320,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelTop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox2)).EndInit();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
@@ -327,5 +342,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }

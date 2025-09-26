@@ -71,6 +71,12 @@ namespace QLKTX_App.GUI.ChildForm_NhanVien
                     dgvListHD.Columns[col].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 }
             }
+
+            if (dgvListHD.Columns.Contains("GhiChu"))
+            {
+                dgvListHD.Columns["GhiChu"].DisplayIndex = dgvListHD.Columns.Count - 1;
+            }
+
         }
 
         private void LoadThongTinHoaDon()

@@ -59,6 +59,8 @@
             this.panelDesktop = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelMenu.SuspendLayout();
             this.panelHoaDon.SuspendLayout();
             this.panelPhong.SuspendLayout();
@@ -574,6 +576,8 @@
             // panelDesktop
             // 
             this.panelDesktop.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelDesktop.Controls.Add(this.label3);
+            this.panelDesktop.Controls.Add(this.label1);
             this.panelDesktop.Controls.Add(this.pictureBox1);
             this.panelDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDesktop.Location = new System.Drawing.Point(275, 90);
@@ -587,10 +591,11 @@
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Enabled = false;
             this.pictureBox1.Image = global::QLKTX_App.GUI.Properties.Resources.LOGO_01;
-            this.pictureBox1.Location = new System.Drawing.Point(350, 135);
-            this.pictureBox1.MaximumSize = new System.Drawing.Size(365, 365);
+            this.pictureBox1.Location = new System.Drawing.Point(381, 97);
+            this.pictureBox1.MaximumSize = new System.Drawing.Size(300, 300);
+            this.pictureBox1.MinimumSize = new System.Drawing.Size(300, 300);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(365, 365);
+            this.pictureBox1.Size = new System.Drawing.Size(300, 300);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -604,6 +609,31 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1065, 10);
             this.panel1.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Gray;
+            this.label3.Location = new System.Drawing.Point(0, 480);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(1062, 29);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "TRƯỜNG CAO ĐẲNG GIAO THÔNG VẬN TẢI TP. HCM";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
+            this.label1.Location = new System.Drawing.Point(0, 424);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(1062, 55);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "KÝ TÚC XÁ";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormNhanVien
             // 
@@ -669,5 +699,7 @@
         private System.Windows.Forms.Panel panelHoaDon;
         private FontAwesome.Sharp.IconButton btnHDDichVu;
         private FontAwesome.Sharp.IconButton btnHDHopDong;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
     }
 }
