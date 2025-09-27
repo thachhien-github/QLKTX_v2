@@ -97,8 +97,6 @@ namespace QLKTX_App.DAL
             return _db.ExecuteNonQuery("sp_PhanBo_ChuyenPhong", true, prms) > 0;
         }
 
-
-
         public DataTable GetAllPhong()
         {
             return _db.ExecuteQuery("SELECT MaPhong FROM Phong", false);

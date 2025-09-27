@@ -50,8 +50,6 @@ namespace QLKTX_App.DAL
             return _dbh.ExecuteNonQuery("sp_SinhVien_Sua", true, prms);
         }
 
-
-
         public DataTable GetByPhong(string maPhong)
         {
             var prms = new[] { new SqlParameter("@MaPhong", maPhong) };
