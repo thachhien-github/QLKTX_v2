@@ -112,8 +112,8 @@
             this.tableLayoutPanel1.Controls.Add(this.panel2, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel4, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 60);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(10);
@@ -135,7 +135,8 @@
             this.groupBox3.Controls.Add(this.txtTenLoaiXe);
             this.groupBox3.Controls.Add(this.btnLuuGiaXe);
             this.groupBox3.Controls.Add(this.btnlammoiXe);
-            this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(701, 264);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(343, 256);
@@ -191,7 +192,7 @@
             this.btnXoaXe.IconColor = System.Drawing.Color.Red;
             this.btnXoaXe.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnXoaXe.IconSize = 25;
-            this.btnXoaXe.Location = new System.Drawing.Point(120, 189);
+            this.btnXoaXe.Location = new System.Drawing.Point(116, 200);
             this.btnXoaXe.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnXoaXe.Name = "btnXoaXe";
             this.btnXoaXe.Padding = new System.Windows.Forms.Padding(3);
@@ -232,7 +233,7 @@
             this.btnLuuGiaXe.IconColor = System.Drawing.Color.LimeGreen;
             this.btnLuuGiaXe.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnLuuGiaXe.IconSize = 25;
-            this.btnLuuGiaXe.Location = new System.Drawing.Point(13, 189);
+            this.btnLuuGiaXe.Location = new System.Drawing.Point(9, 200);
             this.btnLuuGiaXe.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnLuuGiaXe.Name = "btnLuuGiaXe";
             this.btnLuuGiaXe.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
@@ -255,7 +256,7 @@
             this.btnlammoiXe.IconColor = System.Drawing.Color.Red;
             this.btnlammoiXe.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnlammoiXe.IconSize = 25;
-            this.btnlammoiXe.Location = new System.Drawing.Point(227, 189);
+            this.btnlammoiXe.Location = new System.Drawing.Point(223, 200);
             this.btnlammoiXe.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnlammoiXe.Name = "btnlammoiXe";
             this.btnlammoiXe.Padding = new System.Windows.Forms.Padding(3);
@@ -507,7 +508,8 @@
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.btnlammoiDN);
             this.groupBox2.Controls.Add(this.txtGiaDien);
-            this.groupBox2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(352, 264);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(343, 256);
@@ -526,7 +528,7 @@
             this.btnLuuGiaDN.IconColor = System.Drawing.Color.LimeGreen;
             this.btnLuuGiaDN.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnLuuGiaDN.IconSize = 25;
-            this.btnLuuGiaDN.Location = new System.Drawing.Point(62, 189);
+            this.btnLuuGiaDN.Location = new System.Drawing.Point(61, 200);
             this.btnLuuGiaDN.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnLuuGiaDN.Name = "btnLuuGiaDN";
             this.btnLuuGiaDN.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
@@ -577,7 +579,7 @@
             this.btnlammoiDN.IconColor = System.Drawing.Color.Red;
             this.btnlammoiDN.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnlammoiDN.IconSize = 25;
-            this.btnlammoiDN.Location = new System.Drawing.Point(173, 189);
+            this.btnlammoiDN.Location = new System.Drawing.Point(172, 200);
             this.btnlammoiDN.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnlammoiDN.Name = "btnlammoiDN";
             this.btnlammoiDN.Padding = new System.Windows.Forms.Padding(3);
@@ -611,7 +613,7 @@
             this.groupBox1.Controls.Add(this.btnXoaPhong);
             this.groupBox1.Controls.Add(this.btnlammoiPhong);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(3, 264);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(343, 256);
@@ -623,7 +625,7 @@
             // 
             this.cboMaLoaiPhong.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboMaLoaiPhong.FormattingEnabled = true;
-            this.cboMaLoaiPhong.Location = new System.Drawing.Point(120, 29);
+            this.cboMaLoaiPhong.Location = new System.Drawing.Point(120, 44);
             this.cboMaLoaiPhong.Name = "cboMaLoaiPhong";
             this.cboMaLoaiPhong.Size = new System.Drawing.Size(208, 31);
             this.cboMaLoaiPhong.TabIndex = 0;
@@ -639,7 +641,7 @@
             this.btnLuuGiaPhong.IconColor = System.Drawing.Color.LimeGreen;
             this.btnLuuGiaPhong.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnLuuGiaPhong.IconSize = 25;
-            this.btnLuuGiaPhong.Location = new System.Drawing.Point(13, 189);
+            this.btnLuuGiaPhong.Location = new System.Drawing.Point(13, 200);
             this.btnLuuGiaPhong.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnLuuGiaPhong.Name = "btnLuuGiaPhong";
             this.btnLuuGiaPhong.Padding = new System.Windows.Forms.Padding(10, 3, 3, 3);
@@ -655,7 +657,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(13, 141);
+            this.label13.Location = new System.Drawing.Point(13, 156);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(82, 23);
             this.label13.TabIndex = 22;
@@ -665,7 +667,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(13, 105);
+            this.label6.Location = new System.Drawing.Point(13, 120);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 23);
             this.label6.TabIndex = 22;
@@ -675,7 +677,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 69);
+            this.label4.Location = new System.Drawing.Point(13, 84);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 23);
             this.label4.TabIndex = 22;
@@ -685,7 +687,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(13, 33);
+            this.label2.Location = new System.Drawing.Point(13, 48);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 23);
             this.label2.TabIndex = 22;
@@ -694,7 +696,7 @@
             // txtSucChua
             // 
             this.txtSucChua.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSucChua.Location = new System.Drawing.Point(120, 138);
+            this.txtSucChua.Location = new System.Drawing.Point(120, 153);
             this.txtSucChua.Name = "txtSucChua";
             this.txtSucChua.Size = new System.Drawing.Size(208, 30);
             this.txtSucChua.TabIndex = 3;
@@ -702,7 +704,7 @@
             // txtDGPhong
             // 
             this.txtDGPhong.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDGPhong.Location = new System.Drawing.Point(120, 102);
+            this.txtDGPhong.Location = new System.Drawing.Point(120, 117);
             this.txtDGPhong.Name = "txtDGPhong";
             this.txtDGPhong.Size = new System.Drawing.Size(208, 30);
             this.txtDGPhong.TabIndex = 2;
@@ -710,7 +712,7 @@
             // txtTenLoaiPhong
             // 
             this.txtTenLoaiPhong.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTenLoaiPhong.Location = new System.Drawing.Point(120, 66);
+            this.txtTenLoaiPhong.Location = new System.Drawing.Point(120, 81);
             this.txtTenLoaiPhong.Name = "txtTenLoaiPhong";
             this.txtTenLoaiPhong.Size = new System.Drawing.Size(208, 30);
             this.txtTenLoaiPhong.TabIndex = 1;
@@ -726,7 +728,7 @@
             this.btnXoaPhong.IconColor = System.Drawing.Color.Red;
             this.btnXoaPhong.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnXoaPhong.IconSize = 25;
-            this.btnXoaPhong.Location = new System.Drawing.Point(120, 189);
+            this.btnXoaPhong.Location = new System.Drawing.Point(120, 200);
             this.btnXoaPhong.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnXoaPhong.Name = "btnXoaPhong";
             this.btnXoaPhong.Padding = new System.Windows.Forms.Padding(3);
@@ -749,7 +751,7 @@
             this.btnlammoiPhong.IconColor = System.Drawing.Color.Red;
             this.btnlammoiPhong.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnlammoiPhong.IconSize = 25;
-            this.btnlammoiPhong.Location = new System.Drawing.Point(227, 189);
+            this.btnlammoiPhong.Location = new System.Drawing.Point(227, 200);
             this.btnlammoiPhong.MaximumSize = new System.Drawing.Size(275, 45);
             this.btnlammoiPhong.Name = "btnlammoiPhong";
             this.btnlammoiPhong.Padding = new System.Windows.Forms.Padding(3);
