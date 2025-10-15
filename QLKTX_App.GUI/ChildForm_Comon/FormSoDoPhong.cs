@@ -58,18 +58,21 @@ namespace QLKTX_App.ChildForm_Comon
         {
             foreach (DataRow row in dt.Rows)
             {
+                string maPhong = row["MaPhong"].ToString();
+                int soLuongToiDa = Convert.ToInt32(row["SoLuongToiDa"]);
+
                 Button btn = new Button
                 {
-                    Text = row["MaPhong"].ToString(),
-                    Tag = row["MaPhong"].ToString(),
-                    Width = 140,
-                    Height = 110,
+                    Text = $"{maPhong}\n(Sức chứa: {soLuongToiDa})",
+                    Tag = maPhong,
+                    Width = 160,
+                    Height = 120,
                     Margin = new Padding(8),
                     FlatStyle = FlatStyle.Flat,
-                    Font = new Font("Segoe UI", 14, FontStyle.Bold),
+                    Font = new Font("Segoe UI", 12, FontStyle.Bold),
                     ForeColor = Color.White,
                     TextAlign = ContentAlignment.MiddleCenter,
-                    BackColor = Color.Gray // sẽ đổi bên dưới theo trạng thái
+                    BackColor = Color.Gray
                 };
 
                 // Bỏ viền khi hover
@@ -82,19 +85,21 @@ namespace QLKTX_App.ChildForm_Comon
                     CreateRoundRectRgn(0, 0, btn.Width, btn.Height, 20, 20)
                 );
 
-
                 string trangThai = row["TrangThai"].ToString();
                 if (trangThai == "Trống")
                     btn.BackColor = Color.LightGreen;
                 else if (trangThai == "Đầy")
                     btn.BackColor = Color.DarkOrange;
                 else
-                    btn.BackColor = Color.Gray;
+                    btn.BackColor = Color.Turquoise;
 
                 btn.Click += BtnPhong_Click;
                 flpPhong.Controls.Add(btn);
             }
         }
+
+
+
 
         #endregion
         // Sự kiện chọn phòng
