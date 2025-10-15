@@ -237,7 +237,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(950, 28);
             this.label4.TabIndex = 0;
-            this.label4.Text = "© 2025 – Hệ thống quản lý ký túc xá | Version 1.0.0.1";
+            this.label4.Text = "© 2025 – Hệ thống quản lý ký túc xá | Version 1.0";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel3
