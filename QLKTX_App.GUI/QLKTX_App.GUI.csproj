@@ -359,6 +359,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\HoaDonDVPdfExporter.cs" />
     <Compile Include="Util\HoaDonHDPdfExporter.cs" />
+    <Compile Include="Util\HopDongExporter.cs" />
     <EmbeddedResource Include="ChildForm_Admin\FormImportDB.resx">
       <DependentUpon>FormImportDB.cs</DependentUpon>
     </EmbeddedResource>

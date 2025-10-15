@@ -164,7 +164,6 @@
     <Compile Include="CurrentUser.cs" />
     <Compile Include="DbConfig.cs" />
     <Compile Include="ExcelExportHoaDonDV.cs" />
-    <Compile Include="HopDongExporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExcelExportPhong.cs" />
   </ItemGroup>

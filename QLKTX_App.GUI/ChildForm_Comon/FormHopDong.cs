@@ -125,17 +125,80 @@ namespace QLKTX_App.GUI.ChildForm_Comon
 
         private void btnXuatHopDong_Click(object sender, EventArgs e)
         {
-            if (dgvListHopDong.CurrentRow == null) return;
-
-            var r = ((DataRowView)dgvListHopDong.CurrentRow.DataBoundItem).Row;
-
-            using (SaveFileDialog sfd = new SaveFileDialog { Filter = "PDF|*.pdf" })
+            // Kiểm tra chọn hàng
+            if (dgvListHopDong.CurrentRow == null)
             {
-                if (sfd.ShowDialog() == DialogResult.OK)
+                MessageBox.Show("Vui lòng chọn hợp đồng để xuất PDF!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var row = dgvListHopDong.CurrentRow;
+                // Lấy dữ liệu an toàn từ DataGridViewRow
+                string mssv = row.Cells["MSSV"]?.Value?.ToString() ?? "";
+                string hoTen = row.Cells["HoTen"]?.Value?.ToString() ?? "";
+                string maPhong = row.Cells["MaPhong"]?.Value?.ToString() ?? "";
+                string ghiChu = row.Cells["GhiChu"]?.Value?.ToString() ?? "";
+
+                // Parse giá phòng
+                decimal tienPhong = 0;
+                if (row.Cells["GiaPhong"]?.Value != null)
+                    decimal.TryParse(row.Cells["GiaPhong"].Value.ToString(), out tienPhong);
+
+                // Thông tin ngày (nếu có)
+                DateTime? ngayPhanBo = null;
+                DateTime tmp;
+                if (row.Cells["NgayPhanBo"]?.Value != null && DateTime.TryParse(row.Cells["NgayPhanBo"].Value.ToString(), out tmp))
+                    ngayPhanBo = tmp;
+
+                DateTime? ngayHetHan = null;
+                if (row.Cells["NgayHetHan"]?.Value != null && DateTime.TryParse(row.Cells["NgayHetHan"].Value.ToString(), out tmp))
+                    ngayHetHan = tmp;
+
+                // Tạo model chi tiết hợp đồng
+                var ct = new HopDongExporter.ChiTietHopDong
                 {
-                    HopDongExporter.ExportHopDongPDF(r, sfd.FileName);
-                    MessageBox.Show("Xuất hợp đồng PDF thành công!");
+                    MSSV = mssv,
+                    HoTen = hoTen,
+                    MaPhong = maPhong,
+                    TienPhong = tienPhong,
+                    TienTheChan = 300000,
+                    GhiChu = ghiChu,
+                    NguoiLap = Environment.UserName,
+                    NgayPhanBo = ngayPhanBo,
+                    NgayHetHan = ngayHetHan
+                };
+
+                // Số hợp đồng: bạn có thể đổi format nếu muốn
+                string soHopDong = $"HD-{ct.MSSV}-{ct.MaPhong}-{DateTime.Now:yyyyMMddHHmmss}";
+                DateTime ngayLap = DateTime.Now;
+
+                using (SaveFileDialog sfd = new SaveFileDialog()
+                {
+                    Filter = "PDF file (*.pdf)|*.pdf",
+                    FileName = $"HopDong_{ct.MSSV}_{ct.MaPhong}_{DateTime.Now:yyyyMMdd}.pdf"
+                })
+                {
+                    if (sfd.ShowDialog() != DialogResult.OK) return;
+
+                    // Gọi exporter đã gộp vào HopDongExporter
+                    HopDongExporter.ExportHopDongPdf(soHopDong, ngayLap, ct, sfd.FileName);
+
+                    MessageBox.Show("Xuất hợp đồng PDF thành công!", "Hoàn tất", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Hỏi mở file
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                    {
+                        FileName = sfd.FileName,
+                        UseShellExecute = true
+                    });
+  
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xuất hợp đồng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
