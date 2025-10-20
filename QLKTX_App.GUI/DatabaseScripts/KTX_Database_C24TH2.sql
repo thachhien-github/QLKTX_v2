@@ -178,21 +178,21 @@ BEGIN
     -- Kiểm tra nhân viên đã có tài khoản chưa
     IF EXISTS(SELECT 1 FROM dbo.TaiKhoan WHERE MaNV = @MaNV)
     BEGIN
-        RAISERROR(N'❌ Nhân viên này đã có tài khoản!', 16, 1);
+        RAISERROR(N'Nhân viên này đã có tài khoản!', 16, 1);
         RETURN;
     END
 
     -- Kiểm tra trùng tên đăng nhập
     IF EXISTS(SELECT 1 FROM dbo.TaiKhoan WHERE TenDangNhap = @TenDangNhap)
     BEGIN
-        RAISERROR(N'❌ Tên đăng nhập đã tồn tại!', 16, 1);
+        RAISERROR(N'Tên đăng nhập đã tồn tại!', 16, 1);
         RETURN;
     END
 
     -- Kiểm tra vai trò hợp lệ
     IF @VaiTro NOT IN (N'Admin', N'NhanVien')
     BEGIN
-        RAISERROR(N'❌ Vai trò không hợp lệ!', 16, 1);
+        RAISERROR(N'Vai trò không hợp lệ!', 16, 1);
         RETURN;
     END
 
@@ -216,14 +216,14 @@ BEGIN
     -- Kiểm tra tồn tại
     IF NOT EXISTS (SELECT 1 FROM dbo.TaiKhoan WHERE MaNV = @MaNV)
     BEGIN
-        RAISERROR(N'❌ Không tìm thấy tài khoản.', 16, 1);
+        RAISERROR(N'Không tìm thấy tài khoản.', 16, 1);
         RETURN;
     END
 
     -- Kiểm tra vai trò hợp lệ
     IF @VaiTro NOT IN (N'Admin', N'NhanVien')
     BEGIN
-        RAISERROR(N'❌ Vai trò không hợp lệ.', 16, 1);
+        RAISERROR(N'Vai trò không hợp lệ.', 16, 1);
         RETURN;
     END
 
@@ -328,7 +328,7 @@ BEGIN
     -- Kiểm tra tồn tại
     IF NOT EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV = @MaNV)
     BEGIN
-        RAISERROR(N'❌ Không tìm thấy nhân viên.', 16, 1);
+        RAISERROR(N'Không tìm thấy nhân viên.', 16, 1);
         RETURN;
     END;
 
@@ -341,7 +341,7 @@ BEGIN
         Email = @Email
     WHERE MaNV = @MaNV;
 
-    PRINT N'✅ Cập nhật nhân viên thành công!';
+    PRINT N'Cập nhật nhân viên thành công!';
 END;
 GO
 
@@ -355,20 +355,20 @@ BEGIN
     -- Kiểm tra tồn tại
     IF NOT EXISTS(SELECT 1 FROM dbo.NhanVien WHERE MaNV = @MaNV)
     BEGIN
-        RAISERROR(N'❌ Nhân viên không tồn tại.', 16, 1);
+        RAISERROR(N'Nhân viên không tồn tại.', 16, 1);
         RETURN;
     END;
 
     -- Nếu nhân viên đang có tài khoản thì KHÔNG cho xóa
     IF EXISTS(SELECT 1 FROM dbo.TaiKhoan WHERE MaNV = @MaNV)
     BEGIN
-        RAISERROR(N'❌ Không thể xóa nhân viên vì đang có tài khoản.', 16, 1);
+        RAISERROR(N'Không thể xóa nhân viên vì đang có tài khoản.', 16, 1);
         RETURN;
     END;
 
     DELETE FROM dbo.NhanVien WHERE MaNV = @MaNV;
 
-    PRINT N'✅ Xóa nhân viên thành công!';
+    PRINT N'Xóa nhân viên thành công!';
 END;
 GO
 
@@ -626,13 +626,13 @@ BEGIN
     -- 1. Kiểm tra phân bổ cũ có tồn tại
     IF NOT EXISTS (SELECT 1 FROM dbo.PhanBo WHERE MSSV=@MSSV AND MaPhong=@MaPhongCu)
     BEGIN
-        THROW 65020, N'❌ Không tìm thấy phân bổ ở phòng cũ.', 1;
+        THROW 65020, N'Không tìm thấy phân bổ ở phòng cũ.', 1;
     END
 
     -- 2. Kiểm tra phòng mới có tồn tại
     IF NOT EXISTS (SELECT 1 FROM dbo.Phong WHERE MaPhong=@MaPhongMoi)
     BEGIN
-        THROW 65021, N'❌ Phòng mới không tồn tại.', 1;
+        THROW 65021, N'Phòng mới không tồn tại.', 1;
     END
 
     -- 3. Xóa phân bổ cũ

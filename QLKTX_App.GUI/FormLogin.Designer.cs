@@ -277,7 +277,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(416, 29);
             this.label3.TabIndex = 12;
-            this.label3.Text = "TRƯỜNG CAO ĐẲNG GTVT TP. HCM";
+            this.label3.Text = "TRƯỜNG CAO ĐẲNG GIAO THÔNG VẬN TẢI";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox2

@@ -5,6 +5,7 @@ using QLKTX_App.ChildForm_NhanVien;
 using QLKTX_App.DTO;
 using QLKTX_App.GUI.ChildForm_Admin;
 using QLKTX_App.GUI.ChildForm_Comon;
+using QLKTX_App.GUI.ChildForm_NhanVien;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,7 +49,8 @@ namespace QLKTX_App
         private void customizeDesign()
         {
             panelPhong.Visible = false;
-            panelThietLap.Visible = false;          
+            panelThietLap.Visible = false;
+            panelHoaDon.Visible = false;
         }
 
         private void hideMenu()
@@ -57,6 +59,10 @@ namespace QLKTX_App
                 panelPhong.Visible = false;
             if (panelThietLap.Visible == true)
                 panelThietLap.Visible = false;
+            if (panelHoaDon.Visible == true)
+                panelHoaDon.Visible = false;
+
+            DisableButton();
         }
 
         private void showMenu(Panel Menu)
@@ -72,8 +78,6 @@ namespace QLKTX_App
             }
         }
         #endregion
-
-
 
         #region Properties
         private struct RGBColors
@@ -107,7 +111,7 @@ namespace QLKTX_App
         {
             if (currentBtn != null)
             {     
-                currentBtn.BackColor = Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(102)))));
+                currentBtn.BackColor = Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
                 currentBtn.ForeColor = Color.White;
                 currentBtn.TextAlign = ContentAlignment.MiddleLeft; 
                 currentBtn.IconColor = Color.White;
@@ -132,6 +136,8 @@ namespace QLKTX_App
             childForm.BringToFront();
             childForm.Show();
             lblTitleChildForm.Text = childForm.Text;
+            
+            ActivateButton(currentBtn, RGBColors.color6);
         }
 
         //Click logo reset SideBar
@@ -241,13 +247,19 @@ namespace QLKTX_App
         private void btnTaiKhoan_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color6);
+            hideMenu();
             OpenChildForm(new FormQLTK());
         }
 
         //reset chọn khi nhấn vào logo
         private void btnHome_Click_1(object sender, EventArgs e)
         {
-            currentChildForm.Close();
+            if (currentChildForm != null)  // ✅ kiểm tra trước khi đóng
+            {
+                currentChildForm.Close();
+                currentChildForm = null;   // ✅ reset luôn biến
+            }
+
             Reset();
             hideMenu();
         }
@@ -256,6 +268,7 @@ namespace QLKTX_App
         private void btnNhanVien_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color6);
+            hideMenu();
             OpenChildForm(new FormQLNV());
         }
 
@@ -263,6 +276,7 @@ namespace QLKTX_App
         private void btnSinhVien_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color6);
+            hideMenu();
             OpenChildForm(new FormQLSV());
         }
 
@@ -288,22 +302,8 @@ namespace QLKTX_App
         private void btnThongKe_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color6);
+            hideMenu();
             OpenChildForm(new FormThongKeDT());
-        }
-
-        private void btnTKdien_Click(object sender, EventArgs e)
-        {
-            ActivateButton(sender, RGBColors.color6);
-        }
-
-        private void btnTKnuoc_Click(object sender, EventArgs e)
-        {
-            ActivateButton(sender, RGBColors.color6);
-        }
-
-        private void btnTKgiuxe_Click(object sender, EventArgs e)
-        {
-            ActivateButton(sender, RGBColors.color6);
         }
 
         private void btnXuatFile_Click(object sender, EventArgs e)
@@ -337,14 +337,46 @@ namespace QLKTX_App
         private void btnQLHopDong_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color6);
+            hideMenu();
             OpenChildForm(new FormHopDong());
         }
-        #endregion
 
         private void btnNapDLexcel_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color6);
             OpenChildForm(new FormImportDB());
         }
+
+        private void btnPhuongTien_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color6);
+            hideMenu();
+            OpenChildForm(new FormPhuongTien());
+        }
+
+        private void btnCSdiennuoc_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color6);
+            hideMenu();
+            OpenChildForm(new FormTieuThu());
+        }
+
+        private void btnQLHD_Click(object sender, EventArgs e)
+        {
+            showMenu(panelHoaDon);
+        }
+
+        private void btnHDHopDong_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color6);
+            OpenChildForm(new FormHoaDonHopDong());
+        }
+
+        private void btnHDDichVu_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color6);
+            OpenChildForm(new FormHoaDonHopDong());
+        }
+        #endregion
     }
 }

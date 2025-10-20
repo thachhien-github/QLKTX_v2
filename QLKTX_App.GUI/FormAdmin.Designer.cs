@@ -57,11 +57,17 @@
             this.iconCurrentChildForm = new FontAwesome.Sharp.IconPictureBox();
             this.panelShadow = new System.Windows.Forms.Panel();
             this.panelDesktop = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnXuatBC = new FontAwesome.Sharp.IconButton();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnXuatBC = new FontAwesome.Sharp.IconButton();
+            this.btnPhuongTien = new FontAwesome.Sharp.IconButton();
+            this.btnCSdiennuoc = new FontAwesome.Sharp.IconButton();
+            this.btnQLHD = new FontAwesome.Sharp.IconButton();
+            this.panelHoaDon = new System.Windows.Forms.Panel();
+            this.btnHDDichVu = new FontAwesome.Sharp.IconButton();
+            this.btnHDHopDong = new FontAwesome.Sharp.IconButton();
             this.panelMenu.SuspendLayout();
             this.panelThietLap.SuspendLayout();
             this.panelPhong.SuspendLayout();
@@ -74,6 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.iconCurrentChildForm)).BeginInit();
             this.panelDesktop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelHoaDon.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMenu
@@ -84,6 +91,10 @@
             this.panelMenu.Controls.Add(this.panelThietLap);
             this.panelMenu.Controls.Add(this.btnThiepLap);
             this.panelMenu.Controls.Add(this.btnThongKe);
+            this.panelMenu.Controls.Add(this.panelHoaDon);
+            this.panelMenu.Controls.Add(this.btnQLHD);
+            this.panelMenu.Controls.Add(this.btnCSdiennuoc);
+            this.panelMenu.Controls.Add(this.btnPhuongTien);
             this.panelMenu.Controls.Add(this.panelPhong);
             this.panelMenu.Controls.Add(this.btnPhong);
             this.panelMenu.Controls.Add(this.btnQLHopDong);
@@ -110,7 +121,7 @@
             this.btnLogOut.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnLogOut.IconSize = 32;
             this.btnLogOut.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogOut.Location = new System.Drawing.Point(0, 750);
+            this.btnLogOut.Location = new System.Drawing.Point(0, 1020);
             this.btnLogOut.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
@@ -128,7 +139,7 @@
             this.panelThietLap.Controls.Add(this.btnNapDLexcel);
             this.panelThietLap.Controls.Add(this.btnGia);
             this.panelThietLap.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelThietLap.Location = new System.Drawing.Point(0, 660);
+            this.panelThietLap.Location = new System.Drawing.Point(0, 930);
             this.panelThietLap.MaximumSize = new System.Drawing.Size(275, 90);
             this.panelThietLap.Name = "panelThietLap";
             this.panelThietLap.Size = new System.Drawing.Size(254, 90);
@@ -196,7 +207,7 @@
             this.btnThiepLap.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnThiepLap.IconSize = 32;
             this.btnThiepLap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnThiepLap.Location = new System.Drawing.Point(0, 600);
+            this.btnThiepLap.Location = new System.Drawing.Point(0, 870);
             this.btnThiepLap.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnThiepLap.Name = "btnThiepLap";
             this.btnThiepLap.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
@@ -220,7 +231,7 @@
             this.btnThongKe.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnThongKe.IconSize = 32;
             this.btnThongKe.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnThongKe.Location = new System.Drawing.Point(0, 540);
+            this.btnThongKe.Location = new System.Drawing.Point(0, 810);
             this.btnThongKe.MaximumSize = new System.Drawing.Size(275, 60);
             this.btnThongKe.Name = "btnThongKe";
             this.btnThongKe.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
@@ -588,6 +599,46 @@
             this.panelDesktop.Size = new System.Drawing.Size(1065, 630);
             this.panelDesktop.TabIndex = 3;
             // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Gray;
+            this.label3.Location = new System.Drawing.Point(0, 480);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(1062, 29);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "TRƯỜNG CAO ĐẲNG GIAO THÔNG VẬN TẢI";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
+            this.label1.Location = new System.Drawing.Point(0, 424);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(1062, 55);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "KÝ TÚC XÁ";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Enabled = false;
+            this.pictureBox1.Image = global::QLKTX_App.GUI.Properties.Resources.LOGO_01;
+            this.pictureBox1.Location = new System.Drawing.Point(381, 97);
+            this.pictureBox1.MaximumSize = new System.Drawing.Size(300, 300);
+            this.pictureBox1.MinimumSize = new System.Drawing.Size(300, 300);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(300, 300);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
@@ -623,45 +674,141 @@
             this.btnXuatBC.UseVisualStyleBackColor = true;
             this.btnXuatBC.Click += new System.EventHandler(this.btnXuatFile_Click);
             // 
-            // label3
+            // btnPhuongTien
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Gray;
-            this.label3.Location = new System.Drawing.Point(0, 480);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(1062, 29);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "TRƯỜNG CAO ĐẲNG GIAO THÔNG VẬN TẢI TP. HCM";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnPhuongTien.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPhuongTien.FlatAppearance.BorderSize = 0;
+            this.btnPhuongTien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPhuongTien.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPhuongTien.ForeColor = System.Drawing.Color.White;
+            this.btnPhuongTien.IconChar = FontAwesome.Sharp.IconChar.Motorcycle;
+            this.btnPhuongTien.IconColor = System.Drawing.Color.White;
+            this.btnPhuongTien.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnPhuongTien.IconSize = 32;
+            this.btnPhuongTien.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPhuongTien.Location = new System.Drawing.Point(0, 540);
+            this.btnPhuongTien.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.btnPhuongTien.MaximumSize = new System.Drawing.Size(275, 60);
+            this.btnPhuongTien.Name = "btnPhuongTien";
+            this.btnPhuongTien.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnPhuongTien.Size = new System.Drawing.Size(254, 60);
+            this.btnPhuongTien.TabIndex = 27;
+            this.btnPhuongTien.Text = "Quản Lý Phương Tiện";
+            this.btnPhuongTien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPhuongTien.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPhuongTien.UseVisualStyleBackColor = true;
+            this.btnPhuongTien.Click += new System.EventHandler(this.btnPhuongTien_Click);
             // 
-            // label1
+            // btnCSdiennuoc
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 19.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(19)))), ((int)(((byte)(73)))));
-            this.label1.Location = new System.Drawing.Point(0, 424);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1062, 55);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "KÝ TÚC XÁ";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnCSdiennuoc.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCSdiennuoc.FlatAppearance.BorderSize = 0;
+            this.btnCSdiennuoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCSdiennuoc.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCSdiennuoc.ForeColor = System.Drawing.Color.White;
+            this.btnCSdiennuoc.IconChar = FontAwesome.Sharp.IconChar.Edit;
+            this.btnCSdiennuoc.IconColor = System.Drawing.Color.White;
+            this.btnCSdiennuoc.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnCSdiennuoc.IconSize = 32;
+            this.btnCSdiennuoc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCSdiennuoc.Location = new System.Drawing.Point(0, 600);
+            this.btnCSdiennuoc.MaximumSize = new System.Drawing.Size(275, 60);
+            this.btnCSdiennuoc.Name = "btnCSdiennuoc";
+            this.btnCSdiennuoc.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnCSdiennuoc.Size = new System.Drawing.Size(254, 60);
+            this.btnCSdiennuoc.TabIndex = 28;
+            this.btnCSdiennuoc.Text = "Chỉ Số Điện Nước";
+            this.btnCSdiennuoc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCSdiennuoc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCSdiennuoc.UseVisualStyleBackColor = true;
+            this.btnCSdiennuoc.Click += new System.EventHandler(this.btnCSdiennuoc_Click);
             // 
-            // pictureBox1
+            // btnQLHD
             // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Enabled = false;
-            this.pictureBox1.Image = global::QLKTX_App.GUI.Properties.Resources.LOGO_01;
-            this.pictureBox1.Location = new System.Drawing.Point(381, 97);
-            this.pictureBox1.MaximumSize = new System.Drawing.Size(300, 300);
-            this.pictureBox1.MinimumSize = new System.Drawing.Size(300, 300);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(300, 300);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 17;
-            this.pictureBox1.TabStop = false;
+            this.btnQLHD.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnQLHD.FlatAppearance.BorderSize = 0;
+            this.btnQLHD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQLHD.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQLHD.ForeColor = System.Drawing.Color.White;
+            this.btnQLHD.IconChar = FontAwesome.Sharp.IconChar.MoneyCheckDollar;
+            this.btnQLHD.IconColor = System.Drawing.Color.White;
+            this.btnQLHD.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnQLHD.IconSize = 32;
+            this.btnQLHD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQLHD.Location = new System.Drawing.Point(0, 660);
+            this.btnQLHD.MaximumSize = new System.Drawing.Size(275, 60);
+            this.btnQLHD.Name = "btnQLHD";
+            this.btnQLHD.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnQLHD.Size = new System.Drawing.Size(254, 60);
+            this.btnQLHD.TabIndex = 29;
+            this.btnQLHD.Text = "Quản Lý Hóa Đơn";
+            this.btnQLHD.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQLHD.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnQLHD.UseVisualStyleBackColor = true;
+            this.btnQLHD.Click += new System.EventHandler(this.btnQLHD_Click);
+            // 
+            // panelHoaDon
+            // 
+            this.panelHoaDon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(19)))), ((int)(((byte)(102)))));
+            this.panelHoaDon.Controls.Add(this.btnHDDichVu);
+            this.panelHoaDon.Controls.Add(this.btnHDHopDong);
+            this.panelHoaDon.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelHoaDon.Location = new System.Drawing.Point(0, 720);
+            this.panelHoaDon.MaximumSize = new System.Drawing.Size(275, 90);
+            this.panelHoaDon.Name = "panelHoaDon";
+            this.panelHoaDon.Size = new System.Drawing.Size(254, 90);
+            this.panelHoaDon.TabIndex = 45;
+            this.panelHoaDon.Visible = false;
+            // 
+            // btnHDDichVu
+            // 
+            this.btnHDDichVu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHDDichVu.FlatAppearance.BorderSize = 0;
+            this.btnHDDichVu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHDDichVu.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHDDichVu.ForeColor = System.Drawing.Color.White;
+            this.btnHDDichVu.IconChar = FontAwesome.Sharp.IconChar.MoneyBillAlt;
+            this.btnHDDichVu.IconColor = System.Drawing.Color.White;
+            this.btnHDDichVu.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnHDDichVu.IconSize = 32;
+            this.btnHDDichVu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHDDichVu.Location = new System.Drawing.Point(0, 45);
+            this.btnHDDichVu.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.btnHDDichVu.MaximumSize = new System.Drawing.Size(275, 45);
+            this.btnHDDichVu.Name = "btnHDDichVu";
+            this.btnHDDichVu.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
+            this.btnHDDichVu.Size = new System.Drawing.Size(254, 45);
+            this.btnHDDichVu.TabIndex = 8;
+            this.btnHDDichVu.Text = "Hóa Đơn Dịch Vụ";
+            this.btnHDDichVu.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHDDichVu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnHDDichVu.UseVisualStyleBackColor = true;
+            this.btnHDDichVu.Click += new System.EventHandler(this.btnHDDichVu_Click);
+            // 
+            // btnHDHopDong
+            // 
+            this.btnHDHopDong.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHDHopDong.FlatAppearance.BorderSize = 0;
+            this.btnHDHopDong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHDHopDong.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHDHopDong.ForeColor = System.Drawing.Color.White;
+            this.btnHDHopDong.IconChar = FontAwesome.Sharp.IconChar.MoneyBill;
+            this.btnHDHopDong.IconColor = System.Drawing.Color.White;
+            this.btnHDHopDong.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnHDHopDong.IconSize = 32;
+            this.btnHDHopDong.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHDHopDong.Location = new System.Drawing.Point(0, 0);
+            this.btnHDHopDong.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.btnHDHopDong.MaximumSize = new System.Drawing.Size(275, 45);
+            this.btnHDHopDong.Name = "btnHDHopDong";
+            this.btnHDHopDong.Padding = new System.Windows.Forms.Padding(30, 0, 20, 0);
+            this.btnHDHopDong.Size = new System.Drawing.Size(254, 45);
+            this.btnHDHopDong.TabIndex = 3;
+            this.btnHDHopDong.Text = "Hóa Đơn Hợp Đồng";
+            this.btnHDHopDong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHDHopDong.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnHDHopDong.UseVisualStyleBackColor = true;
+            this.btnHDHopDong.Click += new System.EventHandler(this.btnHDHopDong_Click);
             // 
             // FormAdmin
             // 
@@ -691,6 +838,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.iconCurrentChildForm)).EndInit();
             this.panelDesktop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelHoaDon.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -730,5 +878,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private FontAwesome.Sharp.IconButton btnPhuongTien;
+        private FontAwesome.Sharp.IconButton btnCSdiennuoc;
+        private FontAwesome.Sharp.IconButton btnQLHD;
+        private System.Windows.Forms.Panel panelHoaDon;
+        private FontAwesome.Sharp.IconButton btnHDDichVu;
+        private FontAwesome.Sharp.IconButton btnHDHopDong;
     }
 }
