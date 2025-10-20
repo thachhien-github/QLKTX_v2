@@ -34,14 +34,6 @@ namespace QLKTX_App
             }
         }
 
-        private void btnTest_Click(object sender, EventArgs e)
-        {
-            var cfg = GetConfigFromForm();
-            bool ok = _bll.TestConnection(cfg);
-            MessageBox.Show(ok ? "Kết nối thành công!" : "❌ Kết nối thất bại!",
-                "Thông báo", MessageBoxButtons.OK,
-                ok ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -141,10 +133,9 @@ namespace QLKTX_App
     - Database: Tên cơ sở dữ liệu (ví dụ: QLKTX)
     - User: Tài khoản đăng nhập SQL (ví dụ: sa)
     - Password: Mật khẩu của tài khoản
-2. Bấm 'Test' để kiểm tra kết nối.
-3. Nếu thành công, bấm 'Save' để lưu cấu hình.
+2. Nhấn 'Save' để lưu cấu hình.
     Nếu cơ sở dữ liệu chưa tồn tại:
-    - Chương trình sẽ hỏi bạn có muốn tạo mới hay không.
+    - Chương trình sẽ thông báo bạn có muốn tạo mới hay không.
     - Chọn Yes để tạo Database mới.";
             MessageBox.Show(huongDan, "Hướng dẫn cấu hình",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);

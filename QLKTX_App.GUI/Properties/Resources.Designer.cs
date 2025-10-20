@@ -113,6 +113,26 @@ namespace QLKTX_App.GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap data {
+            get {
+                object obj = ResourceManager.GetObject("data", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap database1 {
+            get {
+                object obj = ResourceManager.GetObject("database1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap lock_padlock_symbol_for_protect_icon_icons_com_56926 {
             get {
                 object obj = ResourceManager.GetObject("lock-padlock-symbol-for-protect_icon-icons.com_56926", resourceCulture);
