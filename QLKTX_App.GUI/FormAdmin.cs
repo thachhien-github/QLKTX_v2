@@ -375,7 +375,7 @@ namespace QLKTX_App
         private void btnHDDichVu_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color6);
-            OpenChildForm(new FormHoaDonHopDong());
+            OpenChildForm(new FormHoaDonDV());
         }
         #endregion
     }
