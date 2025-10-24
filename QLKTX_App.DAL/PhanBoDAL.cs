@@ -15,6 +15,7 @@ namespace QLKTX_App.DAL
             return _db.ExecuteQuery("SELECT * FROM PhanBo", false);
         }
 
+
         public DataTable GetBySinhVien(string mssv)
         {
             var prms = new[] { new SqlParameter("@MSSV", mssv) };
@@ -33,6 +34,8 @@ namespace QLKTX_App.DAL
                 new SqlParameter("@SoDotThu", pb.SoDotThu),
                 new SqlParameter("@GhiChu", pb.GhiChu ?? (object)DBNull.Value)
             };
+
+            // Gọi stored procedure sp_PhanBo_Them (đã có transaction và kiểm tra)
             return _db.ExecuteNonQuery("sp_PhanBo_Them", true, prms);
         }
 
@@ -60,7 +63,7 @@ namespace QLKTX_App.DAL
             }
             catch (SqlException ex)
             {
-                throw new Exception(ex.Message); // Lấy message từ THROW trong SQL
+                throw new Exception(ex.Message);
             }
         }
 
@@ -112,10 +115,10 @@ namespace QLKTX_App.DAL
         public bool CheckDangO(string mssv)
         {
             string sql = @"
-        SELECT COUNT(*) 
-        FROM PhanBo 
-        WHERE MSSV=@MSSV
-          AND DATEADD(MONTH, SoThang, NgayPhanBo) > GETDATE()";
+                SELECT COUNT(*) 
+                FROM PhanBo 
+                WHERE MSSV=@MSSV
+                  AND DATEADD(MONTH, SoThang, NgayPhanBo) > GETDATE()";
 
             var prms = new[] { new SqlParameter("@MSSV", mssv) };
             object result = _db.ExecuteScalar(sql, false, prms);
@@ -125,14 +128,14 @@ namespace QLKTX_App.DAL
         public DataTable GetChiTietPhanBo(string mssv, string maPhong)
         {
             string sql = @"
-        SELECT pb.SoThang, pb.GhiChu,
-               sv.HoTen,
-               p.MaPhong, lp.GiaPhong, lp.SucChua
-        FROM PhanBo pb
-        JOIN SinhVien sv ON pb.MSSV = sv.MSSV
-        JOIN Phong p ON pb.MaPhong = p.MaPhong
-        JOIN LoaiPhong lp ON p.MaLoai = lp.MaLoai
-        WHERE pb.MSSV=@MSSV AND pb.MaPhong=@MaPhong";
+                SELECT pb.SoThang, pb.GhiChu,
+                       sv.HoTen,
+                       p.MaPhong, lp.GiaPhong, lp.SucChua
+                FROM PhanBo pb
+                JOIN SinhVien sv ON pb.MSSV = sv.MSSV
+                JOIN Phong p ON pb.MaPhong = p.MaPhong
+                JOIN LoaiPhong lp ON p.MaLoai = lp.MaLoai
+                WHERE pb.MSSV=@MSSV AND pb.MaPhong=@MaPhong";
 
             var prms = new[]
             {
@@ -143,7 +146,18 @@ namespace QLKTX_App.DAL
             return _db.ExecuteQuery(sql, false, prms);
         }
 
-
+        // ---------------- New method ----------------
+        public int CountActiveByRoom(string maPhong)
+        {
+            var prms = new[] { new SqlParameter("@MaPhong", maPhong) };
+            string sql = @"
+                SELECT COUNT(*) 
+                FROM PhanBo
+                WHERE MaPhong = @MaPhong
+                  AND NgayPhanBo <= GETDATE()
+                  AND DATEADD(MONTH, SoThang, NgayPhanBo) > GETDATE()";
+            object result = _db.ExecuteScalar(sql, false, prms);
+            return result != null ? Convert.ToInt32(result) : 0;
+        }
     }
-
 }

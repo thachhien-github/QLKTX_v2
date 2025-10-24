@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using QLKTX_App.DTO;
 using QLKTX_App.Utilities;
@@ -57,18 +58,25 @@ namespace QLKTX_App.DAL
             return (int)result > 0;
         }
 
+        // Count only active allocations
         public int GetSoLuongSinhVien(string maPhong)
         {
             var prms = new[] { new SqlParameter("@MaPhong", maPhong) };
-            object result = _db.ExecuteScalar("SELECT COUNT(*) FROM PhanBo WHERE MaPhong=@MaPhong", false, prms);
-            return result != null ? (int)result : 0;
+            string sql = @"
+                SELECT COUNT(*) 
+                FROM PhanBo
+                WHERE MaPhong = @MaPhong
+                  AND NgayPhanBo <= GETDATE()
+                  AND DATEADD(MONTH, SoThang, NgayPhanBo) > GETDATE()";
+            object result = _db.ExecuteScalar(sql, false, prms);
+            return result != null ? Convert.ToInt32(result) : 0;
         }
 
         public int GetSoLuongToiDa(string maPhong)
         {
             var prms = new[] { new SqlParameter("@MaPhong", maPhong) };
             object result = _db.ExecuteScalar("SELECT SoLuongToiDa FROM Phong WHERE MaPhong=@MaPhong", false, prms);
-            return result != null ? (int)result : 0;
+            return result != null ? Convert.ToInt32(result) : 0;
         }
 
         public void UpdateTrangThai(string maPhong, string trangThai)
@@ -79,6 +87,17 @@ namespace QLKTX_App.DAL
                 new SqlParameter("@TrangThai", trangThai)
             };
             _db.ExecuteNonQuery("UPDATE Phong SET TrangThai=@TrangThai WHERE MaPhong=@MaPhong", false, prms);
+        }
+
+        // New: refresh status based on real counts
+        public void RefreshTrangThai(string maPhong)
+        {
+            int dangO = GetSoLuongSinhVien(maPhong);
+            int soLuongToiDa = GetSoLuongToiDa(maPhong);
+
+            string trangThai = dangO >= soLuongToiDa ? "Đầy" : (dangO == 0 ? "Trống" : "Còn chỗ");
+
+            UpdateTrangThai(maPhong, trangThai);
         }
     }
 }

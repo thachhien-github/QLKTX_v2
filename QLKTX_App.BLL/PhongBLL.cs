@@ -1,6 +1,4 @@
-﻿using System.Data;
-using QLKTX_App.DAL;
-using QLKTX_App.DTO;
+﻿using QLKTX_App.DAL;
 
 namespace QLKTX_App.BLL
 {
@@ -8,22 +6,15 @@ namespace QLKTX_App.BLL
     {
         private readonly PhongDAL _dal = new PhongDAL();
 
-        public DataTable GetAll() => _dal.GetAll();
-        public DataTable GetByTang(string maTang) => _dal.GetByTang(maTang);
-        public bool Insert(PhongModel p) => !_dal.CheckExists(p.MaPhong) && _dal.Insert(p);
-        public bool Update(PhongModel p) => _dal.CheckExists(p.MaPhong) && _dal.Update(p);
+        public System.Data.DataTable GetAll() => _dal.GetAll();
+        public System.Data.DataTable GetByTang(string maTang) => _dal.GetByTang(maTang);
+        public bool Insert(QLKTX_App.DTO.PhongModel p) => _dal.Insert(p);
+        public bool Update(QLKTX_App.DTO.PhongModel p) => _dal.Update(p);
         public bool Delete(string maPhong) => _dal.Delete(maPhong);
-
-        public void CapNhatTrangThai(string maPhong)
-        {
-            int soLuongToiDa = _dal.GetSoLuongToiDa(maPhong);
-            int soLuongHienTai = _dal.GetSoLuongSinhVien(maPhong);
-
-            string trangThai = "Trống";
-            if (soLuongHienTai >= soLuongToiDa) trangThai = "Đầy";
-            else if (soLuongHienTai > 0) trangThai = "Còn chỗ";
-
-            _dal.UpdateTrangThai(maPhong, trangThai);
-        }
+        public bool CheckExists(string maPhong) => _dal.CheckExists(maPhong);
+        public int GetSoLuongSinhVien(string maPhong) => _dal.GetSoLuongSinhVien(maPhong);
+        public int GetSoLuongToiDa(string maPhong) => _dal.GetSoLuongToiDa(maPhong);
+        public void UpdateTrangThai(string maPhong, string trangThai) => _dal.UpdateTrangThai(maPhong, trangThai);
+        public void RefreshTrangThai(string maPhong) => _dal.RefreshTrangThai(maPhong);
     }
 }
