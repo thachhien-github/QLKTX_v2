@@ -142,29 +142,100 @@ namespace QLKTX_App.ChildForm_Comon
 
             bool success = false;
 
-            if (isEditMode) // đang cập nhật
+            try
             {
-                if (_svBLL.Update(sv))
+                if (isEditMode) // đang cập nhật
                 {
-                    MessageBox.Show("Cập nhật sinh viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    success = true;
+                    // Cố gắng update — nếu DAL/SP ném lỗi (ví dụ "Không tìm thấy sinh viên.") sẽ bị catch bên dưới
+                    var updated = _svBLL.Update(sv); // có thể trả bool hoặc int hoặc ném exception
+                    // xử lý linh hoạt: nếu Update trả bool
+                    if (updated is bool)
+                    {
+                        if ((bool)updated)
+                        {
+                            MessageBox.Show("Cập nhật sinh viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            success = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cập nhật sinh viên thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        // nếu trả int (>0) hoặc object khác, thử parse
+                        int intRes = 0;
+                        try
+                        {
+                            intRes = Convert.ToInt32(updated);
+                        }
+                        catch { intRes = 0; }
+
+                        if (intRes > 0)
+                        {
+                            MessageBox.Show("Cập nhật sinh viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            success = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cập nhật sinh viên thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
-                else
+                else // đang thêm mới
                 {
-                    MessageBox.Show("Cập nhật sinh viên thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Tránh insert MSSV trùng: kiểm tra local trước khi gọi BLL
+                    DataTable all = _svBLL.GetAll();
+                    bool exists = all.AsEnumerable().Any(r => r.Field<string>("MSSV") == sv.MSSV);
+                    if (exists)
+                    {
+                        MessageBox.Show($"MSSV {sv.MSSV} đã tồn tại. Vui lòng kiểm tra lại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    var inserted = _svBLL.Insert(sv); // có thể trả bool/int hoặc ném exception
+                    if (inserted is bool)
+                    {
+                        if ((bool)inserted)
+                        {
+                            MessageBox.Show("Thêm sinh viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            success = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Thêm sinh viên thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        int intRes = 0;
+                        try
+                        {
+                            intRes = Convert.ToInt32(inserted);
+                        }
+                        catch { intRes = 0; }
+
+                        if (intRes > 0)
+                        {
+                            MessageBox.Show("Thêm sinh viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            success = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Thêm sinh viên thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
             }
-            else // đang thêm mới
+            catch (SqlException sqlEx)
             {
-                if (_svBLL.Insert(sv))
-                {
-                    MessageBox.Show("Thêm sinh viên thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    success = true;
-                }
-                else
-                {
-                    MessageBox.Show("Thêm sinh viên thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                // Lỗi từ SQL Server (VD: sp RAISERROR)
+                MessageBox.Show("Lỗi cơ sở dữ liệu: " + sqlEx.Message, "Lỗi SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                // Lỗi khác (DAL ném) - ví dụ "Không tìm thấy sinh viên."
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             if (success)
@@ -254,7 +325,7 @@ namespace QLKTX_App.ChildForm_Comon
             // Địa chỉ
             txtDiaChi.Text = row.Cells["DiaChi"].Value?.ToString() ?? "";
 
-            // 🔥 Đánh dấu là đang sửa
+            // Đánh dấu là đang sửa
             isEditMode = true;
             txtMSSV.Enabled = false; // không cho sửa MSSV vì nó là khóa chính
         }
